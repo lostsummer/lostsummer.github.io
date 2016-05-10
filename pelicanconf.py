@@ -7,6 +7,16 @@ SITENAME = 'lostsummer.github.io'
 SITEURL = ''
 
 PATH = 'content'
+PLUGIN_PATHS = ['pelican-plugins']
+PLUGINS = ["tag_cloud"]
+DISPLAY_TAGS_ON_SIDEBAR = True
+TAG_CLOUD_STEPS = 4
+TAG_CLOUD_MAX_ITEMS = 30
+TAG_CLOUD_SORTING = 'random'
+TAG_CLOUD_BADGE = True
+TAGS_URL='tags.html'
+DISPLAY_RECENT_POSTS_ON_SIDEBAR = True
+
 
 TIMEZONE = 'Asia/Shanghai'
 
@@ -18,7 +28,9 @@ CATEGORY_FEED_ATOM = None
 TRANSLATION_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
-THEME = 'pelican-themes/gum'
+THEME = 'pelican-themes/pelican-bootstrap3'
+
+GITHUB_USER = 'lostsummer'
 DISQUS_SITENAME = 'lostsummer'
 
 # Blogroll
