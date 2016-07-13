@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>Tech - lostsummer.github.io</title>
+    <title>Tech - lostsummer.love</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -14,11 +14,11 @@
     <meta name="keywords" content="Tech" />
 
     <!-- Open Graph tags -->
-        <meta property="og:site_name" content="lostsummer.github.io" />
+        <meta property="og:site_name" content="lostsummer.love" />
         <meta property="og:type" content="website"/>
-        <meta property="og:title" content="lostsummer.github.io"/>
+        <meta property="og:title" content="lostsummer.love"/>
         <meta property="og:url" content="http://lostsummer.github.io"/>
-        <meta property="og:description" content="lostsummer.github.io"/>
+        <meta property="og:description" content="lostsummer.love"/>
 
 
     <!-- Bootstrap -->
@@ -29,12 +29,12 @@
     <link rel="stylesheet" href="http://lostsummer.github.io/theme/css/style.css" type="text/css"/>
 
         <link href="http://lostsummer.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
-              title="lostsummer.github.io ATOM Feed"/>
+              title="lostsummer.love ATOM Feed"/>
 
 
 
         <link href="http://lostsummer.github.io/feeds/tech.atom.xml" type="application/atom+xml" rel="alternate"
-              title="lostsummer.github.io Tech ATOM Feed"/>
+              title="lostsummer.love Tech ATOM Feed"/>
 
 </head>
 <body>
@@ -49,13 +49,10 @@
                 <span class="icon-bar"></span>
             </button>
             <a href="http://lostsummer.github.io/" class="navbar-brand">
-lostsummer.github.io            </a>
+lostsummer.love            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                        <li >
-                            <a href="http://lostsummer.github.io/category/misc.html">Misc</a>
-                        </li>
                         <li class="active">
                             <a href="http://lostsummer.github.io/category/tech.html">Tech</a>
                         </li>
@@ -72,6 +69,23 @@ lostsummer.github.io            </a>
 <div class="container">
     <div class="row">
         <div class="col-sm-9">
+            <article>
+                <h2><a href="http://lostsummer.github.io/201607121555.html">使用 CollectD + InfluxDB + Grafana 监控主机</a></h2>
+                <div class="summary"><p>原文： <a href="http://jansipke.nl/monitoring-hosts-with-collectd-influxdb-and-grafana/" title="原文地址">Monitoring hosts with CollectD, InfluxDB and Grafana</a></p>
+<p>本篇文章将介绍一种监控主机的解决方案 —— 在 CentOS 7 系统上搭建 CollectD, InfluxDB 和 Grafana 的组合。</p>
+<h2>1. 安装配置 CollectD</h2>
+<p>使用 yum 安装</p>
+<div class="highlight"><pre><span></span> yum -y install epel-release
+ yum -y install collectd
+</pre></div>
+
+
+<p>本篇写作之时，以上命令会在系统上安装 CollectD 5.5.0 版本，如果你使用老版本的 CentOS 系统，请确认安装的 Collectd 版本不是 4 及 4 以下版本。</p>
+<p>配置文件 ...</p>
+                    <a class="btn btn-default btn-xs" href="http://lostsummer.github.io/201607121555.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
             <article>
                 <h2><a href="http://lostsummer.github.io/201604282215.html">第一篇 github pages 文章</a></h2>
                 <div class="summary"><p>想利用 github blog 做一些技术知识的学习整理，一些技术文档的翻译等。关于用 github 写博客的好处，大家可以搜搜阮一峰的文章《搭建一个免费的，无限流量的Blog----github Pages和Jekyll入门》</p>
@@ -101,6 +115,11 @@ lostsummer.github.io            </a>
             <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
                 <ul class="list-group" id="recentposts">
                     <li class="list-group-item">
+                        <a href="http://lostsummer.github.io/201607121555.html">
+                            使用 CollectD + InfluxDB + Grafana 监控主机
+                        </a>
+                    </li>
+                    <li class="list-group-item">
                         <a href="http://lostsummer.github.io/201604282215.html">
                             第一篇 github pages 文章
                         </a>
@@ -112,13 +131,28 @@ lostsummer.github.io            </a>
             <li class="list-group-item"><a href="http://lostsummer.github.io/tags.html"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
                 <ul class="list-group " id="tags">
                     <li class="list-group-item tag-4">
-                        <a href="http://lostsummer.github.io/tag/python.html">
-                            Python
+                        <a href="http://lostsummer.github.io/tag/collectd.html">
+                            CollectD
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://lostsummer.github.io/tag/influxdb.html">
+                            InfluxDB
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
                         <a href="http://lostsummer.github.io/tag/git.html">
                             Git
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://lostsummer.github.io/tag/python.html">
+                            Python
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://lostsummer.github.io/tag/grafana.html">
+                            Grafana
                         </a>
                     </li>
                 </ul>
