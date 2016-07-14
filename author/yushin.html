@@ -67,18 +67,69 @@ lostsummer.love            </a>
     <div class="row">
         <div class="col-sm-9">
             <article>
+                <h2><a href="http://lostsummer.github.io/201607140854.html">配置 influxDB 鉴权及 HTTP API 写数据的方法</a></h2>
+                <div class="summary"><p>本文简要描述如何为 InfluxDB 开启鉴权和配置用户管理权限（安装后默认不需要登录），以及开启鉴权后如何使用 HTTP API 写数据。</p>
+<p><br /></p>
+<h2>创建 InfluxDB 管理员账号</h2>
+<p><strong>创建 admin 帐号密码并赋予所有数据库权限</strong></p>
+<ol>
+<li>
+<p>创建</p>
+<div class="highlight"><pre><span class="n">CREATE</span> <span class="n">USER</span> <span class="n">admin</span> <span class="n">WITH</span> <span class="n">PASSWORD</span> <span class="err">‘</span><span class="n">admin</span><span class="err">‘</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>赋权</p>
+<div class="highlight"><pre><span class="n">GRANT</span> <span class="n">ALL</span> <span class="n">PRIVILEGES</span> <span class="n">TO</span> <span class="n">admin</span>
+</pre></div>
+
+
+</li>
+</ol>
+<p><strong>其他命令</strong></p>
+<ul>
+<li>
+<p>修改用户(密码)</p>
+<div class="highlight"><pre><span class="n">SET</span> <span class="n">PASSWORD</span> <span class="n">FOR</span> <span class="n">admin</span> <span class="o">=</span> <span class="err">‘</span><span class="n">admin</span><span class="err">‘</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>删除用户</p>
+<div class="highlight"><pre><span class="n">DROP</span> <span class="n">USER</span> <span class="n">admin</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>撤消权限</p>
+<div class="highlight"><pre><span class="n">REVOKE</span> <span class="n">ALL</span>  <span class="n">ON</span>  <span class="n">mydb</span>   <span class="n">FROM</span> <span class="n">admin</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>查看权限</p>
+<div class="highlight"><pre><span class="n">SHOW</span> <span class="n">GRANTS</span> <span class="n">FOR ...</span></pre></div></li></ul>
+                    <a class="btn btn-default btn-xs" href="http://lostsummer.github.io/201607140854.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
                 <h2><a href="http://lostsummer.github.io/201607121555.html">使用 CollectD + InfluxDB + Grafana 监控主机</a></h2>
                 <div class="summary"><p>原文： <a href="http://jansipke.nl/monitoring-hosts-with-collectd-influxdb-and-grafana/" title="原文地址">Monitoring hosts with CollectD, InfluxDB and Grafana</a></p>
 <p>本篇文章将介绍一种监控主机的解决方案 —— 在 CentOS 7 系统上搭建 CollectD, InfluxDB 和 Grafana 的组合。</p>
 <h2>1. 安装配置 CollectD</h2>
 <p>使用 yum 安装</p>
-<div class="highlight"><pre><span></span> yum -y install epel-release
- yum -y install collectd
+<div class="highlight"><pre> <span class="n">yum</span> <span class="o">-</span><span class="n">y</span> <span class="n">install</span> <span class="n">epel</span><span class="o">-</span><span class="n">release</span>
+ <span class="n">yum</span> <span class="o">-</span><span class="n">y</span> <span class="n">install</span> <span class="n">collectd</span>
 </pre></div>
 
 
-<p>本篇写作之时，以上命令会在系统上安装 CollectD 5.5.0 版本，如果你使用老版本的 CentOS 系统，请确认安装的 Collectd 版本不是 4 及 4 以下版本。</p>
-<p>配置文件 ...</p>
+<p>本篇写作之时，以上命令会在系统上安装 CollectD 5.5.0 版本，如果你使用老版本的 CentOS 系统，请确认安装的 Collectd 版本不是 4 及 4 以下版本 ...</p>
                     <a class="btn btn-default btn-xs" href="http://lostsummer.github.io/201607121555.html">more ...</a>
                 </div>
             </article>
@@ -112,6 +163,11 @@ lostsummer.love            </a>
             <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
                 <ul class="list-group" id="recentposts">
                     <li class="list-group-item">
+                        <a href="http://lostsummer.github.io/201607140854.html">
+                            配置 influxDB 鉴权及 HTTP API 写数据的方法
+                        </a>
+                    </li>
+                    <li class="list-group-item">
                         <a href="http://lostsummer.github.io/201607121555.html">
                             使用 CollectD + InfluxDB + Grafana 监控主机
                         </a>
@@ -127,19 +183,14 @@ lostsummer.love            </a>
 
             <li class="list-group-item"><a href="http://lostsummer.github.io/tags.html"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
                 <ul class="list-group " id="tags">
-                    <li class="list-group-item tag-4">
-                        <a href="http://lostsummer.github.io/tag/collectd.html">
-                            CollectD
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
+                    <li class="list-group-item tag-1">
                         <a href="http://lostsummer.github.io/tag/influxdb.html">
                             InfluxDB
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://lostsummer.github.io/tag/git.html">
-                            Git
+                        <a href="http://lostsummer.github.io/tag/collectd.html">
+                            CollectD
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -150,6 +201,11 @@ lostsummer.love            </a>
                     <li class="list-group-item tag-4">
                         <a href="http://lostsummer.github.io/tag/grafana.html">
                             Grafana
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://lostsummer.github.io/tag/git.html">
+                            Git
                         </a>
                     </li>
                 </ul>
