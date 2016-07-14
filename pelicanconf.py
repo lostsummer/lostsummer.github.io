@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 AUTHOR = 'Yushin'
-SITENAME = 'lostsummer.github.io'
+SITENAME = 'lostsummer.love'
 SITEURL = ''
 
 PATH = 'content'
