@@ -208,11 +208,22 @@ lostsummer.love            </a>
 
 
 <p>使用HTTP API写数据：</p>
+<ul>
+<li>
+<p>用户名密码写在 URL 中</p>
 <div class="highlight"><pre><span class="n">curl</span> <span class="o">-</span><span class="n">i</span> <span class="o">-</span><span class="n">X</span> <span class="n">POST</span> <span class="s">&quot;http://localhost:8086/write?db=mydb&amp;u=admin&amp;p=admin&quot;</span> <span class="o">--</span><span class="n">data</span><span class="o">-</span><span class="n">binary</span> <span class="s">&quot;cpu_load_short,host=server01,region=us-west value=0.64,value2=0.86 1434055562000000000&quot;</span>
-<span class="n">curl</span> <span class="o">-</span><span class="n">i</span> <span class="o">-</span><span class="n">X</span> <span class="n">POST</span> <span class="s">&quot;http://localhost:8086/write?db=mydb&quot;</span> <span class="o">-</span><span class="n">u</span> <span class="n">admin</span><span class="o">:</span><span class="n">admin</span> <span class="o">--</span><span class="n">data</span><span class="o">-</span><span class="n">binary</span> <span class="s">&quot;cpu_load_short,host=server01,region=us-west value=0.64,value2=0.86 1434055562000000000&quot;</span>
 </pre></div>
 
 
+</li>
+<li>
+<p>用户名密码写在 HTTP 头 Authorization 选项</p>
+<div class="highlight"><pre><span class="n">curl</span> <span class="o">-</span><span class="n">i</span> <span class="o">-</span><span class="n">X</span> <span class="n">POST</span> <span class="s">&quot;http://localhost:8086/write?db=mydb&quot;</span> <span class="o">-</span><span class="n">u</span> <span class="n">admin</span><span class="o">:</span><span class="n">admin</span> <span class="o">--</span><span class="n">data</span><span class="o">-</span><span class="n">binary</span> <span class="s">&quot;cpu_load_short,host=server01,region=us-west value=0.64,value2=0.86 1434055562000000000&quot;</span>
+</pre></div>
+
+
+</li>
+</ul>
 <p>除了命令关键字不同，数据部分基本相同，仅观察一下数据部分：</p>
 <div class="highlight"><pre><span class="n">cpu_load_short</span><span class="p">,</span><span class="n">host</span><span class="o">=</span><span class="n">server01</span><span class="p">,</span><span class="n">region</span><span class="o">=</span><span class="n">us</span><span class="o">-</span><span class="n">west</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.64</span><span class="p">,</span><span class="n">value2</span><span class="o">=</span><span class="mf">0.86</span> <span class="mi">1434055562000000000</span>
 </pre></div>
@@ -233,7 +244,7 @@ lostsummer.love            </a>
   第三部分称为Timestamp，是时间戳，如果该部分省略，则默认将当前时间的时间戳插入数据库，否则按照用户输入的时间戳插入。</p>
 </li>
 </ul>
-<p>curl -i -X POST  "http://192.168.6.93:8086/write?db=mydb"  -u admin:admin --data-binary "cpu_load_short,host=server01,region=us-west value=0.64,value2=0.86 1434055562000000000" 
+<p>第一种写数据方式
 产生 HTTP 包(使用 Chrome 插件 Postman 生成)</p>
 <div class="highlight"><pre><span class="n">POST</span> <span class="o">/</span><span class="n">write</span><span class="o">?</span><span class="n">db</span><span class="o">=</span><span class="n">mydb</span> <span class="n">HTTP</span><span class="o">/</span><span class="mf">1.1</span>
 <span class="nl">Host:</span> <span class="mf">192.168.6.93</span><span class="o">:</span><span class="mi">8086</span>
@@ -241,18 +252,18 @@ lostsummer.love            </a>
 <span class="n">Cache</span><span class="o">-</span><span class="n">Control</span><span class="o">:</span> <span class="n">no</span><span class="o">-</span><span class="n">cache</span>
 <span class="n">Postman</span><span class="o">-</span><span class="n">Token</span><span class="o">:</span> <span class="n">d3ce583a</span><span class="o">-</span><span class="mf">1e11</span><span class="o">-</span><span class="mi">63</span><span class="n">ec</span><span class="o">-</span><span class="n">a818</span><span class="o">-</span><span class="mo">034</span><span class="n">aeaa91f10</span>
 
-<span class="n">cpu_load_short</span><span class="p">,</span><span class="n">host</span><span class="o">=</span><span class="n">server01</span><span class="p">,</span><span class="n">region</span><span class="o">=</span><span class="n">us</span><span class="o">-</span><span class="n">west</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.64</span><span class="p">,</span><span class="n">value2</span><span class="o">=</span><span class="mf">0.85</span> <span class="mi">1434055565000000000</span>
+<span class="n">cpu_load_short</span><span class="p">,</span><span class="n">host</span><span class="o">=</span><span class="n">server01</span><span class="p">,</span><span class="n">region</span><span class="o">=</span><span class="n">us</span><span class="o">-</span><span class="n">west</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.64</span><span class="p">,</span><span class="n">value2</span><span class="o">=</span><span class="mf">0.86</span> <span class="mi">1434055565000000000</span>
 </pre></div>
 
 
-<p>curl -i -X POST "http://localhost:8086/write?db=mydb&amp;u=admin&amp;p=admin" --data-binary "cpu_load_short,host=server01,region=us-west value=0.64,value2=0.86 1434055562000000000"
+<p>第二种写数据方式
 产生 HTTP 包</p>
 <div class="highlight"><pre><span class="n">POST</span> <span class="o">/</span><span class="n">write</span><span class="o">?</span><span class="n">db</span><span class="o">=</span><span class="n">mydb</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">u</span><span class="o">=</span><span class="n">admin</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">p</span><span class="o">=</span><span class="n">admin</span> <span class="n">HTTP</span><span class="o">/</span><span class="mf">1.1</span>
 <span class="nl">Host:</span> <span class="mf">192.168.6.93</span><span class="o">:</span><span class="mi">8086</span>
 <span class="n">Cache</span><span class="o">-</span><span class="n">Control</span><span class="o">:</span> <span class="n">no</span><span class="o">-</span><span class="n">cache</span>
 <span class="n">Postman</span><span class="o">-</span><span class="n">Token</span><span class="o">:</span> <span class="mf">6773f</span><span class="mi">66</span><span class="n">a</span><span class="o">-</span><span class="n">de4c</span><span class="o">-</span><span class="mi">435</span><span class="n">d</span><span class="o">-</span><span class="mi">6469</span><span class="o">-</span><span class="mi">0</span><span class="n">a1194752a86</span>
 
-<span class="n">cpu_load_short</span><span class="p">,</span><span class="n">host</span><span class="o">=</span><span class="n">server01</span><span class="p">,</span><span class="n">region</span><span class="o">=</span><span class="n">us</span><span class="o">-</span><span class="n">west</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.64</span><span class="p">,</span><span class="n">value2</span><span class="o">=</span><span class="mf">0.85</span> <span class="mi">1434055565000000000</span>
+<span class="n">cpu_load_short</span><span class="p">,</span><span class="n">host</span><span class="o">=</span><span class="n">server01</span><span class="p">,</span><span class="n">region</span><span class="o">=</span><span class="n">us</span><span class="o">-</span><span class="n">west</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.64</span><span class="p">,</span><span class="n">value2</span><span class="o">=</span><span class="mf">0.86</span> <span class="mi">1434055565000000000</span>
 </pre></div>
 
 
@@ -341,11 +352,6 @@ lostsummer.love            </a>
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://lostsummer.github.io/tag/python.html">
-                            Python
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
                         <a href="http://lostsummer.github.io/tag/grafana.html">
                             Grafana
                         </a>
@@ -353,6 +359,11 @@ lostsummer.love            </a>
                     <li class="list-group-item tag-4">
                         <a href="http://lostsummer.github.io/tag/git.html">
                             Git
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://lostsummer.github.io/tag/python.html">
+                            Python
                         </a>
                     </li>
                 </ul>
