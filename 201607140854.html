@@ -13,13 +13,13 @@
 
         <meta name="author" content="Yushin" />
         <meta name="keywords" content="InfluxDB" />
-        <meta name="description" content="本文简要描述如何为 InfluxDB 开启鉴权和配置用户管理权限（安装后默认不需要登录），以及开启鉴权后如何使用 HTTP API 写数据。 创建 InfluxDB 管理员账号 创建 admin 帐号密码并赋予所有数据库权限 创建 CREATE USER admin WITH PASSWORD ‘admin‘ 赋权 GRANT ALL PRIVILEGES TO admin 其他命令 修改用户(密码) SET PASSWORD FOR admin = ‘admin‘ 删除用户 DROP USER admin 撤消权限 REVOKE ALL ON mydb FROM admin 查看权限 SHOW GRANTS FOR ..." />
+        <meta name="description" content="本文简要描述如何为 InfluxDB 开启鉴权和配置用户管理权限（安装后默认不需要登录），以及开启鉴权后如何使用 HTTP API 写数据。 创建 InfluxDB 管理员账号 创建 admin 帐号密码并赋予所有数据库权限 创建 CREATE USER admin WITH PASSWORD &#39;admin&#39; 赋权 GRANT ALL PRIVILEGES TO admin 其他命令 修改用户(密码) SET PASSWORD FOR admin = &#39;admin&#39; 删除用户 DROP USER admin 撤消权限 REVOKE ALL ON mydb FROM admin 查看权限 SHOW GRANTS FOR ..." />
 
         <meta property="og:site_name" content="lostsummer.love" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="配置 influxDB 鉴权及 HTTP API 写数据的方法"/>
         <meta property="og:url" content="http://lostsummer.github.io/201607140854.html"/>
-        <meta property="og:description" content="本文简要描述如何为 InfluxDB 开启鉴权和配置用户管理权限（安装后默认不需要登录），以及开启鉴权后如何使用 HTTP API 写数据。 创建 InfluxDB 管理员账号 创建 admin 帐号密码并赋予所有数据库权限 创建 CREATE USER admin WITH PASSWORD ‘admin‘ 赋权 GRANT ALL PRIVILEGES TO admin 其他命令 修改用户(密码) SET PASSWORD FOR admin = ‘admin‘ 删除用户 DROP USER admin 撤消权限 REVOKE ALL ON mydb FROM admin 查看权限 SHOW GRANTS FOR ..."/>
+        <meta property="og:description" content="本文简要描述如何为 InfluxDB 开启鉴权和配置用户管理权限（安装后默认不需要登录），以及开启鉴权后如何使用 HTTP API 写数据。 创建 InfluxDB 管理员账号 创建 admin 帐号密码并赋予所有数据库权限 创建 CREATE USER admin WITH PASSWORD &#39;admin&#39; 赋权 GRANT ALL PRIVILEGES TO admin 其他命令 修改用户(密码) SET PASSWORD FOR admin = &#39;admin&#39; 删除用户 DROP USER admin 撤消权限 REVOKE ALL ON mydb FROM admin 查看权限 SHOW GRANTS FOR ..."/>
         <meta property="article:published_time" content="2016-07-14" />
             <meta property="article:section" content="Tech" />
             <meta property="article:tag" content="InfluxDB" />
@@ -110,7 +110,7 @@ lostsummer.love            </a>
 <ol>
 <li>
 <p>创建</p>
-<div class="highlight"><pre><span class="n">CREATE</span> <span class="n">USER</span> <span class="n">admin</span> <span class="n">WITH</span> <span class="n">PASSWORD</span> <span class="err">‘</span><span class="n">admin</span><span class="err">‘</span>
+<div class="highlight"><pre><span class="n">CREATE</span> <span class="n">USER</span> <span class="n">admin</span> <span class="n">WITH</span> <span class="n">PASSWORD</span> <span class="err">&#39;</span><span class="n">admin</span><span class="err">&#39;</span>
 </pre></div>
 
 
@@ -127,7 +127,7 @@ lostsummer.love            </a>
 <ul>
 <li>
 <p>修改用户(密码)</p>
-<div class="highlight"><pre><span class="n">SET</span> <span class="n">PASSWORD</span> <span class="n">FOR</span> <span class="n">admin</span> <span class="o">=</span> <span class="err">‘</span><span class="n">admin</span><span class="err">‘</span>
+<div class="highlight"><pre><span class="n">SET</span> <span class="n">PASSWORD</span> <span class="n">FOR</span> <span class="n">admin</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">admin</span><span class="err">&#39;</span>
 </pre></div>
 
 
@@ -164,7 +164,7 @@ lostsummer.love            </a>
 <div class="highlight"><pre><span class="p">[</span><span class="n">http</span><span class="p">]</span>  
 <span class="n">enabled</span> <span class="o">=</span> <span class="nb">true</span>  
 <span class="n">bind</span><span class="o">-</span><span class="n">address</span> <span class="o">=</span> <span class="s">&quot;:8086&quot;</span>  
-<span class="n">auth</span><span class="o">-</span><span class="n">enabled</span> <span class="o">=</span> <span class="nb">true</span> <span class="err">#</span> <span class="err">✨</span>
+<span class="n">auth</span><span class="o">-</span><span class="n">enabled</span> <span class="o">=</span> <span class="nb">true</span> 
 <span class="n">log</span><span class="o">-</span><span class="n">enabled</span> <span class="o">=</span> <span class="nb">true</span>  
 <span class="n">write</span><span class="o">-</span><span class="n">tracing</span> <span class="o">=</span> <span class="nb">false</span>  
 <span class="n">pprof</span><span class="o">-</span><span class="n">enabled</span> <span class="o">=</span> <span class="nb">false</span>  
@@ -352,11 +352,6 @@ lostsummer.love            </a>
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://lostsummer.github.io/tag/grafana.html">
-                            Grafana
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
                         <a href="http://lostsummer.github.io/tag/git.html">
                             Git
                         </a>
@@ -364,6 +359,11 @@ lostsummer.love            </a>
                     <li class="list-group-item tag-4">
                         <a href="http://lostsummer.github.io/tag/python.html">
                             Python
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://lostsummer.github.io/tag/grafana.html">
+                            Grafana
                         </a>
                     </li>
                 </ul>
