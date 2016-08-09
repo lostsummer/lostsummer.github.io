@@ -70,6 +70,27 @@ lostsummer.love            </a>
     <div class="row">
         <div class="col-sm-9">
             <article>
+                <h2><a href="http://lostsummer.github.io/201608091001.html">InfluxDB 写数据语法</a></h2>
+                <div class="summary"><p>本篇是官方文档的一个蹩脚翻译，原文：<a href="https://docs.influxdata.com/influxdb/v0.13/write_protocols/write_syntax/">Write Syntax</a></p>
+<p>语法总是容易忘记，这里是一个参考手册</p>
+<h2>行协议 ( Line Protocol )</h2>
+<p>行协议的语法是：</p>
+<div class="highlight"><pre><span class="n">measurement</span><span class="p">[,</span><span class="n">tag_key1</span><span class="o">=</span><span class="n">tag_value1</span><span class="p">...]</span> <span class="n">field_key</span><span class="o">=</span><span class="n">field_value</span><span class="p">[,</span><span class="n">field_key2</span><span class="o">=</span><span class="n">field_value2</span><span class="p">]</span> <span class="p">[</span><span class="n">timestamp</span><span class="p">]</span>
+</pre></div>
+
+
+<p>例如：</p>
+<div class="highlight"><pre><span class="n">measurement</span><span class="p">,</span><span class="n">tkey1</span><span class="o">=</span><span class="n">tval1</span><span class="p">,</span><span class="n">tkey2</span><span class="o">=</span><span class="n">tval2</span> <span class="n">fkey</span><span class="o">=</span><span class="n">fval</span><span class="p">,</span><span class="n">fkey2</span><span class="o">=</span><span class="n">fval2</span> <span class="mi">1234567890000000000</span>
+</pre></div>
+
+
+<h3>空格</h3>
+<p>measurement 和 filed(s) 之间 必需用空格分隔，如果有 tag(s) ， tag 和 field 间必需空格分隔。measurement 和 tag，tag 和 tag 之间必行用一个逗号分隔 ...</p>
+                    <a class="btn btn-default btn-xs" href="http://lostsummer.github.io/201608091001.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
                 <h2><a href="http://lostsummer.github.io/201607140854.html">配置 influxDB 鉴权及 HTTP API 写数据的方法</a></h2>
                 <div class="summary"><p>本文简要描述如何为 InfluxDB 开启鉴权和配置用户管理权限（安装后默认不需要登录），以及开启鉴权后如何使用 HTTP API 写数据。</p>
 <p><br /></p>
@@ -166,6 +187,11 @@ lostsummer.love            </a>
             <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
                 <ul class="list-group" id="recentposts">
                     <li class="list-group-item">
+                        <a href="http://lostsummer.github.io/201608091001.html">
+                            InfluxDB 写数据语法
+                        </a>
+                    </li>
+                    <li class="list-group-item">
                         <a href="http://lostsummer.github.io/201607140854.html">
                             配置 influxDB 鉴权及 HTTP API 写数据的方法
                         </a>
@@ -197,6 +223,11 @@ lostsummer.love            </a>
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
+                        <a href="http://lostsummer.github.io/tag/grafana.html">
+                            Grafana
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
                         <a href="http://lostsummer.github.io/tag/git.html">
                             Git
                         </a>
@@ -204,11 +235,6 @@ lostsummer.love            </a>
                     <li class="list-group-item tag-4">
                         <a href="http://lostsummer.github.io/tag/python.html">
                             Python
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://lostsummer.github.io/tag/grafana.html">
-                            Grafana
                         </a>
                     </li>
                 </ul>

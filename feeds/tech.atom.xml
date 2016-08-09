@@ -1,5 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>lostsummer.love</title><link href="http://lostsummer.github.io/" rel="alternate"></link><link href="http://lostsummer.github.io/feeds/tech.atom.xml" rel="self"></link><id>http://lostsummer.github.io/</id><updated>2016-07-14T00:00:00+08:00</updated><entry><title>配置 influxDB 鉴权及 HTTP API 写数据的方法</title><link href="http://lostsummer.github.io/201607140854.html" rel="alternate"></link><published>2016-07-14T00:00:00+08:00</published><author><name>Yushin</name></author><id>tag:lostsummer.github.io,2016-07-14:201607140854.html</id><summary type="html">&lt;p&gt;本文简要描述如何为 InfluxDB 开启鉴权和配置用户管理权限（安装后默认不需要登录），以及开启鉴权后如何使用 HTTP API 写数据。&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>lostsummer.love</title><link href="http://lostsummer.github.io/" rel="alternate"></link><link href="http://lostsummer.github.io/feeds/tech.atom.xml" rel="self"></link><id>http://lostsummer.github.io/</id><updated>2016-08-09T00:00:00+08:00</updated><entry><title>InfluxDB 写数据语法</title><link href="http://lostsummer.github.io/201608091001.html" rel="alternate"></link><published>2016-08-09T00:00:00+08:00</published><author><name>Yushin</name></author><id>tag:lostsummer.github.io,2016-08-09:201608091001.html</id><summary type="html">&lt;p&gt;本篇是官方文档的一个蹩脚翻译，原文：&lt;a href="https://docs.influxdata.com/influxdb/v0.13/write_protocols/write_syntax/"&gt;Write Syntax&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;语法总是容易忘记，这里是一个参考手册&lt;/p&gt;
+&lt;h2&gt;行协议 ( Line Protocol )&lt;/h2&gt;
+&lt;p&gt;行协议的语法是：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;measurement&lt;/span&gt;&lt;span class="p"&gt;[,&lt;/span&gt;&lt;span class="n"&gt;tag_key1&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;tag_value1&lt;/span&gt;&lt;span class="p"&gt;...]&lt;/span&gt; &lt;span class="n"&gt;field_key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;field_value&lt;/span&gt;&lt;span class="p"&gt;[,&lt;/span&gt;&lt;span class="n"&gt;field_key2&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;field_value2&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;timestamp&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;例如：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;measurement&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;tkey1&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;tval1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;tkey2&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;tval2&lt;/span&gt; &lt;span class="n"&gt;fkey&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;fval&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;fkey2&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;fval2&lt;/span&gt; &lt;span class="mi"&gt;1234567890000000000&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;空格&lt;/h3&gt;
+&lt;p&gt;measurement 和 filed(s) 之间 必需用空格分隔，如果有 tag(s) ， tag 和 field 间必需空格分隔。measurement 和 tag，tag 和 tag 之间必行用一个逗号分隔，并且之间不能有空格。如果有 timestamp，field 和 timestamp 之间也必需用空格分隔。&lt;/p&gt;
+&lt;p&gt;合法的例子  ( value 和 otherval 是 field, foo 和 bat 是 tag )&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;measurement&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;12&lt;/span&gt;
+&lt;span class="n"&gt;measurement&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;12&lt;/span&gt; &lt;span class="mi"&gt;1439587925&lt;/span&gt;
+&lt;span class="n"&gt;measurement&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;foo&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;bar&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;12&lt;/span&gt;
+&lt;span class="n"&gt;measurement&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;foo&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;bar&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;12&lt;/span&gt; &lt;span class="mi"&gt;1439587925&lt;/span&gt;
+&lt;span class="n"&gt;measurement&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;foo&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;bar&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;bat&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;baz&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;12&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;otherval&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;21&lt;/span&gt; &lt;span class="mi"&gt;1439587925&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;不合法的&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;measurement&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;12&lt;/span&gt;
+&lt;span class="n"&gt;measurement&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;12&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1439587925&lt;/span&gt;
+&lt;span class="n"&gt;measurement&lt;/span&gt; &lt;span class="n"&gt;foo&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;bar&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;12&lt;/span&gt;
+&lt;span class="n"&gt;measurement&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;foo&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;bar&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;12&lt;/span&gt; &lt;span class="mi"&gt;1439587925&lt;/span&gt;
+&lt;span class="n"&gt;measurement&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;foo&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;bar&lt;/span&gt;
+&lt;span class="n"&gt;measurement&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;foo&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;bar&lt;/span&gt; &lt;span class="mi"&gt;1439587925&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Timestamp （时间戳）&lt;/h3&gt;
+&lt;p&gt;Timestamp 不是必需。 如果没有写 timestamp，服务器在插入数据点时会写入当时的系统本地时间。如果写 timestamp，timestamp 必需和 field 之间以空格分隔。Timestamp 默认是纳秒为单位的 Unix 时间。也可以指定其他精度，参加 HTTP 语法的细节。我们建议尽可能使用最小的精度，因为这样可以显著地提高压缩率。&lt;/p&gt;
+&lt;h3&gt;键值（key-value）分隔符&lt;/h3&gt;
+&lt;p&gt;Tag 或 field 的键、值之间必需用 “=” 分隔&lt;/p&gt;
+&lt;h3&gt;转义字符&lt;/h3&gt;
+&lt;p&gt;如果一个 tag 的键或值，或者一个 field 的键包含空格，逗号，等号，必需使用反斜线转义。反斜线不必转义。在 measurement 中， 逗号和空格也需要转义，而等号不需要。&lt;/p&gt;
+&lt;h3&gt;注释&lt;/h3&gt;
+&lt;p&gt;以 # 为首的行是合法的注释行。&lt;/p&gt;
+&lt;h3&gt;数据类型&lt;/h3&gt;
+&lt;p&gt;Measurements, tag key, tag value 以及 field key 在数据库中总是以 string 保存。string 值得最大限制是 64 KB。所有的 Unicode 字符必须合法，并且逗号和空格需要转义。反斜线不需要转义，但是不能直接用在逗号和空格之前 （注意 string 类型的 field value 有另一套不同于 measurement，tag 和 field key 的应用转义规则）。字段（Field） location="us-west" 存储了一个 string 值。 Field 值可以是 float64，int64，boolean 或 string。所有的后续 field 值必须和第一次写入measurement 的数据点的 field 值类型相同。float64 是默认的数字类型。1 是 一个 float 类型数，1i 是一个 integer 类型数。int64 类型数必行跟着一个 i。Field bikes_present=15i 存储一个 integer， field bikes_present=15 存储一个 float。布尔值是 t，T，true，True，TRUE，f，false，False，FALSE 字符串，赋值给 field value 必须被双层引用。双层引用的字符串必须被转义，其他部分的字符可以不转义。&lt;/p&gt;
+&lt;h3&gt;例子&lt;/h3&gt;
+&lt;h4&gt;最简单的合法写入点  (measurement + field)&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;disk_free&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;442221834240&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;带 timestamp 的&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;disk_free&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;442221834240&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="mi"&gt;1435362189575692182&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;带 tag 的&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;disk_free&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;hostname&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;server01&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;disk_type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;SSD&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;442221834240&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;带 tag 时间戳&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;disk_free&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;hostname&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;server01&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;disk_type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;SSD&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;442221834240&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="mi"&gt;1435362189575692182&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;多个 field&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;disk_free&lt;/span&gt; &lt;span class="n"&gt;free_space&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;442221834240&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;disk_type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;SSD&amp;quot;&lt;/span&gt; &lt;span class="mi"&gt;1435362189575692182&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;转义逗号和空格&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;total&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt; &lt;span class="n"&gt;disk&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt; &lt;span class="n"&gt;free&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;volumes&lt;/span&gt;&lt;span class="o"&gt;=/&lt;/span&gt;&lt;span class="n"&gt;net&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;home&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;442221834240&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="mi"&gt;1435362189575692182&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;转义等号&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;disk_free&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;z&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;442221834240&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;tag value 中有斜线&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;disk_free&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;Windows&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;442221834240&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;斜线用在字符串中不需要转义，除了后面跟着逗号，空格或等号&lt;/p&gt;
+&lt;h4&gt;转义 field key&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;disk_free&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;442221834240&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;working&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt; &lt;span class="n"&gt;directories&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;C:\My Documents\Stuff for examples,C:\My Documents&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;一个例子展现所有转义和引用规则&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="s"&gt;&amp;quot;measurement\ with\ quotes&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;tag&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt; &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt; &lt;span class="n"&gt;with&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt; &lt;span class="n"&gt;spaces&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;tag&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;with&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;commas&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;field_key&lt;/span&gt;&lt;span class="err"&gt;\\\\&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;string field value, only &lt;/span&gt;&lt;span class="se"&gt;\&amp;quot;&lt;/span&gt;&lt;span class="s"&gt; need be quoted&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;上面的例子， measurement 是“带引用的 measurement”，tag key 是带空格的 tag key，tag value 是带逗号的 tag value，field key 是 filed_key\\ ，filed value 是字符串 string field value，only " need be quoted 。&lt;/p&gt;
+&lt;h3&gt;警告&lt;/h3&gt;
+&lt;p&gt;如果你批量写入数据点，并且所有的写入点没有显示的 timestamp，那么它们将被以相同的 timestamp 写入。因为一个数据点被 measurement，tag 集，timestamp 定义，所以这会导致数据点重复。当 InfluxDB 遇到重复数据点，field 会变成新旧 filed 集的 union，并且绑定到新的 fied 集。最佳实践是为所有写入点提供显示的 timestamp。 measurement，tag key，tag values 不用引用，空格和逗号必须转义。string 型的 field value 必须被双引用，只有索引号需要被转义。查询包好双引号的 measurement，tag 后比较困难，因为双引号在语法上也是一个标识符。在表达式遇到这些限制时，正确处理并不容易。避免使用标识符语法的关键词。InfluxDB 所有的值都是大小写敏感的： MyDB != mydb != MYDB。关键词例外，它们是大小写不敏感的。&lt;/p&gt;
+&lt;h2&gt;CLI&lt;/h2&gt;
+&lt;p&gt;使用命令行接口写入数据点，使用 insert 命令&lt;/p&gt;
+&lt;h3&gt;使用 CLI 写入一个数据点&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;insert&lt;/span&gt; &lt;span class="n"&gt;disk_free&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;hostname&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;server01&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;442221834240&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="mi"&gt;1435362189575692182&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The CLI will return nothing on success and should give an informative parser error if the point cannot be written. See InfluxDB CLI/Shell for how to import data from a file using the CLI.
+成功时命令行不返回任何信息，如果数据点不能写入后给出一些解析器错误信息。使用 CLI 从数据文件导入数据的方法参见 InfluxDB CLI/Shell 。&lt;/p&gt;
+&lt;h2&gt;HTTP&lt;/h2&gt;
+&lt;p&gt;写入数据点使用 HTTP，POST 到 8086 端口的 /write 端点。在查询字串中你必须使用 db=&lt;target_database&gt; 指定目标数据库。通过查询字串，你可以提供可选的 retention policy，指定任何你提供的任何 timestamp 的精度，通过任何必需的验证。成功的写入会返回 204 HTTP Stauts Code。语法错误会返回 400。&lt;/p&gt;
+&lt;h3&gt;写入操作的查询字串参数&lt;/h3&gt;
+&lt;p&gt;使用 HTTP API 时，下面的字符串参数作为 GET 字串的一部分时也能通过&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;db=&amp;lt;database&amp;gt; 必需 —— 设置写入的目标数据库&lt;/li&gt;
+&lt;li&gt;rp=&amp;lt;retention_policy&amp;gt; —— 设置写入的目标 retension policy （如果不是用目前默认的 retention policy 的话）&lt;/li&gt;
+&lt;li&gt;u=&amp;lt;username&amp;gt;, p=&amp;lt;password&amp;gt; —— 如果数据库打开了鉴权，必需验证用户的写权限&lt;/li&gt;
+&lt;li&gt;precision=[n,u,ms,s,m,h] —— 设置写入Unix 时间的精度，如果不设置默认使用纳秒&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;使用 curl 写入一个数据点&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;curl&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;X&lt;/span&gt; &lt;span class="n"&gt;POST&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;http&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//localhost:8086/write?db=mydb&amp;#39; --data-binary &amp;#39;disk_free,hostname=server01 value=442221834240i 1435362189575692182&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;使用非默认 Retention Policy 写入一个数据点&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;curl&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;X&lt;/span&gt; &lt;span class="n"&gt;POST&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;http&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//localhost:8086/write?db=mydb&amp;amp;rp=six_month_rollup&amp;#39; --data-binary &amp;#39;disk_free,hostname=server01 value=442221834240i 1435362189575692182&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;写入一个需要鉴权的数据点&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;curl&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;X&lt;/span&gt; &lt;span class="n"&gt;POST&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;http&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//localhost:8086/write?db=mydb&amp;amp;u=root&amp;amp;p=123456&amp;#39; --data-binary &amp;#39;disk_free,hostname=server01 value=442221834240i 1435362189575692182&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;指定非纳秒级时间戳&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;n: 纳秒&lt;/li&gt;
+&lt;li&gt;u: 微秒&lt;/li&gt;
+&lt;li&gt;ms: 毫秒&lt;/li&gt;
+&lt;li&gt;s: 秒&lt;/li&gt;
+&lt;li&gt;m: 分&lt;/li&gt;
+&lt;li&gt;h: 小时&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Example &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;curl&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;X&lt;/span&gt; &lt;span class="n"&gt;POST&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;http&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//localhost:8086/write?db=mydb&amp;amp;precision=ms&amp;#39; --data-binary &amp;#39;disk_free value=442221834240i 1435362189575&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;使用 curl 批量写入多个数据点&lt;/h3&gt;
+&lt;p&gt;你可以传入一个数据文件，只需要文件名前加 @ 符号。文件里可以包含多条数据，每条一行。数据必须以换行符 '\n' 分隔。我们建议一次批量的写入 5000 ~ 10000 条数据。少量的数据产生过多的 HTTP request，并不能达到最高效率。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nb"&gt;curl&lt;/span&gt; &lt;span class="na"&gt;-X&lt;/span&gt; &lt;span class="nx"&gt;POST&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;http://localhost:8086/write?db=&amp;lt;database&amp;gt;&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="kd"&gt;data&lt;/span&gt;&lt;span class="na"&gt;-binary&lt;/span&gt; &lt;span class="p"&gt;@&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nb"&gt;filename&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;警告&lt;/h3&gt;
+&lt;p&gt;使用 curl 的 --data-binary 编码所有行协议（line protocal） 格式的 write 数据。使用 --data-binary 以外的方法写数据点可能会有一些问题。 -d， --data-urlencode，--data-ascii 可能都会截掉换行符或者用其他格式替换。&lt;/p&gt;</summary><category term="InfluxDB"></category></entry><entry><title>配置 influxDB 鉴权及 HTTP API 写数据的方法</title><link href="http://lostsummer.github.io/201607140854.html" rel="alternate"></link><published>2016-07-14T00:00:00+08:00</published><author><name>Yushin</name></author><id>tag:lostsummer.github.io,2016-07-14:201607140854.html</id><summary type="html">&lt;p&gt;本文简要描述如何为 InfluxDB 开启鉴权和配置用户管理权限（安装后默认不需要登录），以及开启鉴权后如何使用 HTTP API 写数据。&lt;/p&gt;
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;h2&gt;创建 InfluxDB 管理员账号&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;创建 admin 帐号密码并赋予所有数据库权限&lt;/strong&gt;&lt;/p&gt;
