@@ -145,7 +145,7 @@ lostsummer.love            </a>
 <h3>注释</h3>
 <p>以 # 为首的行是合法的注释行。</p>
 <h3>数据类型</h3>
-<p>Measurements, tag key, tag value 以及 field key 在数据库中总是以 string 保存。string 值得最大限制是 64 KB。所有的 Unicode 字符必须合法，并且逗号和空格需要转义。反斜线不需要转义，但是不能直接用在逗号和空格之前 （注意 string 类型的 field value 有另一套不同于 measurement，tag 和 field key 的应用转义规则）。字段（Field） location="us-west" 存储了一个 string 值。 Field 值可以是 float64，int64，boolean 或 string。所有的后续 field 值必须和第一次写入measurement 的数据点的 field 值类型相同。float64 是默认的数字类型。1 是 一个 float 类型数，1i 是一个 integer 类型数。int64 类型数必行跟着一个 i。Field bikes_present=15i 存储一个 integer， field bikes_present=15 存储一个 float。布尔值是 t，T，true，True，TRUE，f，false，False，FALSE 字符串，赋值给 field value 必须被双层引用。双层引用的字符串必须被转义，其他部分的字符可以不转义。</p>
+<p>Measurements, tag key, tag value 以及 field key 在数据库中总是以 string 保存。string 值得最大限制是 64 KB。所有的 Unicode 字符必须合法，并且逗号和空格需要转义。反斜线不需要转义，但是不能直接用在逗号和空格之前 （注意 string 类型的 field value 有另一套不同于 measurement，tag 和 field key 的应用转义规则）。字段（Field） location="us-west" 存储了一个 string 值。 Field 值可以是 float64，int64，boolean 或 string。所有的后续 field 值必须和第一次写入measurement 的数据点的 field 值类型相同。float64 是默认的数字类型。1 是 一个 float 类型数，1i 是一个 integer 类型数。int64 类型数必行跟着一个 i。Field bikes_present=15i 存储一个 integer， field bikes_present=15 存储一个 float。布尔值是 t，T，true，True，TRUE，f，false，False，FALSE 字符串，赋值给 field value 必须被双引号包围。双引号包围的字符串必须被转义，其他部分的字符可以不转义。</p>
 <h3>例子</h3>
 <h4>最简单的合法写入点  (measurement + field)</h4>
 <div class="highlight"><pre><span class="n">disk_free</span> <span class="n">value</span><span class="o">=</span><span class="mi">442221834240</span><span class="n">i</span>
@@ -200,7 +200,7 @@ lostsummer.love            </a>
 
 <p>上面的例子， measurement 是“带引用的 measurement”，tag key 是带空格的 tag key，tag value 是带逗号的 tag value，field key 是 filed_key\\ ，filed value 是字符串 string field value，only " need be quoted 。</p>
 <h3>警告</h3>
-<p>如果你批量写入数据点，并且所有的写入点没有显示的 timestamp，那么它们将被以相同的 timestamp 写入。因为一个数据点被 measurement，tag 集，timestamp 定义，所以这会导致数据点重复。当 InfluxDB 遇到重复数据点，field 会变成新旧 filed 集的 union，并且绑定到新的 fied 集。最佳实践是为所有写入点提供显示的 timestamp。 measurement，tag key，tag values 不用引用，空格和逗号必须转义。string 型的 field value 必须被双引用，只有索引号需要被转义。查询包好双引号的 measurement，tag 后比较困难，因为双引号在语法上也是一个标识符。在表达式遇到这些限制时，正确处理并不容易。避免使用标识符语法的关键词。InfluxDB 所有的值都是大小写敏感的： MyDB != mydb != MYDB。关键词例外，它们是大小写不敏感的。</p>
+<p>如果你批量写入数据点，并且所有的写入点没有显示的 timestamp，那么它们将被以相同的 timestamp 写入。因为一个数据点被 measurement，tag 集，timestamp 定义，所以这会导致数据点重复。当 InfluxDB 遇到重复数据点，field 会变成新旧 filed 集的 union，并且绑定到新的 fied 集。最佳实践是为所有写入点提供显示的 timestamp。 measurement，tag key，tag values 不用引用，空格和逗号必须转义。string 型的 field value 必须被双引号包围，只有索引号需要被转义。查询包好双引号的 measurement，tag 后比较困难，因为双引号在语法上也是一个标识符。在表达式遇到这些限制时，正确处理并不容易。避免使用标识符语法的关键词。InfluxDB 所有的值都是大小写敏感的： MyDB != mydb != MYDB。关键词例外，它们是大小写不敏感的。</p>
 <h2>CLI</h2>
 <p>使用命令行接口写入数据点，使用 insert 命令</p>
 <h3>使用 CLI 写入一个数据点</h3>
@@ -208,8 +208,7 @@ lostsummer.love            </a>
 </pre></div>
 
 
-<p>The CLI will return nothing on success and should give an informative parser error if the point cannot be written. See InfluxDB CLI/Shell for how to import data from a file using the CLI.
-成功时命令行不返回任何信息，如果数据点不能写入后给出一些解析器错误信息。使用 CLI 从数据文件导入数据的方法参见 InfluxDB CLI/Shell 。</p>
+<p>成功时命令行不返回任何信息，如果数据点不能写入后给出一些解析器错误信息。使用 CLI 从数据文件导入数据的方法参见 InfluxDB CLI/Shell 。</p>
 <h2>HTTP</h2>
 <p>写入数据点使用 HTTP，POST 到 8086 端口的 /write 端点。在查询字串中你必须使用 db=<target_database> 指定目标数据库。通过查询字串，你可以提供可选的 retention policy，指定任何你提供的任何 timestamp 的精度，通过任何必需的验证。成功的写入会返回 204 HTTP Stauts Code。语法错误会返回 400。</p>
 <h3>写入操作的查询字串参数</h3>
@@ -341,13 +340,8 @@ lostsummer.love            </a>
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://lostsummer.github.io/tag/grafana.html">
-                            Grafana
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://lostsummer.github.io/tag/git.html">
-                            Git
+                        <a href="http://lostsummer.github.io/tag/python.html">
+                            Python
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -356,8 +350,13 @@ lostsummer.love            </a>
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://lostsummer.github.io/tag/python.html">
-                            Python
+                        <a href="http://lostsummer.github.io/tag/grafana.html">
+                            Grafana
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://lostsummer.github.io/tag/git.html">
+                            Git
                         </a>
                     </li>
                 </ul>
