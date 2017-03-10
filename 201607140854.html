@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 <html lang="zh" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>配置 influxDB 鉴权及 HTTP API 写数据的方法 - lostsummer.love</title>
+    <title>配置 influxDB 鉴权及 HTTP API 写数据的方法 - LOST IN CODE</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
+    <link href="http://lostsummer.github.io/images/favicon.ico" rel="icon">
 
 <link rel="canonical" href="http://lostsummer.github.io/201607140854.html">
 
         <meta name="author" content="Yushin" />
         <meta name="keywords" content="InfluxDB" />
-        <meta name="description" content="本文简要描述如何为 InfluxDB 开启鉴权和配置用户管理权限（安装后默认不需要登录），以及开启鉴权后如何使用 HTTP API 写数据。 创建 InfluxDB 管理员账号 创建 admin 帐号密码并赋予所有数据库权限 创建 CREATE USER admin WITH PASSWORD &#39;admin&#39; 赋权 GRANT ALL PRIVILEGES TO admin 其他命令 修改用户(密码) SET PASSWORD FOR admin = &#39;admin&#39; 删除用户 DROP USER admin 撤消权限 REVOKE ALL ON mydb FROM admin 查看权限 SHOW GRANTS FOR ..." />
+        <meta name="description" content="本文简要描述如何为 InfluxDB 开启鉴权和配置用户管理权限（安装后默认不需要登录），以及开启鉴权后如何使用 HTTP API 写数据。 创建 InfluxDB 管理员账号 创建 admin 帐号密码并赋予所有数据库权限 创建 CREATE USER admin WITH PASSWORD &#39;admin&#39; 赋权 GRANT ALL PRIVILEGES TO admin 其他命令 修改用户(密码) SET PASSWORD FOR admin = &#39;admin&#39; 删除用户 DROP USER admin 撤消权限 REVOKE ALL ON mydb FROM admin 查看权限 SHOW GRANTS FOR admin 打开认证 vi /etc/influxdb/influxdb.conf 把 [http] 标签下的 auth-enabled 选项值改为 true [http] enabled = true bind-address = &#34;:8086&#34; auth-enabled = true log-enabled = true write-tracing = false pprof-enabled = false https-enabled = false https-certificate = &#34;/etc/ssl/influxdb.pem&#34; 重启 InfluxDB 命令行 CLI 登录 $ influx -username admin -password admin Connected to http://localhost:8086 version 0.13.x InfluxDB shell 0.13.x &gt; 或者 $ influx Connected to http://localhost:8086 version 0.13.x InfluxDB shell 0.13.x &gt; auth username: admin password: &gt; HTTP API 查询的方式变为 curl -G &#34;http://localhost:8086/query&#34; -u admin:admin --data-urlencode &#34;q=SHOW DATABASES&#34; curl -G &#34;http://localhost:8086/query&#34; --data-urlencode &#34;u=admin&#34; --data-urlencode &#34;p=admin&#34; --data-urlencode &#34;q=SHOW DATABASES&#34; curl -G &#34;http://localhost:8086/query?u=admin&amp;p=admin&amp;q=SHOW+DATABASES&#34; 开启鉴权后如何写数据 使用insert命令行写数据： &gt; INSERT cpu_load_short,host=server01,region=us-west value=0.64,value2=0.86 1434055562000000000 使用HTTP API写数据： 用户名密码写在 URL 中 curl -i -X POST &#34;http://localhost:8086/write?db=mydb&amp;u=admin&amp;p=admin&#34; --data-binary &#34;cpu_load_short,host=server01,region=us-west value=0.64,value2=0.86 1434055562000000000&#34; 用户名密码写在 HTTP 头 Authorization 选项 curl -i -X POST &#34;http://localhost:8086/write?db=mydb&#34; -u admin:admin --data-binary &#34;cpu_load_short,host=server01,region=us-west value=0.64,value2=0.86 1434055562000000000&#34; 除了命令关键字不同，数据部分基本相同，仅观察一下数据部分： cpu_load_short,host=server01,region=us-west value=0.64,value2=0.86 1434055562000000000 这行数据含有两个空格，将之分为三个部分： 第一部分： cpu_load_short,host=server01,region=us-west 第一部分称为key，key中包含了measurement name和tags（tags又分为tag key和tag value，tags可以有多个），例子中的“cpu_load_short”就是measurement name，“host”和“reginon”是tag key，“server01”和“us-west”是对应的tag value。在我看来，measurement name和MySQL数据库的表名是等同的。另外，在tag value中的空格应以“/”加上空格表示，若有多个tag value，可以使用逗号隔开，但是应以“/”加逗号表示。 第二部分：value=0.64,value2=0.86 第二部分称为Field，同样和tags的形式相同，都是键值对的形式，但是tags中的值必须是string类型，而Field中的值可以为Integer、float、Boolean、string类型，若为Integer类型，则值后必须加“i”，否则该值为float类型，比如value=23意味着这个值23是float类型，而value=23i，意味着值23是Integer类型。Boolean类型的值的表示方式有很多，直接写成：t, T, true, TRUE, f, F, false或 FALSE都可以。 第三部分（可选）：1434055562000000000 第三部分称为Timestamp，是时间戳，如果该部分省略，则默认将当前时间的时间戳插入数据库，否则按照用户输入的时间戳插入。 第一种写数据方式 产生 HTTP 包(使用 Chrome 插件 Postman 生成) POST /write?db=mydb HTTP/1.1 Host: 192.168.6.93:8086 Authorization: Basic YWRtaW46YWRtaW4= Cache-Control: no-cache Postman-Token: d3ce583a-1e11-63ec-a818-034aeaa91f10 cpu_load_short,host=server01,region=us-west value=0.64,value2=0.86 1434055565000000000 第二种写数据方式 产生 HTTP 包 POST /write?db=mydb&amp;amp;u=admin&amp;amp;p=admin HTTP/1.1 Host: 192.168.6.93:8086 Cache-Control: no-cache Postman-Token: 6773f66a-de4c-435d-6469-0a1194752a86 cpu_load_short,host=server01,region=us-west value=0.64,value2=0.86 1434055565000000000 参考： 访问需要HTTP Basic Authentication认证的资源的各种语言的实现" />
 
-        <meta property="og:site_name" content="lostsummer.love" />
+        <meta property="og:site_name" content="LOST IN CODE" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="配置 influxDB 鉴权及 HTTP API 写数据的方法"/>
         <meta property="og:url" content="http://lostsummer.github.io/201607140854.html"/>
-        <meta property="og:description" content="本文简要描述如何为 InfluxDB 开启鉴权和配置用户管理权限（安装后默认不需要登录），以及开启鉴权后如何使用 HTTP API 写数据。 创建 InfluxDB 管理员账号 创建 admin 帐号密码并赋予所有数据库权限 创建 CREATE USER admin WITH PASSWORD &#39;admin&#39; 赋权 GRANT ALL PRIVILEGES TO admin 其他命令 修改用户(密码) SET PASSWORD FOR admin = &#39;admin&#39; 删除用户 DROP USER admin 撤消权限 REVOKE ALL ON mydb FROM admin 查看权限 SHOW GRANTS FOR ..."/>
+        <meta property="og:description" content="本文简要描述如何为 InfluxDB 开启鉴权和配置用户管理权限（安装后默认不需要登录），以及开启鉴权后如何使用 HTTP API 写数据。 创建 InfluxDB 管理员账号 创建 admin 帐号密码并赋予所有数据库权限 创建 CREATE USER admin WITH PASSWORD &#39;admin&#39; 赋权 GRANT ALL PRIVILEGES TO admin 其他命令 修改用户(密码) SET PASSWORD FOR admin = &#39;admin&#39; 删除用户 DROP USER admin 撤消权限 REVOKE ALL ON mydb FROM admin 查看权限 SHOW GRANTS FOR admin 打开认证 vi /etc/influxdb/influxdb.conf 把 [http] 标签下的 auth-enabled 选项值改为 true [http] enabled = true bind-address = &#34;:8086&#34; auth-enabled = true log-enabled = true write-tracing = false pprof-enabled = false https-enabled = false https-certificate = &#34;/etc/ssl/influxdb.pem&#34; 重启 InfluxDB 命令行 CLI 登录 $ influx -username admin -password admin Connected to http://localhost:8086 version 0.13.x InfluxDB shell 0.13.x &gt; 或者 $ influx Connected to http://localhost:8086 version 0.13.x InfluxDB shell 0.13.x &gt; auth username: admin password: &gt; HTTP API 查询的方式变为 curl -G &#34;http://localhost:8086/query&#34; -u admin:admin --data-urlencode &#34;q=SHOW DATABASES&#34; curl -G &#34;http://localhost:8086/query&#34; --data-urlencode &#34;u=admin&#34; --data-urlencode &#34;p=admin&#34; --data-urlencode &#34;q=SHOW DATABASES&#34; curl -G &#34;http://localhost:8086/query?u=admin&amp;p=admin&amp;q=SHOW+DATABASES&#34; 开启鉴权后如何写数据 使用insert命令行写数据： &gt; INSERT cpu_load_short,host=server01,region=us-west value=0.64,value2=0.86 1434055562000000000 使用HTTP API写数据： 用户名密码写在 URL 中 curl -i -X POST &#34;http://localhost:8086/write?db=mydb&amp;u=admin&amp;p=admin&#34; --data-binary &#34;cpu_load_short,host=server01,region=us-west value=0.64,value2=0.86 1434055562000000000&#34; 用户名密码写在 HTTP 头 Authorization 选项 curl -i -X POST &#34;http://localhost:8086/write?db=mydb&#34; -u admin:admin --data-binary &#34;cpu_load_short,host=server01,region=us-west value=0.64,value2=0.86 1434055562000000000&#34; 除了命令关键字不同，数据部分基本相同，仅观察一下数据部分： cpu_load_short,host=server01,region=us-west value=0.64,value2=0.86 1434055562000000000 这行数据含有两个空格，将之分为三个部分： 第一部分： cpu_load_short,host=server01,region=us-west 第一部分称为key，key中包含了measurement name和tags（tags又分为tag key和tag value，tags可以有多个），例子中的“cpu_load_short”就是measurement name，“host”和“reginon”是tag key，“server01”和“us-west”是对应的tag value。在我看来，measurement name和MySQL数据库的表名是等同的。另外，在tag value中的空格应以“/”加上空格表示，若有多个tag value，可以使用逗号隔开，但是应以“/”加逗号表示。 第二部分：value=0.64,value2=0.86 第二部分称为Field，同样和tags的形式相同，都是键值对的形式，但是tags中的值必须是string类型，而Field中的值可以为Integer、float、Boolean、string类型，若为Integer类型，则值后必须加“i”，否则该值为float类型，比如value=23意味着这个值23是float类型，而value=23i，意味着值23是Integer类型。Boolean类型的值的表示方式有很多，直接写成：t, T, true, TRUE, f, F, false或 FALSE都可以。 第三部分（可选）：1434055562000000000 第三部分称为Timestamp，是时间戳，如果该部分省略，则默认将当前时间的时间戳插入数据库，否则按照用户输入的时间戳插入。 第一种写数据方式 产生 HTTP 包(使用 Chrome 插件 Postman 生成) POST /write?db=mydb HTTP/1.1 Host: 192.168.6.93:8086 Authorization: Basic YWRtaW46YWRtaW4= Cache-Control: no-cache Postman-Token: d3ce583a-1e11-63ec-a818-034aeaa91f10 cpu_load_short,host=server01,region=us-west value=0.64,value2=0.86 1434055565000000000 第二种写数据方式 产生 HTTP 包 POST /write?db=mydb&amp;amp;u=admin&amp;amp;p=admin HTTP/1.1 Host: 192.168.6.93:8086 Cache-Control: no-cache Postman-Token: 6773f66a-de4c-435d-6469-0a1194752a86 cpu_load_short,host=server01,region=us-west value=0.64,value2=0.86 1434055565000000000 参考： 访问需要HTTP Basic Authentication认证的资源的各种语言的实现"/>
         <meta property="article:published_time" content="2016-07-14" />
             <meta property="article:section" content="Tech" />
             <meta property="article:tag" content="InfluxDB" />
@@ -30,16 +31,16 @@
         <link rel="stylesheet" href="http://lostsummer.github.io/theme/css/bootstrap.min.css" type="text/css"/>
     <link href="http://lostsummer.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="http://lostsummer.github.io/theme/css/pygments/native.css" rel="stylesheet">
+    <link href="http://lostsummer.github.io/theme/css/pygments/zenburn.css" rel="stylesheet">
     <link rel="stylesheet" href="http://lostsummer.github.io/theme/css/style.css" type="text/css"/>
 
         <link href="http://lostsummer.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
-              title="lostsummer.love ATOM Feed"/>
+              title="LOST IN CODE ATOM Feed"/>
 
 
 
         <link href="http://lostsummer.github.io/feeds/tech.atom.xml" type="application/atom+xml" rel="alternate"
-              title="lostsummer.love Tech ATOM Feed"/>
+              title="LOST IN CODE Tech ATOM Feed"/>
 
 </head>
 <body>
@@ -54,15 +55,13 @@
                 <span class="icon-bar"></span>
             </button>
             <a href="http://lostsummer.github.io/" class="navbar-brand">
-lostsummer.love            </a>
+LOST IN CODE            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                        <li class="active">
-                            <a href="http://lostsummer.github.io/category/tech.html">Tech</a>
-                        </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+              <li><a href="http://lostsummer.github.io/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -109,14 +108,14 @@ lostsummer.love            </a>
 <ol>
 <li>
 <p>创建</p>
-<div class="highlight"><pre><span class="n">CREATE</span> <span class="n">USER</span> <span class="n">admin</span> <span class="n">WITH</span> <span class="n">PASSWORD</span> <span class="err">&#39;</span><span class="n">admin</span><span class="err">&#39;</span>
+<div class="highlight"><pre><span></span>CREATE USER admin WITH PASSWORD &#39;admin&#39;
 </pre></div>
 
 
 </li>
 <li>
 <p>赋权</p>
-<div class="highlight"><pre><span class="n">GRANT</span> <span class="n">ALL</span> <span class="n">PRIVILEGES</span> <span class="n">TO</span> <span class="n">admin</span>
+<div class="highlight"><pre><span></span>GRANT ALL PRIVILEGES TO admin
 </pre></div>
 
 
@@ -126,28 +125,28 @@ lostsummer.love            </a>
 <ul>
 <li>
 <p>修改用户(密码)</p>
-<div class="highlight"><pre><span class="n">SET</span> <span class="n">PASSWORD</span> <span class="n">FOR</span> <span class="n">admin</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">admin</span><span class="err">&#39;</span>
+<div class="highlight"><pre><span></span>SET PASSWORD FOR admin = &#39;admin&#39;
 </pre></div>
 
 
 </li>
 <li>
 <p>删除用户</p>
-<div class="highlight"><pre><span class="n">DROP</span> <span class="n">USER</span> <span class="n">admin</span>
+<div class="highlight"><pre><span></span>DROP USER admin
 </pre></div>
 
 
 </li>
 <li>
 <p>撤消权限</p>
-<div class="highlight"><pre><span class="n">REVOKE</span> <span class="n">ALL</span>  <span class="n">ON</span>  <span class="n">mydb</span>   <span class="n">FROM</span> <span class="n">admin</span>
+<div class="highlight"><pre><span></span>REVOKE ALL  ON  mydb   FROM admin
 </pre></div>
 
 
 </li>
 <li>
 <p>查看权限</p>
-<div class="highlight"><pre><span class="n">SHOW</span> <span class="n">GRANTS</span> <span class="n">FOR</span> <span class="n">admin</span>
+<div class="highlight"><pre><span></span>SHOW GRANTS FOR admin
 </pre></div>
 
 
@@ -155,54 +154,54 @@ lostsummer.love            </a>
 </ul>
 <p><br /></p>
 <h2>打开认证</h2>
-<div class="highlight"><pre><span class="n">vi</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">influxdb</span><span class="o">/</span><span class="n">influxdb</span><span class="p">.</span><span class="n">conf</span>
+<div class="highlight"><pre><span></span>vi /etc/influxdb/influxdb.conf
 </pre></div>
 
 
 <p>把 [http] 标签下的 auth-enabled 选项值改为 true</p>
-<div class="highlight"><pre><span class="p">[</span><span class="n">http</span><span class="p">]</span>  
-<span class="n">enabled</span> <span class="o">=</span> <span class="nb">true</span>  
-<span class="n">bind</span><span class="o">-</span><span class="n">address</span> <span class="o">=</span> <span class="s">&quot;:8086&quot;</span>  
-<span class="n">auth</span><span class="o">-</span><span class="n">enabled</span> <span class="o">=</span> <span class="nb">true</span> 
-<span class="n">log</span><span class="o">-</span><span class="n">enabled</span> <span class="o">=</span> <span class="nb">true</span>  
-<span class="n">write</span><span class="o">-</span><span class="n">tracing</span> <span class="o">=</span> <span class="nb">false</span>  
-<span class="n">pprof</span><span class="o">-</span><span class="n">enabled</span> <span class="o">=</span> <span class="nb">false</span>  
-<span class="n">https</span><span class="o">-</span><span class="n">enabled</span> <span class="o">=</span> <span class="nb">false</span>  
-<span class="n">https</span><span class="o">-</span><span class="n">certificate</span> <span class="o">=</span> <span class="s">&quot;/etc/ssl/influxdb.pem&quot;</span>
+<div class="highlight"><pre><span></span>[http]  
+enabled = true  
+bind-address = &quot;:8086&quot;  
+auth-enabled = true 
+log-enabled = true  
+write-tracing = false  
+pprof-enabled = false  
+https-enabled = false  
+https-certificate = &quot;/etc/ssl/influxdb.pem&quot;
 </pre></div>
 
 
 <p>重启 InfluxDB</p>
 <p><strong>命令行 CLI 登录</strong></p>
-<div class="highlight"><pre><span class="err">$</span> <span class="n">influx</span> <span class="o">-</span><span class="n">username</span> <span class="n">admin</span> <span class="o">-</span><span class="n">password</span> <span class="n">admin</span>
-<span class="n">Connected</span> <span class="n">to</span> <span class="n">http</span><span class="o">:</span><span class="c1">//localhost:8086 version 0.13.x</span>
-<span class="n">InfluxDB</span> <span class="n">shell</span> <span class="mf">0.13</span><span class="p">.</span><span class="n">x</span>
-<span class="o">&gt;</span>
+<div class="highlight"><pre><span></span>$ influx -username admin -password admin
+Connected to http://localhost:8086 version <span class="m">0</span>.13.x
+InfluxDB shell <span class="m">0</span>.13.x
+&gt;
 </pre></div>
 
 
 <p>或者</p>
-<div class="highlight"><pre><span class="err">$</span> <span class="n">influx</span>
-<span class="n">Connected</span> <span class="n">to</span> <span class="n">http</span><span class="o">:</span><span class="c1">//localhost:8086 version 0.13.x</span>
-<span class="n">InfluxDB</span> <span class="n">shell</span> <span class="mf">0.13</span><span class="p">.</span><span class="n">x</span>
-<span class="o">&gt;</span> <span class="n">auth</span>
-<span class="nl">username:</span> <span class="n">admin</span>
-<span class="nl">password:</span>
-<span class="o">&gt;</span>
+<div class="highlight"><pre><span></span>$ influx
+Connected to http://localhost:8086 version <span class="m">0</span>.13.x
+InfluxDB shell <span class="m">0</span>.13.x
+&gt; auth
+username: admin
+password:
+&gt;
 </pre></div>
 
 
 <p><strong>HTTP API 查询的方式变为</strong></p>
-<div class="highlight"><pre><span class="n">curl</span> <span class="o">-</span><span class="n">G</span> <span class="s">&quot;http://localhost:8086/query&quot;</span> <span class="o">-</span><span class="n">u</span> <span class="n">admin</span><span class="o">:</span><span class="n">admin</span> <span class="o">--</span><span class="n">data</span><span class="o">-</span><span class="n">urlencode</span> <span class="s">&quot;q=SHOW DATABASES&quot;</span>
-<span class="n">curl</span> <span class="o">-</span><span class="n">G</span> <span class="s">&quot;http://localhost:8086/query&quot;</span> <span class="o">--</span><span class="n">data</span><span class="o">-</span><span class="n">urlencode</span> <span class="s">&quot;u=admin&quot;</span> <span class="o">--</span><span class="n">data</span><span class="o">-</span><span class="n">urlencode</span> <span class="s">&quot;p=admin&quot;</span> <span class="o">--</span><span class="n">data</span><span class="o">-</span><span class="n">urlencode</span> <span class="s">&quot;q=SHOW DATABASES&quot;</span>
-<span class="n">curl</span> <span class="o">-</span><span class="n">G</span> <span class="s">&quot;http://localhost:8086/query?u=admin&amp;p=admin&amp;q=SHOW+DATABASES&quot;</span>
+<div class="highlight"><pre><span></span>curl -G &quot;http://localhost:8086/query&quot; -u admin:admin --data-urlencode &quot;q=SHOW DATABASES&quot;
+curl -G &quot;http://localhost:8086/query&quot; --data-urlencode &quot;u=admin&quot; --data-urlencode &quot;p=admin&quot; --data-urlencode &quot;q=SHOW DATABASES&quot;
+curl -G &quot;http://localhost:8086/query?u=admin&amp;p=admin&amp;q=SHOW+DATABASES&quot;
 </pre></div>
 
 
 <p><br /></p>
 <h2>开启鉴权后如何写数据</h2>
 <p>使用insert命令行写数据：</p>
-<div class="highlight"><pre><span class="o">&gt;</span> <span class="n">INSERT</span> <span class="n">cpu_load_short</span><span class="p">,</span><span class="n">host</span><span class="o">=</span><span class="n">server01</span><span class="p">,</span><span class="n">region</span><span class="o">=</span><span class="n">us</span><span class="o">-</span><span class="n">west</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.64</span><span class="p">,</span><span class="n">value2</span><span class="o">=</span><span class="mf">0.86</span> <span class="mi">1434055562000000000</span>
+<div class="highlight"><pre><span></span>&gt; INSERT cpu_load_short,host=server01,region=us-west value=0.64,value2=0.86 1434055562000000000
 </pre></div>
 
 
@@ -210,21 +209,21 @@ lostsummer.love            </a>
 <ul>
 <li>
 <p>用户名密码写在 URL 中</p>
-<div class="highlight"><pre><span class="n">curl</span> <span class="o">-</span><span class="n">i</span> <span class="o">-</span><span class="n">X</span> <span class="n">POST</span> <span class="s">&quot;http://localhost:8086/write?db=mydb&amp;u=admin&amp;p=admin&quot;</span> <span class="o">--</span><span class="n">data</span><span class="o">-</span><span class="n">binary</span> <span class="s">&quot;cpu_load_short,host=server01,region=us-west value=0.64,value2=0.86 1434055562000000000&quot;</span>
+<div class="highlight"><pre><span></span>curl -i -X POST &quot;http://localhost:8086/write?db=mydb&amp;u=admin&amp;p=admin&quot; --data-binary &quot;cpu_load_short,host=server01,region=us-west value=0.64,value2=0.86 1434055562000000000&quot;
 </pre></div>
 
 
 </li>
 <li>
 <p>用户名密码写在 HTTP 头 Authorization 选项</p>
-<div class="highlight"><pre><span class="n">curl</span> <span class="o">-</span><span class="n">i</span> <span class="o">-</span><span class="n">X</span> <span class="n">POST</span> <span class="s">&quot;http://localhost:8086/write?db=mydb&quot;</span> <span class="o">-</span><span class="n">u</span> <span class="n">admin</span><span class="o">:</span><span class="n">admin</span> <span class="o">--</span><span class="n">data</span><span class="o">-</span><span class="n">binary</span> <span class="s">&quot;cpu_load_short,host=server01,region=us-west value=0.64,value2=0.86 1434055562000000000&quot;</span>
+<div class="highlight"><pre><span></span>curl -i -X POST &quot;http://localhost:8086/write?db=mydb&quot; -u admin:admin --data-binary &quot;cpu_load_short,host=server01,region=us-west value=0.64,value2=0.86 1434055562000000000&quot;
 </pre></div>
 
 
 </li>
 </ul>
 <p>除了命令关键字不同，数据部分基本相同，仅观察一下数据部分：</p>
-<div class="highlight"><pre><span class="n">cpu_load_short</span><span class="p">,</span><span class="n">host</span><span class="o">=</span><span class="n">server01</span><span class="p">,</span><span class="n">region</span><span class="o">=</span><span class="n">us</span><span class="o">-</span><span class="n">west</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.64</span><span class="p">,</span><span class="n">value2</span><span class="o">=</span><span class="mf">0.86</span> <span class="mi">1434055562000000000</span>
+<div class="highlight"><pre><span></span>cpu_load_short,host=server01,region=us-west value=0.64,value2=0.86 1434055562000000000
 </pre></div>
 
 
@@ -245,24 +244,24 @@ lostsummer.love            </a>
 </ul>
 <p>第一种写数据方式
 产生 HTTP 包(使用 Chrome 插件 Postman 生成)</p>
-<div class="highlight"><pre><span class="n">POST</span> <span class="o">/</span><span class="n">write</span><span class="o">?</span><span class="n">db</span><span class="o">=</span><span class="n">mydb</span> <span class="n">HTTP</span><span class="o">/</span><span class="mf">1.1</span>
-<span class="nl">Host:</span> <span class="mf">192.168.6.93</span><span class="o">:</span><span class="mi">8086</span>
-<span class="nl">Authorization:</span> <span class="n">Basic</span> <span class="n">YWRtaW46YWRtaW4</span><span class="o">=</span>
-<span class="n">Cache</span><span class="o">-</span><span class="n">Control</span><span class="o">:</span> <span class="n">no</span><span class="o">-</span><span class="n">cache</span>
-<span class="n">Postman</span><span class="o">-</span><span class="n">Token</span><span class="o">:</span> <span class="n">d3ce583a</span><span class="o">-</span><span class="mf">1e11</span><span class="o">-</span><span class="mi">63</span><span class="n">ec</span><span class="o">-</span><span class="n">a818</span><span class="o">-</span><span class="mo">034</span><span class="n">aeaa91f10</span>
+<div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/write?db=mydb</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">192.168.6.93:8086</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Basic YWRtaW46YWRtaW4=</span>
+<span class="na">Cache-Control</span><span class="o">:</span> <span class="l">no-cache</span>
+<span class="na">Postman-Token</span><span class="o">:</span> <span class="l">d3ce583a-1e11-63ec-a818-034aeaa91f10</span>
 
-<span class="n">cpu_load_short</span><span class="p">,</span><span class="n">host</span><span class="o">=</span><span class="n">server01</span><span class="p">,</span><span class="n">region</span><span class="o">=</span><span class="n">us</span><span class="o">-</span><span class="n">west</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.64</span><span class="p">,</span><span class="n">value2</span><span class="o">=</span><span class="mf">0.86</span> <span class="mi">1434055565000000000</span>
+cpu_load_short,host=server01,region=us-west value=0.64,value2=0.86 1434055565000000000
 </pre></div>
 
 
 <p>第二种写数据方式
 产生 HTTP 包</p>
-<div class="highlight"><pre><span class="n">POST</span> <span class="o">/</span><span class="n">write</span><span class="o">?</span><span class="n">db</span><span class="o">=</span><span class="n">mydb</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">u</span><span class="o">=</span><span class="n">admin</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">p</span><span class="o">=</span><span class="n">admin</span> <span class="n">HTTP</span><span class="o">/</span><span class="mf">1.1</span>
-<span class="nl">Host:</span> <span class="mf">192.168.6.93</span><span class="o">:</span><span class="mi">8086</span>
-<span class="n">Cache</span><span class="o">-</span><span class="n">Control</span><span class="o">:</span> <span class="n">no</span><span class="o">-</span><span class="n">cache</span>
-<span class="n">Postman</span><span class="o">-</span><span class="n">Token</span><span class="o">:</span> <span class="mf">6773f</span><span class="mi">66</span><span class="n">a</span><span class="o">-</span><span class="n">de4c</span><span class="o">-</span><span class="mi">435</span><span class="n">d</span><span class="o">-</span><span class="mi">6469</span><span class="o">-</span><span class="mi">0</span><span class="n">a1194752a86</span>
+<div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/write?db=mydb&amp;amp;u=admin&amp;amp;p=admin</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">192.168.6.93:8086</span>
+<span class="na">Cache-Control</span><span class="o">:</span> <span class="l">no-cache</span>
+<span class="na">Postman-Token</span><span class="o">:</span> <span class="l">6773f66a-de4c-435d-6469-0a1194752a86</span>
 
-<span class="n">cpu_load_short</span><span class="p">,</span><span class="n">host</span><span class="o">=</span><span class="n">server01</span><span class="p">,</span><span class="n">region</span><span class="o">=</span><span class="n">us</span><span class="o">-</span><span class="n">west</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.64</span><span class="p">,</span><span class="n">value2</span><span class="o">=</span><span class="mf">0.86</span> <span class="mi">1434055565000000000</span>
+cpu_load_short,host=server01,region=us-west value=0.64,value2=0.86 1434055565000000000
 </pre></div>
 
 
@@ -350,24 +349,24 @@ lostsummer.love            </a>
                             InfluxDB
                         </a>
                     </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://lostsummer.github.io/tag/python.html">
-                            Python
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://lostsummer.github.io/tag/collectd.html">
-                            CollectD
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
+                    <li class="list-group-item tag-5">
                         <a href="http://lostsummer.github.io/tag/grafana.html">
                             Grafana
                         </a>
                     </li>
-                    <li class="list-group-item tag-4">
+                    <li class="list-group-item tag-5">
                         <a href="http://lostsummer.github.io/tag/git.html">
                             Git
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-5">
+                        <a href="http://lostsummer.github.io/tag/collectd.html">
+                            CollectD
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-5">
+                        <a href="http://lostsummer.github.io/tag/python.html">
+                            Python
                         </a>
                     </li>
                 </ul>
@@ -399,7 +398,7 @@ lostsummer.love            </a>
    <div class="container">
       <hr>
       <div class="row">
-         <div class="col-xs-10">&copy; 2016 Yushin
+         <div class="col-xs-10">&copy; 2016 lostsummer
             &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
             <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
             <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
