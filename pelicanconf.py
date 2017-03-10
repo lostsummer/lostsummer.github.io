@@ -2,18 +2,27 @@
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
 
-AUTHOR = 'Yushin'
-SITENAME = 'lostsummer.love'
+AUTHOR = 'lostsummer'
+SITENAME = 'LOST IN CODE'
 SITEURL = ''
 
 PATH = 'content'
 PLUGIN_PATHS = ['pelican-plugins']
-PLUGINS = ["tag_cloud"]
+FAVICON = 'images/favicon.ico'
+#SITELOGO = 'images/logo.jpeg'
+#SITELOGO_SIZE = 20
+#HIDE_SITENAME = True
+DISPLAY_PAGES_ON_MENU = True
+DISPLAY_CATEGORIES_ON_MENU = False
+USE_FOLDER_AS_CATEGORY = False
+DEFAULT_CATEGORY = 'Tech'
+PLUGINS = ['tag_cloud']
 DISPLAY_TAGS_ON_SIDEBAR = True
-TAG_CLOUD_STEPS = 4
+TAG_CLOUD_STEPS = 5
 TAG_CLOUD_MAX_ITEMS = 30
 TAG_CLOUD_SORTING = 'random'
 TAG_CLOUD_BADGE = True
+#DISPLAY_TAGS_INLINE = True
 TAGS_URL='tags.html'
 DISPLAY_RECENT_POSTS_ON_SIDEBAR = True
 
@@ -22,6 +31,8 @@ TIMEZONE = 'Asia/Shanghai'
 
 DEFAULT_LANG = 'zh'
 
+SUMMARY_MAX_LENGTH = None
+2
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
 CATEGORY_FEED_ATOM = None
@@ -36,6 +47,9 @@ DISQUS_SITENAME = 'lostsummer'
 # Blogroll
 LINKS = (('yushin.wang', 'http://yushin.wang/'),
          )
+
+# Code syntax
+PYGMENTS_STYLE = 'zenburn'
 
 # Social widget
 SOCIAL = (('github', 'https://github.com/lostsummer'),
