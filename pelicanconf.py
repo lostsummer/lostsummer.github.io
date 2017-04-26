@@ -13,7 +13,7 @@ FAVICON = 'images/favicon.ico'
 #SITELOGO_SIZE = 20
 #HIDE_SITENAME = True
 DISPLAY_PAGES_ON_MENU = True
-DISPLAY_CATEGORIES_ON_MENU = False
+DISPLAY_CATEGORIES_ON_MENU = True
 USE_FOLDER_AS_CATEGORY = False
 DEFAULT_CATEGORY = 'Tech'
 PLUGINS = ['tag_cloud']
@@ -45,8 +45,10 @@ GITHUB_USER = 'lostsummer'
 DISQUS_SITENAME = 'lostsummer'
 
 # Blogroll
-LINKS = (('yushin.wang', 'http://yushin.wang/'),
-         )
+LINKS = (
+          ('Family Blog', 'http://1984.love/'),
+          ('Personal Wiki', 'http://wiki.lostsummer.love/'),
+        )
 
 # Code syntax
 PYGMENTS_STYLE = 'zenburn'
