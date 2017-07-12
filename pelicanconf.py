@@ -31,7 +31,7 @@ TIMEZONE = 'Asia/Shanghai'
 
 DEFAULT_LANG = 'zh'
 
-SUMMARY_MAX_LENGTH = None
+SUMMARY_MAX_LENGTH = 0
 2
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
@@ -41,13 +41,13 @@ AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 THEME = 'pelican-themes/pelican-bootstrap3'
 
-GITHUB_USER = 'lostsummer'
+#GITHUB_USER = 'lostsummer'
 DISQUS_SITENAME = 'lostsummer'
 
 # Blogroll
 LINKS = (
-          ('Family Blog', 'http://1984.love/'),
-          ('Personal Wiki', 'http://wiki.lostsummer.love/'),
+          ('我的生活博客', 'http://1984.love/'),
+          ('MY WIKI', 'http://wiki.lostsummer.love/'),
         )
 
 # Code syntax
