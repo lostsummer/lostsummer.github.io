@@ -15,7 +15,7 @@ FAVICON = 'images/favicon.ico'
 DISPLAY_PAGES_ON_MENU = True
 DISPLAY_CATEGORIES_ON_MENU = True
 USE_FOLDER_AS_CATEGORY = False
-DEFAULT_CATEGORY = '新知'
+DEFAULT_CATEGORY = 'Learning'
 PLUGINS = ['tag_cloud']
 DISPLAY_TAGS_ON_SIDEBAR = True
 TAG_CLOUD_STEPS = 5
@@ -46,7 +46,7 @@ DISQUS_SITENAME = 'lostsummer'
 
 # Blogroll
 LINKS = (
-          ('我的生活博客', 'http://1984.love/'),
+          ('MY LIFE BLOG', 'http://1984.love/'),
           ('MY WIKI', 'http://wiki.lostsummer.love/'),
         )
 
