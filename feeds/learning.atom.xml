@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>LOST IN CODE - Tech</title><link href="http://lostsummer.github.io/" rel="alternate"></link><link href="http://lostsummer.github.io/feeds/tech.atom.xml" rel="self"></link><id>http://lostsummer.github.io/</id><updated>2018-03-30T00:00:00+08:00</updated><entry><title>我在Linux环境创建私有Go项目环境的方法</title><link href="http://lostsummer.github.io/201803301025.html" rel="alternate"></link><published>2018-03-30T00:00:00+08:00</published><updated>2018-03-30T00:00:00+08:00</updated><author><name>Yushin</name></author><id>tag:lostsummer.github.io,2018-03-30:/201803301025.html</id><summary type="html"></summary><content type="html">&lt;p&gt;初次开发构建Go项目的朋友可能对如果创建一个干净独立的项目环境有些疑惑，这里介绍一下个人经验。&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>LOST IN CODE - Learning</title><link href="http://lostsummer.github.io/" rel="alternate"></link><link href="http://lostsummer.github.io/feeds/learning.atom.xml" rel="self"></link><id>http://lostsummer.github.io/</id><updated>2018-03-30T00:00:00+08:00</updated><entry><title>我在Linux环境创建私有Go项目环境的方法</title><link href="http://lostsummer.github.io/201803301025.html" rel="alternate"></link><published>2018-03-30T00:00:00+08:00</published><updated>2018-03-30T00:00:00+08:00</updated><author><name>Yushin</name></author><id>tag:lostsummer.github.io,2018-03-30:/201803301025.html</id><summary type="html"></summary><content type="html">&lt;p&gt;初次开发构建Go项目的朋友可能对如果创建一个干净独立的项目环境有些疑惑，这里介绍一下个人经验。&lt;/p&gt;
 &lt;h1&gt;前提&lt;/h1&gt;
 &lt;ol&gt;
 &lt;li&gt;你安装配置好了golang编译器&lt;/li&gt;
@@ -163,4 +163,4 @@ git push ...
 cd src/MonitorPlat
 git submodule update
 govender sync
-&lt;/pre&gt;&lt;/div&gt;</content><category term="Go Linux"></category></entry></feed>
+&lt;/pre&gt;&lt;/div&gt;</content><category term="Go"></category><category term="Linux"></category></entry></feed>
