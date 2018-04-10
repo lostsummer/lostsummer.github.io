@@ -2,47 +2,41 @@
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
 
-AUTHOR = 'lostsummer'
-SITENAME = 'LOST IN CODE'
+AUTHOR = u'lostsummer'
+SITENAME = u'# kill -1'
 SITEURL = ''
 
 PATH = 'content'
-PLUGIN_PATHS = ['pelican-plugins']
+PLUGIN_PATHS = ['plugins']
+STATIC_PATHS = ['images', 'extra']
 FAVICON = 'images/favicon.ico'
-#SITELOGO = 'images/logo.jpeg'
-#SITELOGO_SIZE = 20
-#HIDE_SITENAME = True
-DISPLAY_PAGES_ON_MENU = True
-DISPLAY_CATEGORIES_ON_MENU = True
+SITELOGO = 'images/logo.jpeg'
+SITELOGO_SIZE = 20
 USE_FOLDER_AS_CATEGORY = False
 DEFAULT_CATEGORY = 'Learning'
-PLUGINS = ['tag_cloud']
-DISPLAY_TAGS_ON_SIDEBAR = True
-TAG_CLOUD_STEPS = 5
-TAG_CLOUD_MAX_ITEMS = 30
-TAG_CLOUD_SORTING = 'random'
-TAG_CLOUD_BADGE = True
-#DISPLAY_TAGS_INLINE = True
-TAGS_URL='tags.html'
-DISPLAY_RECENT_POSTS_ON_SIDEBAR = True
+PLUGINS = ['extract_toc']
+DISPLAY_TAGS_ON_MENU = True
+DISPLAY_PAGES_ON_MENU = False
+DISPLAY_RECENT_POSTS_ON_MENU = True
+EXPAND_LATEST_ON_INDEX = True
 
 
 TIMEZONE = 'Asia/Shanghai'
 
 DEFAULT_LANG = 'zh'
 
-SUMMARY_MAX_LENGTH = 0
-2
+SUMMARY_MAX_LENGTH = 5
+
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
 CATEGORY_FEED_ATOM = None
 TRANSLATION_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
-THEME = 'pelican-themes/pelican-bootstrap3'
+THEME = 'themes/pelican-twitchy'
 
-#GITHUB_USER = 'lostsummer'
 DISQUS_SITENAME = 'lostsummer'
+DISQUS_LOAD_LATER = True
 
 # Blogroll
 LINKS = (
@@ -51,19 +45,36 @@ LINKS = (
         )
 
 # Code syntax
-PYGMENTS_STYLE = 'zenburn'
+PYGMENTS_STYLE = 'monokai'
+BOOTSTRAP_THEME = 'slate'
+SHARE = True
+CUSTOM_CSS = "extra/custom.css"
 
 # Social widget
 SOCIAL = (('github', 'https://github.com/lostsummer'),
         ('google+','https://plus.google.com/+FisherWong'),
         ('twitter','https://twitter.com/lostsummer'),
-        ('facebook', 'https://www.facebook.com/fisher.wong.3'),)
+        ('facebook', 'https://www.facebook.com/fisher.wong.3'),
+        ('Email', 'mailto:lostsummer=at=gmail.com'))
 
-DEFAULT_PAGINATION = 10
+DEFAULT_PAGINATION = False
+
+TYPOGRIFY = True
+
+MARKDOWN = {
+    'extension_configs': {
+        'markdown.extensions.codehilite': {
+            'css_class': 'highlight',
+            'linenums': False
+        },
+        'markdown.extensions.extra': {},
+        'markdown.extensions.fenced_code': {},
+        'markdown.extensions.toc': {
+            'anchorlink': True
+        },
+    }
+}
 
 # Uncomment following line if you want document-relative URLs when developing
-#RELATIVE_URLS = True
+RELATIVE_URLS = True
 
-JINJA_ENVIRONMENT = {'extensions': ['jinja2.ext.i18n']}
-PLUGIN_PATHS = ['pelican-plugins']
-PLUGINS = ['i18n_subsites', 'extract_toc']
