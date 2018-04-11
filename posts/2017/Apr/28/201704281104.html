@@ -1,21 +1,21 @@
 
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="Yushin" />
-        <meta name="keywords" content="Go,Linux" />
-        <meta name="description" content="初次开发构建Go项目的朋友可能对如果创建一个干净独立的项目环境有些疑惑，这里介绍一下个人经验。 前提 你安装配置好了golang编译器 你懂得配置GOPATH …" />
+        <meta name="keywords" content="markdown" />
+        <meta name="description" content="使用 markdown 很久了，很喜欢用 markdown 记笔记写 wiki，不仅使文章排版呈现更美观和统一，也使写作过程中的思维更加简洁和条理清晰。 Google 下 markdown，安利它的文章，教程，工具推荐都不少，不赘述。程序员们喜欢它大概因为用 markdown 语法写作像程序从 source 到 output 的编译过程，控制代码和效果呈现分离。像 Word 这样表面强大功能丰富的“所见即所得”工具，对于程序员来说其实难用，因为它总是自作聪明地替你做些你不需要的事，要把它配置的服帖也是要花一番功夫的。而很多人使用 Word 的方式只管看上去差不多，但连正确的大纲都不能生成，这在强迫症看来真的无法忍受。 所以我建议所有人都尝试用 markdown 写作，你明确自己对 source 的控制，才更清楚 output 了什么，这可能不仅仅是排版呈现的问题，也是思维重新整理的过程。Markdown 被 …" />
 
 
-    <title>我在Linux环境创建私有Go项目环境的方法 - # kill -1</title>
+    <title>Markdown Source - $ kill -1</title>
 
-        <link rel="stylesheet" href="http://lostsummer.github.io/theme/css/bootstrap.slate.min.css" type="text/css"/>
+        <link rel="stylesheet" href="http://lostsummer.github.io/theme/css/bootstrap.paper.min.css" type="text/css"/>
 
     <link href="http://lostsummer.github.io/theme/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="http://lostsummer.github.io/theme/css/pygments/monokai.css" rel="stylesheet" />
+    <link href="http://lostsummer.github.io/theme/css/pygments/manni.css" rel="stylesheet" />
     
         <link href="http://lostsummer.github.io/theme/css/typogrify.css" rel="stylesheet" />
     <link href="http://lostsummer.github.io/theme/css/pelican-twitchy.min.css" rel="stylesheet" />
@@ -29,7 +29,7 @@
     
     <!-- Feeds -->
         <link href="http://lostsummer.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
-              title="# kill -1 ATOM Feed" />
+              title="$ kill -1 ATOM Feed" />
         <link href="http://lostsummer.github.io/extra/custom.css" rel="stylesheet" />
 </head>
 <body data-spy="scroll" data-target="#scrollspy">
@@ -38,7 +38,7 @@
         <div id="sidebar-wrapper-small" class="twitchy-background">
             <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
                 <li>
-        <a href="http://lostsummer.github.io" title="# kill -1" class="collapsed">
+        <a href="http://lostsummer.github.io" title="$ kill -1" class="collapsed">
             <span class="glyphicon glyphicon-home"></span>
         </a>
     </li>
@@ -57,12 +57,12 @@
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-share-small" class="collapse ">
                     <li>
-                        <a href="https://www.facebook.com/sharer/sharer.php?u=http://lostsummer.github.io/201803301025.html" title="Share via Facebook" target="popup">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=http://lostsummer.github.io/posts/2017/Apr/28/201704281104.html" title="Share via Facebook" target="popup">
                             <i class="fa fa-facebook-square padding-small"></i>
                         </a>
                     </li>
                     <li>
-                        <a href="https://plus.google.com/share?url=http://lostsummer.github.io/201803301025.html" title="Share via Google+" target="popup">
+                        <a href="https://plus.google.com/share?url=http://lostsummer.github.io/posts/2017/Apr/28/201704281104.html" title="Share via Google+" target="popup">
                             <i class="fa fa-google-plus padding-small"></i>
                         </a>
                     </li>
@@ -80,7 +80,7 @@
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-social-small" class="collapse ">
                     <li>
-                        <a href="mailto:lostsummer=at=gmail.com" title="Email"><i class="fa fa-envelope-square fa-lg padding-small"></i></a>
+                        <a href="mailto:lostsummer@gmail.com" title="Email"><i class="fa fa-envelope-square fa-lg padding-small"></i></a>
                     </li>
                     <li>
                         <a href="https://www.facebook.com/fisher.wong.3" title="facebook"><i class="fa fa-facebook-square fa-lg padding-small"></i></a>
@@ -107,8 +107,8 @@
             <ul id="accordion" class="sidebar-nav">
                 <li class="sidebar-brand">
                     <a href="http://lostsummer.github.io/">
-<img src="http://lostsummer.github.io/images/logo.jpeg" width="20" alt="Sitelogo"/>                             <span class="glyphicon glyphicon-home padding-small"></span>
-                            # kill -1
+                            <span class="glyphicon glyphicon-home padding-small"></span>
+                            $ kill -1
                     </a>
                 </li>
                     <li class="nav-divider"></li>
@@ -120,25 +120,25 @@
                     </li>
                     <li class="panel anti-panel"><ul id="collapse-latest" class="sidebar_submenu collapse in">
                         <li class="">
-                            <a class="hide-overflow" href="http://lostsummer.github.io/201804091040.html" title="容器监控方案选型">
+                            <a class="hide-overflow" href="http://lostsummer.github.io/posts/2018/Apr/09/201804091040.html" title="容器监控方案选型">
                                 <i class="fa fa-file-text padding-small"></i>
                                 容器监控方案选型
                             </a>
                         </li>
-                        <li class="active">
-                            <a class="hide-overflow" href="http://lostsummer.github.io/201803301025.html" title="我在Linux环境创建私有Go项目环境的方法">
+                        <li class="">
+                            <a class="hide-overflow" href="http://lostsummer.github.io/posts/2018/Mar/30/201803301025.html" title="我在Linux环境创建私有Go项目环境的方法">
                                 <i class="fa fa-file-text padding-small"></i>
                                 我在Linux环境创建私有Go项目环境的方法
                             </a>
                         </li>
-                        <li class="">
-                            <a class="hide-overflow" href="http://lostsummer.github.io/201704281104.html" title="Markdown Source">
+                        <li class="active">
+                            <a class="hide-overflow" href="http://lostsummer.github.io/posts/2017/Apr/28/201704281104.html" title="Markdown Source">
                                 <i class="fa fa-file-text padding-small"></i>
                                 Markdown Source
                             </a>
                         </li>
                         <li class="">
-                            <a class="hide-overflow" href="http://lostsummer.github.io/201604282215.html" title="第一篇 github pages 文章">
+                            <a class="hide-overflow" href="http://lostsummer.github.io/posts/2016/Apr/28/201604282215.html" title="第一篇 github pages 文章">
                                 <i class="fa fa-file-text padding-small"></i>
                                 第一篇 github pages 文章
                             </a>
@@ -159,13 +159,13 @@
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-share" class="sidebar_submenu collapse ">
                     <li>
-                        <a href="https://www.facebook.com/sharer/sharer.php?u=http://lostsummer.github.io/201803301025.html" target="popup">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=http://lostsummer.github.io/posts/2017/Apr/28/201704281104.html" target="popup">
                             <i class="fa fa-facebook-square padding-small"></i>
                             Facebook
                         </a>
                     </li>
                     <li>
-                        <a href="https://plus.google.com/share?url=http://lostsummer.github.io/201803301025.html" target="popup">
+                        <a href="https://plus.google.com/share?url=http://lostsummer.github.io/posts/2017/Apr/28/201704281104.html" target="popup">
                             <i class="fa fa-google-plus padding-small"></i>
                             Google+
                         </a>
@@ -186,7 +186,7 @@
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-social" class="sidebar_submenu collapse ">
                     <li>
-                        <a href="mailto:lostsummer=at=gmail.com" title="Email">
+                        <a href="mailto:lostsummer@gmail.com" title="Email">
                             <i class="fa fa-envelope-square fa-lg padding-small"></i>
                             Email
                         </a>
@@ -226,14 +226,14 @@
                     </a>
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
-                    <li class="active">
+                    <li >
                         <a href="http://lostsummer.github.io/category/learning.html">
                             <i class="fa fa-folder-open padding-small"></i>
                             Learning
                             <span class="badge pull-right categorybadge">2</span>
                         </a>
                     </li>
-                    <li >
+                    <li class="active">
                         <a href="http://lostsummer.github.io/category/recommendation.html">
                             <i class="fa fa-folder-open padding-small"></i>
                             Recommendation
@@ -250,6 +250,46 @@
                     </a>
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-tags" class="sidebar_submenu collapse ">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f61812e3f60>]">
+                        <a href="http://lostsummer.github.io/tag/docker.html">
+                            Docker
+                        </a>
+                    </li>
+                    <li class="tag-[<pelican.contents.Article object at 0x7f61812e3f60>]">
+                        <a href="http://lostsummer.github.io/tag/prometheus.html">
+                            Prometheus
+                        </a>
+                    </li>
+                    <li class="tag-[<pelican.contents.Article object at 0x7f61812e3f60>]">
+                        <a href="http://lostsummer.github.io/tag/influxdb.html">
+                            InfluxDB
+                        </a>
+                    </li>
+                    <li class="tag-[<pelican.contents.Article object at 0x7f61830ec860>]">
+                        <a href="http://lostsummer.github.io/tag/go.html">
+                            Go
+                        </a>
+                    </li>
+                    <li class="tag-[<pelican.contents.Article object at 0x7f61830ec860>]">
+                        <a href="http://lostsummer.github.io/tag/linux.html">
+                            Linux
+                        </a>
+                    </li>
+                    <li class="tag-[<pelican.contents.Article object at 0x7f61830d89e8>]">
+                        <a href="http://lostsummer.github.io/tag/markdown.html">
+                            markdown
+                        </a>
+                    </li>
+                    <li class="tag-[<pelican.contents.Article object at 0x7f61862766d8>]">
+                        <a href="http://lostsummer.github.io/tag/python.html">
+                            Python
+                        </a>
+                    </li>
+                    <li class="tag-[<pelican.contents.Article object at 0x7f61862766d8>]">
+                        <a href="http://lostsummer.github.io/tag/git.html">
+                            Git
+                        </a>
+                    </li>
                 </ul></li>
             </ul>
         </div>
@@ -270,24 +310,24 @@
             <div class="col-lg-9">
                 <header class="page-header">
                     <h1>
-                        <a href="http://lostsummer.github.io/201803301025.html"
+                        <a href="http://lostsummer.github.io/posts/2017/Apr/28/201704281104.html"
                            rel="bookmark"
-                           title="Permalink to 我在Linux环境创建私有Go项目环境的方法">
-                            我在Linux环境创建私有Go项目环境的方法
+                           title="Permalink to Markdown Source">
+                            Markdown&nbsp;Source
                         </a>
                         <small>
 <div class="post-info">
     <div class="publish-info-block">
         <small>
             <span class="published">
-                <i class="fa fa-calendar padding-small"></i><time datetime="2018-03-30T00:00:00+08:00"> Fri 30 March 2018</time>
+                <i class="fa fa-calendar padding-small"></i><time datetime="2017-04-28T00:00:00+08:00"> Fri 28 April 2017</time>
             </span>
             <span class="category">
-                <i class="fa fa-folder-open padding-small"></i><a href="http://lostsummer.github.io/category/learning.html">Learning</a>
+                <i class="fa fa-folder-open padding-small"></i><a href="http://lostsummer.github.io/category/recommendation.html">Recommendation</a>
             </span>
             <span class="tags">
                 <i class="fa fa-tags padding-small"></i>
-                <a href="http://lostsummer.github.io/tag/go.html">Go</a> /                 <a href="http://lostsummer.github.io/tag/linux.html">Linux</a>            </span>
+                <a href="http://lostsummer.github.io/tag/markdown.html">markdown</a>            </span>
         </small>
     </div>
 </div><!-- /.post-info -->                        </small>
@@ -298,152 +338,18 @@
         <div class="row">
             <div class="col-lg-9">
                 <div class="entry-content">
-                    
-<p>初次开发构建Go项目的朋友可能对如果创建一个干净独立的项目环境有些疑惑，这里介绍一下个人经验。</p>
-<h1 id="_1"><a class="toclink" href="#_1">前提</a></h1>
-<ol>
-<li>你安装配置好了golang编译器</li>
-<li>你懂得配置GOPATH，了解GO开发环境的目录结构</li>
-</ol>
-<h1 id="_2"><a class="toclink" href="#_2">主要问题及解决手段概述</a></h1>
-<ol>
-<li>隔离的开发环境。通过覆盖GOPATH环境变量解决。</li>
-<li>三方依赖库的项目隔离。通过vendor机制。</li>
-<li>三方库版本依赖。通过govendor工具。</li>
-<li>golang.org/ 包不能直接go get的问题。通过github镜像解决。</li>
-</ol>
-<h1 id="_3"><a class="toclink" href="#_3">步骤</a></h1>
-<h2 id="_4"><a class="toclink" href="#_4">工具安装</a></h2>
-<p>govendor</p>
-<p>具体使用方法见项目主页：https://github.com/kardianos/govendor</p>
-<p>安装：</p>
-<p>go get -u github.com/kardianos/govendor</p>
-<p>该命令会将govender安装在你默认配置的的\$<span class="caps">GOPATH</span>/bin目录下，通常你已经将这个目录配置到了环境变量PATH中。</p>
-<h2 id="_5"><a class="toclink" href="#_5">从一个实例开始</a></h2>
-<p>已有的所有项目地址：http://git.emoney.cn/monitor/monitorplat.git
-代码包导入路径：MonitorPlat/oneagent, MonitorPlat/onedistribute, … (该项目由多个程序组成)</p>
-<h3 id="_6"><a class="toclink" href="#_6">创建目录结构</a></h3>
-<div class="highlight"><pre><span></span>mkdir -p dev_projects/src/MonitorPlat
-</pre></div>
-<h3 id="_7"><a class="toclink" href="#_7">迁出代码</a></h3>
-<div class="highlight"><pre><span></span>cd dev_projects
-git clone http://git.emoney.cn/monitor/monitorplat.git src/MonitorPlat
-</pre></div>
-<h2 id="_8"><a class="toclink" href="#_8">环境隔离</a></h2>
-<p>为了和.bashrc中配置的\$GOPATH隔离，需要在dev_projects下运行：</p>
-<div class="highlight"><pre><span></span>export GOPATH=$(pwd)
-</pre></div>
-<p>为了使用方便，可以写两个脚本</p>
-<p>env_activate.sh</p>
-<div class="highlight"><pre><span></span>CURDIR=`pwd`
-OLDGOPATH="$GOPATH"
-export GOPATH="$CURDIR"
-</pre></div>
-<p>env_deactivate.sh</p>
-<div class="highlight"><pre><span></span>export GOPATH=$OLDGOPATH
-</pre></div>
-<p>这样你可以通过</p>
-<div class="highlight"><pre><span></span>source env_activate.sh
-</pre></div>
-<p>和</p>
-<div class="highlight"><pre><span></span>source env_deactivate.sh
-</pre></div>
-<p>来切换</p>
-<h3 id="vendor"><a class="toclink" href="#vendor">vendor 初始化</a></h3>
-<div class="highlight"><pre><span></span>cd src/MonitorPlat
-govendor init
-</pre></div>
-<h3 id="githubgolangorg"><a class="toclink" href="#githubgolangorg">从github镜像获取golang.org依赖包</a></h3>
-<p>首先可以在Monitor目录下用命令看到项目所有依赖包</p>
-<div class="highlight"><pre><span></span>govendor list
-
-...
-  m golang.org/x/net/context
-  m golang.org/x/net/context/ctxhttp
-  m golang.org/x/net/websocket
-  m golang.org/x/text/cases
-  m golang.org/x/text/encoding
-  m golang.org/x/text/encoding/charmap
-  m golang.org/x/text/encoding/internal
-  m golang.org/x/text/encoding/internal/enctest
-  m golang.org/x/text/encoding/internal/identifier
-  m golang.org/x/text/encoding/simplifiedchinese
-  m golang.org/x/text/encoding/unicode
-  m golang.org/x/text/internal
-  m golang.org/x/text/internal/gen
-  m golang.org/x/text/internal/language
-  m golang.org/x/text/internal/language/compact
-  m golang.org/x/text/internal/tag
-  m golang.org/x/text/internal/testtext
-  m golang.org/x/text/internal/ucd
-  m golang.org/x/text/internal/utf8internal
-  m golang.org/x/text/language
-  m golang.org/x/text/runes
-  m golang.org/x/text/transform
-  m golang.org/x/text/unicode/cldr
-  m golang.org/x/text/unicode/norm
-  m golang.org/x/text/unicode/rangetable
-  m golang.org/x/text/width
-  m github.com/devfeel/dottask
-  m github.com/devfeel/dotweb
-  m github.com/devfeel/dotweb/cache
-  m github.com/devfeel/dotweb/cache/redis
-  m github.com/devfeel/dotweb/cache/runtime
-  m github.com/devfeel/dotweb/config
-  m github.com/devfeel/dotweb/const
-  m github.com/devfeel/dotweb/core
-  m github.com/devfeel/dotweb/feature
-  m github.com/devfeel/dotweb/framework/convert
-  m github.com/devfeel/dotweb/framework/crypto
-  m github.com/devfeel/dotweb/framework/crypto/uuid
-  m github.com/devfeel/dotweb/framework/encodes/gob
-  m github.com/devfeel/dotweb/framework/exception
-  m github.com/devfeel/dotweb/framework/file
-  m github.com/devfeel/dotweb/framework/json
-  m github.com/devfeel/dotweb/framework/redis
-  m github.com/devfeel/dotweb/framework/reflects
-  m github.com/devfeel/dotweb/logger
-  m github.com/devfeel/dotweb/servers
-  m github.com/devfeel/dotweb/session
-  m github.com/devfeel/dotweb/test
-  m github.com/garyburd/redigo/internal
-  m github.com/garyburd/redigo/redis
-  m github.com/influxdata/influxdb/client/v2
-  m github.com/influxdata/influxdb/models
-  m github.com/influxdata/influxdb/pkg/escape
-</pre></div>
-<p>其中行首 m 标识的，是目前环境缺少的包。从 golang.org 的依赖主要是 x/net 和 x/text 两部分。</p>
-<p>vendor 目录中创建 golang.org/x 目录</p>
-<div class="highlight"><pre><span></span>mkdir -p vendor/golang.org/x
-</pre></div>
-<p>项目子模块添加</p>
-<div class="highlight"><pre><span></span>git submodule add https://github.com/golang/net.git vendor/golang.org/x/net
-git submodule add https://github.com/golang/text.git vendor/golang.org/x/text
-</pre></div>
-<h3 id="_9"><a class="toclink" href="#_9">获取其他依赖包</a></h3>
-<p>可以简单的通过一个命令</p>
-<div class="highlight"><pre><span></span>govendor fetch +m
-</pre></div>
-<h3 id="git"><a class="toclink" href="#git">git 追踪</a></h3>
-<div class="highlight"><pre><span></span>git add vendor/vendor.json
-git commit ...
-git push ...
-</pre></div>
-<h3 id="_10"><a class="toclink" href="#_10">新位置使用</a></h3>
-<p>git submodule 已经把vendor/golang.org 下的项目版本记住
-其他的包，vendor.json 记录了版本。</p>
-<p>commit 并提交到远程库后，在新的位置迁出后</p>
-<div class="highlight"><pre><span></span>export GOPATH=$(pwd)
-cd src/MonitorPlat
-git submodule update
-govender sync
-</pre></div>
+                    <p>使用 markdown 很久了，很喜欢用 markdown 记笔记写&nbsp;wiki，不仅使文章排版呈现更美观和统一，也使写作过程中的思维更加简洁和条理清晰。</p>
+<p>Google  下 markdown，安利它的文章，教程，工具推荐都不少，不赘述。程序员们喜欢它大概因为用 markdown 语法写作像程序从 source 到 output 的编译过程，控制代码和效果呈现分离。像 Word 这样表面强大功能丰富的“所见即所得”工具，对于程序员来说其实难用，因为它总是自作聪明地替你做些你不需要的事，要把它配置的服帖也是要花一番功夫的。而很多人使用 Word&nbsp;的方式只管看上去差不多，但连正确的大纲都不能生成，这在强迫症看来真的无法忍受。</p>
+<p>所以我建议所有人都尝试用 markdown 写作，你明确自己对 source 的控制，才更清楚 output 了什么，这可能不仅仅是排版呈现的问题，也是思维重新整理的过程。Markdown 被 github 使用，被 Wordpress 支持。新的开源项目的 <span class="caps">README</span> 文件都是 .md 而不再是 .rst 了。Markdown 成功的最重要一点就是简单，把握核心，其他特性可以交给各自得 markdown&nbsp;方言。</p>
+<p>我用为知笔记，他是几大笔记软件里最早支持 markdown 的，现在有道云笔记的 markdown 功能做的更好，但为知笔记开发源码，可以自己编译 Linux 版，导入导出功能更强大（这个很关键，一处写就，到处部署），所以我不打算换。简书作为在线的 markdown 编辑器也很好用，vim 上我用 vim-markdown&nbsp;插件。</p>
+<p>程序员界现在最流行的两个静态网页博客生成工具是 Jekyll 和 Hexo，分别是 Ruby 和 NodeJs 做的，都支持从markdown 生成，我用 Pelican，也是支持 markdown 的静态博客生成工具，是 Python 做的。个人 wiki 工具我用  simiki （ http://simiki.org/ ），这个是一个中国程序员用 Python&nbsp;写的，简单好用。</p>
+<p>微信公众平台不支持 markdown，但是 chrome 有个插件叫 Mardown Here，可以方便的让你在网页编辑器内写&nbsp;markdown，然后一键排版。</p>
                 </div>
                 <footer class="text-right">
                     <p>- Yushin</p>
                 </footer>
     <div id="show-comments" class="span7 text-center">
-        <a href="http://lostsummer.github.io/201803301025.html#disqus_thread" data-disqus-identifier="201803301025" class="btn btn-default">Show Comments</a>
+        <a href="http://lostsummer.github.io/posts/2017/Apr/28/201704281104.html#disqus_thread" data-disqus-identifier="201704281104" class="btn btn-default">Show Comments</a>
     </div>
     <section id="comments" class="comments hidden">
         <hr/>
@@ -454,33 +360,6 @@ govender sync
         <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
     </section>
             </div>
-    <div id="scrollspy">
-        <div class="col-lg-3 nav nav-stacked hidden-xs hidden-sm" data-spy="affix" data-offset-top="135">
-            <div class="toc">
-<ul>
-<li><a href="#_1">前提</a></li>
-<li><a href="#_2">主要问题及解决手段概述</a></li>
-<li><a href="#_3">步骤</a><ul>
-<li><a href="#_4">工具安装</a></li>
-<li><a href="#_5">从一个实例开始</a><ul>
-<li><a href="#_6">创建目录结构</a></li>
-<li><a href="#_7">迁出代码</a></li>
-</ul>
-</li>
-<li><a href="#_8">环境隔离</a><ul>
-<li><a href="#vendor">vendor 初始化</a></li>
-<li><a href="#githubgolangorg">从github镜像获取golang.org依赖包</a></li>
-<li><a href="#_9">获取其他依赖包</a></li>
-<li><a href="#git">git 追踪</a></li>
-<li><a href="#_10">新位置使用</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</div>
-        </div>
-    </div>
         </div>
     </article>
 </section>
@@ -490,7 +369,10 @@ govender sync
         <div class="col-lg-9 text-center">
             <p><small>
                 Built by <a href="http://docs.getpelican.com/en/latest">Pelican</a> / <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a>
-                &middot;                    &copy; 2018 lostsummer
+                &middot;                      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a>
+    Content
+  licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution 4.0 International License</a>, except where indicated otherwise.
+
             </small></p>
         </div>
     </div>
@@ -511,11 +393,11 @@ govender sync
     /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
     var disqus_shortname = 'lostsummer'; // required: replace example with your forum shortname
 
-            var disqus_identifier = '201803301025';
-        var disqus_url = 'http://lostsummer.github.io/201803301025.html';
+            var disqus_identifier = '201704281104';
+        var disqus_url = 'http://lostsummer.github.io/posts/2017/Apr/28/201704281104.html';
 
     var disqus_config = function () {
-        this.language = "zh";
+        this.language = "en";
     };
         /*load script for comment count*/
         /* * * DON'T EDIT BELOW THIS LINE * * */

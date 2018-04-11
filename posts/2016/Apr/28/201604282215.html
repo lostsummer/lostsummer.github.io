@@ -1,21 +1,21 @@
 
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="Yushin" />
-        <meta name="keywords" content="Docker,Prometheus,InfluxDB" />
-        <meta name="description" content="根据一篇不错的文章: ” 容器领域的十大监控系统对比 ” 列出的流行监控方案 方案 备注 …" />
+        <meta name="keywords" content="Python,Git" />
+        <meta name="description" content="2017-04-26 update: 今天更新一下这个 blog，发现距离它创建之初已经一年零两天，唏嘘一下。 把少得可怜的三篇文章整理到 wiki 中，产出太少而时间太快，提醒自己要抓紧学习，重视整理。 这个 wiki 也使用了一个 Python 生成工具，叫 simiki，是中国程序员 tankywoo 写的，谢谢他，也希望能友更多的人用，我很喜欢它的简单。 想利用 github blog 做一些技术知识的学习整理，一些技术文档的翻译等。关于用 github 写博客的好处，大家可以搜搜阮一峰的文章《搭建一个免费的，无限流量的Blog——github Pages和Jekyll入门》 本博客搭建选用 pelican，因为我习惯用 Python。所以除了感谢 pelican 的作者以及 pelican 众多插件和主题的作者之外，还感谢以下两篇博文的作者，我是参照他们的教程搭好博客的： xycoding …" />
 
 
-    <title>容器监控方案选型 - # kill -1</title>
+    <title>第一篇 github pages 文章 - $ kill -1</title>
 
-        <link rel="stylesheet" href="http://lostsummer.github.io/theme/css/bootstrap.slate.min.css" type="text/css"/>
+        <link rel="stylesheet" href="http://lostsummer.github.io/theme/css/bootstrap.paper.min.css" type="text/css"/>
 
     <link href="http://lostsummer.github.io/theme/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="http://lostsummer.github.io/theme/css/pygments/monokai.css" rel="stylesheet" />
+    <link href="http://lostsummer.github.io/theme/css/pygments/manni.css" rel="stylesheet" />
     
         <link href="http://lostsummer.github.io/theme/css/typogrify.css" rel="stylesheet" />
     <link href="http://lostsummer.github.io/theme/css/pelican-twitchy.min.css" rel="stylesheet" />
@@ -29,7 +29,7 @@
     
     <!-- Feeds -->
         <link href="http://lostsummer.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
-              title="# kill -1 ATOM Feed" />
+              title="$ kill -1 ATOM Feed" />
         <link href="http://lostsummer.github.io/extra/custom.css" rel="stylesheet" />
 </head>
 <body data-spy="scroll" data-target="#scrollspy">
@@ -38,7 +38,7 @@
         <div id="sidebar-wrapper-small" class="twitchy-background">
             <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
                 <li>
-        <a href="http://lostsummer.github.io" title="# kill -1" class="collapsed">
+        <a href="http://lostsummer.github.io" title="$ kill -1" class="collapsed">
             <span class="glyphicon glyphicon-home"></span>
         </a>
     </li>
@@ -57,12 +57,12 @@
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-share-small" class="collapse ">
                     <li>
-                        <a href="https://www.facebook.com/sharer/sharer.php?u=http://lostsummer.github.io/201804091040.html" title="Share via Facebook" target="popup">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=http://lostsummer.github.io/posts/2016/Apr/28/201604282215.html" title="Share via Facebook" target="popup">
                             <i class="fa fa-facebook-square padding-small"></i>
                         </a>
                     </li>
                     <li>
-                        <a href="https://plus.google.com/share?url=http://lostsummer.github.io/201804091040.html" title="Share via Google+" target="popup">
+                        <a href="https://plus.google.com/share?url=http://lostsummer.github.io/posts/2016/Apr/28/201604282215.html" title="Share via Google+" target="popup">
                             <i class="fa fa-google-plus padding-small"></i>
                         </a>
                     </li>
@@ -80,7 +80,7 @@
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-social-small" class="collapse ">
                     <li>
-                        <a href="mailto:lostsummer=at=gmail.com" title="Email"><i class="fa fa-envelope-square fa-lg padding-small"></i></a>
+                        <a href="mailto:lostsummer@gmail.com" title="Email"><i class="fa fa-envelope-square fa-lg padding-small"></i></a>
                     </li>
                     <li>
                         <a href="https://www.facebook.com/fisher.wong.3" title="facebook"><i class="fa fa-facebook-square fa-lg padding-small"></i></a>
@@ -107,8 +107,8 @@
             <ul id="accordion" class="sidebar-nav">
                 <li class="sidebar-brand">
                     <a href="http://lostsummer.github.io/">
-<img src="http://lostsummer.github.io/images/logo.jpeg" width="20" alt="Sitelogo"/>                             <span class="glyphicon glyphicon-home padding-small"></span>
-                            # kill -1
+                            <span class="glyphicon glyphicon-home padding-small"></span>
+                            $ kill -1
                     </a>
                 </li>
                     <li class="nav-divider"></li>
@@ -119,26 +119,26 @@
                         </a>
                     </li>
                     <li class="panel anti-panel"><ul id="collapse-latest" class="sidebar_submenu collapse in">
-                        <li class="active">
-                            <a class="hide-overflow" href="http://lostsummer.github.io/201804091040.html" title="容器监控方案选型">
+                        <li class="">
+                            <a class="hide-overflow" href="http://lostsummer.github.io/posts/2018/Apr/09/201804091040.html" title="容器监控方案选型">
                                 <i class="fa fa-file-text padding-small"></i>
                                 容器监控方案选型
                             </a>
                         </li>
                         <li class="">
-                            <a class="hide-overflow" href="http://lostsummer.github.io/201803301025.html" title="我在Linux环境创建私有Go项目环境的方法">
+                            <a class="hide-overflow" href="http://lostsummer.github.io/posts/2018/Mar/30/201803301025.html" title="我在Linux环境创建私有Go项目环境的方法">
                                 <i class="fa fa-file-text padding-small"></i>
                                 我在Linux环境创建私有Go项目环境的方法
                             </a>
                         </li>
                         <li class="">
-                            <a class="hide-overflow" href="http://lostsummer.github.io/201704281104.html" title="Markdown Source">
+                            <a class="hide-overflow" href="http://lostsummer.github.io/posts/2017/Apr/28/201704281104.html" title="Markdown Source">
                                 <i class="fa fa-file-text padding-small"></i>
                                 Markdown Source
                             </a>
                         </li>
-                        <li class="">
-                            <a class="hide-overflow" href="http://lostsummer.github.io/201604282215.html" title="第一篇 github pages 文章">
+                        <li class="active">
+                            <a class="hide-overflow" href="http://lostsummer.github.io/posts/2016/Apr/28/201604282215.html" title="第一篇 github pages 文章">
                                 <i class="fa fa-file-text padding-small"></i>
                                 第一篇 github pages 文章
                             </a>
@@ -159,13 +159,13 @@
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-share" class="sidebar_submenu collapse ">
                     <li>
-                        <a href="https://www.facebook.com/sharer/sharer.php?u=http://lostsummer.github.io/201804091040.html" target="popup">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=http://lostsummer.github.io/posts/2016/Apr/28/201604282215.html" target="popup">
                             <i class="fa fa-facebook-square padding-small"></i>
                             Facebook
                         </a>
                     </li>
                     <li>
-                        <a href="https://plus.google.com/share?url=http://lostsummer.github.io/201804091040.html" target="popup">
+                        <a href="https://plus.google.com/share?url=http://lostsummer.github.io/posts/2016/Apr/28/201604282215.html" target="popup">
                             <i class="fa fa-google-plus padding-small"></i>
                             Google+
                         </a>
@@ -186,7 +186,7 @@
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-social" class="sidebar_submenu collapse ">
                     <li>
-                        <a href="mailto:lostsummer=at=gmail.com" title="Email">
+                        <a href="mailto:lostsummer@gmail.com" title="Email">
                             <i class="fa fa-envelope-square fa-lg padding-small"></i>
                             Email
                         </a>
@@ -226,14 +226,14 @@
                     </a>
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
-                    <li class="active">
+                    <li >
                         <a href="http://lostsummer.github.io/category/learning.html">
                             <i class="fa fa-folder-open padding-small"></i>
                             Learning
                             <span class="badge pull-right categorybadge">2</span>
                         </a>
                     </li>
-                    <li >
+                    <li class="active">
                         <a href="http://lostsummer.github.io/category/recommendation.html">
                             <i class="fa fa-folder-open padding-small"></i>
                             Recommendation
@@ -250,6 +250,46 @@
                     </a>
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-tags" class="sidebar_submenu collapse ">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f61812e3f60>]">
+                        <a href="http://lostsummer.github.io/tag/docker.html">
+                            Docker
+                        </a>
+                    </li>
+                    <li class="tag-[<pelican.contents.Article object at 0x7f61812e3f60>]">
+                        <a href="http://lostsummer.github.io/tag/prometheus.html">
+                            Prometheus
+                        </a>
+                    </li>
+                    <li class="tag-[<pelican.contents.Article object at 0x7f61812e3f60>]">
+                        <a href="http://lostsummer.github.io/tag/influxdb.html">
+                            InfluxDB
+                        </a>
+                    </li>
+                    <li class="tag-[<pelican.contents.Article object at 0x7f61830ec860>]">
+                        <a href="http://lostsummer.github.io/tag/go.html">
+                            Go
+                        </a>
+                    </li>
+                    <li class="tag-[<pelican.contents.Article object at 0x7f61830ec860>]">
+                        <a href="http://lostsummer.github.io/tag/linux.html">
+                            Linux
+                        </a>
+                    </li>
+                    <li class="tag-[<pelican.contents.Article object at 0x7f61830d89e8>]">
+                        <a href="http://lostsummer.github.io/tag/markdown.html">
+                            markdown
+                        </a>
+                    </li>
+                    <li class="tag-[<pelican.contents.Article object at 0x7f61862766d8>]">
+                        <a href="http://lostsummer.github.io/tag/python.html">
+                            Python
+                        </a>
+                    </li>
+                    <li class="tag-[<pelican.contents.Article object at 0x7f61862766d8>]">
+                        <a href="http://lostsummer.github.io/tag/git.html">
+                            Git
+                        </a>
+                    </li>
                 </ul></li>
             </ul>
         </div>
@@ -270,24 +310,24 @@
             <div class="col-lg-9">
                 <header class="page-header">
                     <h1>
-                        <a href="http://lostsummer.github.io/201804091040.html"
+                        <a href="http://lostsummer.github.io/posts/2016/Apr/28/201604282215.html"
                            rel="bookmark"
-                           title="Permalink to 容器监控方案选型">
-                            容器监控方案选型
+                           title="Permalink to 第一篇 github pages 文章">
+                            第一篇 github pages&nbsp;文章
                         </a>
                         <small>
 <div class="post-info">
     <div class="publish-info-block">
         <small>
             <span class="published">
-                <i class="fa fa-calendar padding-small"></i><time datetime="2018-04-09T00:00:00+08:00"> Mon 09 April 2018</time>
+                <i class="fa fa-calendar padding-small"></i><time datetime="2016-04-28T00:00:00+08:00"> Thu 28 April 2016</time>
             </span>
             <span class="category">
-                <i class="fa fa-folder-open padding-small"></i><a href="http://lostsummer.github.io/category/learning.html">Learning</a>
+                <i class="fa fa-folder-open padding-small"></i><a href="http://lostsummer.github.io/category/recommendation.html">Recommendation</a>
             </span>
             <span class="tags">
                 <i class="fa fa-tags padding-small"></i>
-                <a href="http://lostsummer.github.io/tag/docker.html">Docker</a> /                 <a href="http://lostsummer.github.io/tag/prometheus.html">Prometheus</a> /                 <a href="http://lostsummer.github.io/tag/influxdb.html">InfluxDB</a>            </span>
+                <a href="http://lostsummer.github.io/tag/python.html">Python</a> /                 <a href="http://lostsummer.github.io/tag/git.html">Git</a>            </span>
         </small>
     </div>
 </div><!-- /.post-info -->                        </small>
@@ -298,105 +338,21 @@
         <div class="row">
             <div class="col-lg-9">
                 <div class="entry-content">
-                    <p>根据一篇不错的文章: &#8221; <a href="https://mp.weixin.qq.com/s?__biz=MzA5OTAyNzQ2OA==&amp;mid=2649696965&amp;idx=1&amp;sn=acdbaf74f837d6e07d753bc4e3199206&amp;chksm=889315a6bfe49cb04686cd6d7a19ec73fdc7ddec98387d4ba5e524616669ee13f2f5b277a673&amp;mpshare=1&amp;scene=1&amp;srcid=0225cAhRGuYUIQ4Qidt6eXFU#rd">容器领域的十大监控系统对比 </a> &#8221;&nbsp;列出的流行监控方案</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>方案</th>
-<th>备注</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td><span class="caps">DOCKER</span> <span class="caps">STATS</span></td>
-<td>原生命令行工具</td>
-</tr>
-<tr>
-<td>2</td>
-<td><span class="caps">CADVISOR</span></td>
-<td>通常作为信息采集组件</td>
-</tr>
-<tr>
-<td>3</td>
-<td><span class="caps">SCOUT</span></td>
-<td>付费云服务</td>
-</tr>
-<tr>
-<td>4</td>
-<td><span class="caps">PINGDOM</span></td>
-<td>付费云服务</td>
-</tr>
-<tr>
-<td>5</td>
-<td><span class="caps">DATADOG</span></td>
-<td>付费云服务</td>
-</tr>
-<tr>
-<td>6</td>
-<td><span class="caps">SYSDIG</span></td>
-<td>付费云服务</td>
-</tr>
-<tr>
-<td>7</td>
-<td><span class="caps">PROMETHEUS</span></td>
-<td>数据收集、告警</td>
-</tr>
-<tr>
-<td>8</td>
-<td><span class="caps">HEAPSTER</span></td>
-<td>Kuberenets only</td>
-</tr>
-<tr>
-<td>9</td>
-<td><span class="caps">ELK</span> <span class="caps">STACK</span></td>
-<td>日志分析，监控的一环</td>
-</tr>
-<tr>
-<td>10</td>
-<td><span class="caps">SENSU</span></td>
-<td>没有容器化，部署麻烦，免费版功能不强</td>
-</tr>
-</tbody>
-</table>
-<p>更加确定了我们目前试用的以Prometheus为核心的方案。筛选的过程很简单，撇除掉商业付费的方案，</p>
-<ul>
-<li>Docker stats&nbsp;只是一个命令行接口，称不上方案，可能会被其他采集工具调用</li>
-<li>CAdvisor&nbsp;目前我们作为数据采集的重要组件</li>
-<li>Prometheus&nbsp;目前监控方案的核心</li>
-<li><span class="caps">ELK</span>&nbsp;目前还没用起来，可作为Granfana数据源，分析日志触发面板上的预警</li>
-</ul>
-<p>目前试用的方案来源于github上的一份参考 <a href="https://github.com/bvis/docker-prometheus-swarm">bvis/docker-prometheus-swarm</a></p>
-<p>从他的容器编排可以看到整体方案是</p>
-<ul>
-<li>采集器</li>
-<li>CAdvisor</li>
-<li>Node exporter (promethues&nbsp;组件一部分)</li>
-<li>docker exporter&nbsp;(转发容器原生API信息)</li>
-<li>数据库</li>
-<li>Prometheus</li>
-<li>报警器</li>
-<li>to slack&nbsp;(国内用不了)</li>
-<li>to logstash&nbsp;（没用起来）</li>
-<li><span class="caps">ELK</span>&nbsp;（没用起来）</li>
-<li>elasticsearch</li>
-<li>logstash</li>
-<li>kibana</li>
-</ul>
-<p>最后结合一个Granfana模板的呈现就是这里 <a href="http://grafana.emoney.cn/dashboard/db/docker-swarm-and-container-overview?refresh=1m&amp;orgId=2&amp;var-node=All&amp;var-instance=10.0.0.12:9100&amp;var-instance=10.0.0.13:9100&amp;var-instance=10.0.0.15:9100&amp;var-instance=10.0.0.14:9100&amp;var-stack_namespace=All&amp;var-service_name=All&amp;var-proxy=All&amp;var-topk=20&amp;var-interval=$__auto_interval">docker-swarm-and-container-overview</a></p>
-<p>其中顶部 Errors，Alert Fired， Alert&nbsp;Resolved是要配置Elasticsearch数据源使用的，目前还没有。</p>
-<p>数据库曾经试过我们熟悉的InfluxDB，配合CAdvisor做数据采集使用，但是发现Prometheus的指标查询更有可定制性和弹性。使用InfluxDB时一旦容器变动，需要频繁手动调整Granfana中的查询语句。这样的问题在Prometheus中不是问题。只是Prometheus的查询语言PromQL比InfluxQL略复杂。</p>
-<p>文中很多部分提到 Rancher 通过插件等方式整合CAdvisor， Promethues  等组件。Rancher&nbsp;是否适合Swarm集群，整合的方式是否好用，还需要研究Rancher后再看。</p>
+                    <p>2017-04-26&nbsp;update:</p>
+<p>今天更新一下这个&nbsp;blog，发现距离它创建之初已经一年零两天，唏嘘一下。</p>
+<p>把少得可怜的三篇文章整理到 <a href="http://wiki.lostsummer.love/">wiki</a>&nbsp;中，产出太少而时间太快，提醒自己要抓紧学习，重视整理。</p>
+<p>这个 wiki 也使用了一个 Python 生成工具，叫 <a href="http://simiki.org/">simiki</a>，是中国程序员 <a href="https://github.com/tankywoo">tankywoo</a>&nbsp;写的，谢谢他，也希望能友更多的人用，我很喜欢它的简单。</p>
 <hr />
-<p>update:&nbsp;2018-04-10</p>
-<p>Rancher 的调研写在Wiki里：<a href="http://wiki.lostsummer.love/Docker/rancher%E5%BA%94%E7%94%A8%E4%BA%8Eswarm%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86%E7%9A%84%E8%B0%83%E7%A0%94.html">Rancher应用于swarm集群管理的调研</a></p>
+<p>想利用 github blog 做一些技术知识的学习整理，一些技术文档的翻译等。关于用 github 写博客的好处，大家可以搜搜阮一峰的文章《搭建一个免费的，无限流量的Blog&#8212;&#8212;github&nbsp;Pages和Jekyll入门》</p>
+<p>本博客搭建选用 pelican，因为我习惯用 Python。所以除了感谢 pelican 的作者以及 pelican&nbsp;众多插件和主题的作者之外，还感谢以下两篇博文的作者，我是参照他们的教程搭好博客的：</p>
+<p><a href="http://www.xycoding.com/articles/2013/11/21/blog-create/">xycoding: 使用Pelican和GitHub Pages搭建个人博客 ——&nbsp;基础篇</a></p>
+<p><a href="http://x-wei.github.io/pelican_github_blog.html">mx:&nbsp;用pelican在github上创建自己的博客!</a></p>
                 </div>
                 <footer class="text-right">
                     <p>- Yushin</p>
                 </footer>
     <div id="show-comments" class="span7 text-center">
-        <a href="http://lostsummer.github.io/201804091040.html#disqus_thread" data-disqus-identifier="201804091040" class="btn btn-default">Show Comments</a>
+        <a href="http://lostsummer.github.io/posts/2016/Apr/28/201604282215.html#disqus_thread" data-disqus-identifier="201604282215" class="btn btn-default">Show Comments</a>
     </div>
     <section id="comments" class="comments hidden">
         <hr/>
@@ -416,7 +372,10 @@
         <div class="col-lg-9 text-center">
             <p><small>
                 Built by <a href="http://docs.getpelican.com/en/latest">Pelican</a> / <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a>
-                &middot;                    &copy; 2018 lostsummer
+                &middot;                      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a>
+    Content
+  licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution 4.0 International License</a>, except where indicated otherwise.
+
             </small></p>
         </div>
     </div>
@@ -437,11 +396,11 @@
     /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
     var disqus_shortname = 'lostsummer'; // required: replace example with your forum shortname
 
-            var disqus_identifier = '201804091040';
-        var disqus_url = 'http://lostsummer.github.io/201804091040.html';
+            var disqus_identifier = '201604282215';
+        var disqus_url = 'http://lostsummer.github.io/posts/2016/Apr/28/201604282215.html';
 
     var disqus_config = function () {
-        this.language = "zh";
+        this.language = "en";
     };
         /*load script for comment count*/
         /* * * DON'T EDIT BELOW THIS LINE * * */
