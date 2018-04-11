@@ -5,11 +5,11 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="author" content="lostsummer" />
-        <meta name="description" content="code less talk more :)" />
+    <meta name="author" content="lostsummer" />
+    <meta name="keywords" content="Architecture" />
 
 
-    <title>$ kill -1</title>
+    <title>Architecture - $ kill -1</title>
 
         <link rel="stylesheet" href="http://lostsummer.github.io/theme/css/bootstrap.paper.min.css" type="text/css"/>
 
@@ -117,7 +117,7 @@
                             Recent Articles
                         </a>
                     </li>
-                    <li class="panel anti-panel"><ul id="collapse-latest" class="sidebar_submenu collapse in">
+                    <li class="panel anti-panel"><ul id="collapse-latest" class="sidebar_submenu collapse ">
                         <li class="">
                             <a class="hide-overflow" href="http://lostsummer.github.io/posts/2018/Apr/11/容器平台监控方案大体设计.html" title="容器平台监控方案大体设计">
                                 <i class="fa fa-file-text padding-small"></i>
@@ -224,8 +224,8 @@
                         Categories
                     </a>
                 </li>
-                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
-                    <li >
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse in">
+                    <li class="active">
                         <a href="http://lostsummer.github.io/category/architecture.html">
                             <i class="fa fa-folder-open padding-small"></i>
                             Architecture
@@ -305,261 +305,21 @@
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid">
-<section id="content" class="body">
-    <div class="row">
-        <div class="col-lg-9">
-            <div class="jumbotron">  
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1>$ kill -1</h1>
-                        <p>code less talk more :)</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="row">
+    <div class="col-lg-9">
+        <header class="page-header">
+            <h1>Articles in Architecture</h1>
+        </header>
     </div>
-    <div class="row">
-        <div class="col-lg-9">
-            <h2>Recent Articles:</h2>
-        </div>
-    </div>
-</section>
+</div>
 <div class="row">
     <div class="col-lg-9">
             <article>
-                <h2>
+                <h4>
+                    <time datetime="2018-04-11T18:15:14+08:00"> Wed 11 April 2018</time>
                     <a href="http://lostsummer.github.io/posts/2018/Apr/11/容器平台监控方案大体设计.html">容器平台监控方案大体设计</a>
-<div class="post-info">
-    <div class="publish-info-block">
-        <small>
-            <span class="published">
-                <i class="fa fa-calendar padding-small"></i><time datetime="2018-04-11T18:15:14+08:00"> Wed 11 April 2018</time>
-            </span>
-            <span class="category">
-                <i class="fa fa-folder-open padding-small"></i><a href="http://lostsummer.github.io/category/architecture.html">Architecture</a>
-            </span>
-            <span class="tags">
-                <i class="fa fa-tags padding-small"></i>
-                <a href="http://lostsummer.github.io/tag/prometheus.html">Prometheus</a> /                 <a href="http://lostsummer.github.io/tag/docker.html">Docker</a>            </span>
-        </small>
-    </div>
-</div><!-- /.post-info -->                </h2>
-                <div class="summary">
-                    <h2 id="_1"><a class="toclink" href="#_1">监控对象</a></h2>
-<ul>
-<li>容器集群节点 </li>
-<li>集群上运行的容器</li>
-</ul>
-<h2 id="_2"><a class="toclink" href="#_2">监控数据类型</a></h2>
-<ol>
-<li>
-<p>性能状态图表&nbsp;各性能指标的不间断连续数据</p>
-</li>
-<li>
-<p>服务心跳&nbsp;定时上报，确认服务活性</p>
-</li>
-<li>
-<p>报警&nbsp;由状态数据经过报警逻辑计算触发（阈值，断流等）的报警信息</p>
-</li>
-</ol>
-<h2 id="_3"><a class="toclink" href="#_3">不同类型数据流向</a></h2>
-<ol>
-<li>
-<p>状态
-   集群节点采集器 -&gt; Prometheus -&gt;&nbsp;Grafana</p>
-</li>
-<li>
-<p>心跳
-   被监控容器自身 -&gt; oneAgent -&gt; InfluxDB -&gt;&nbsp;Grafana</p>
-</li>
-<li>
-<p>报警
-   集群节点采集器 -&gt; Prometheus -&gt; AlertManager -&gt; oneAgent -&gt;&nbsp;报警终端</p>
-</li>
-</ol>
-<p>注： </p>
-<ul>
-<li>集群节点采集器包括cAdvisor， node-exporter&nbsp;等容器</li>
-<li>心跳需要特殊编写脚本，对于容器，要在Dockerfile编写时加入，并在启动时启用heartbeat相关参数</li>
-</ul>
-<h2 id="_4"><a class="toclink" href="#_4">架构及部署变化</a></h2>
-<p>目前测试运行的 Docker Swarm&nbsp;栈将要发生变化，首要目的是处于节约容器集群资源考虑，将Prometheus剥离出集群单独部署。</p>
-<p><img alt="architecture_changing" src="http://ooyi4zkat.bkt.clouddn.com/容器监控信息采集.png"/></p>
-<h2 id="_5"><a class="toclink" href="#_5">设计任务</a></h2>
-<p>关键指标的提前整理归类等</p>
-<h2 id="_6"><a class="toclink" href="#_6">部署任务</a></h2>
-<ol>
-<li>解决Prometheus和AlterManager剥离出集群后的服务发现问题（或通过配置中静态配置采集器地址 …</li></ol>
-                </div>
+                </h4>
             </article>
-            <hr/>
-            <article>
-                <h2>
-                    <a href="http://lostsummer.github.io/posts/2018/Apr/09/201804091040.html">容器监控方案选型</a>
-<div class="post-info">
-    <div class="publish-info-block">
-        <small>
-            <span class="published">
-                <i class="fa fa-calendar padding-small"></i><time datetime="2018-04-09T00:00:00+08:00"> Mon 09 April 2018</time>
-            </span>
-            <span class="category">
-                <i class="fa fa-folder-open padding-small"></i><a href="http://lostsummer.github.io/category/learning.html">Learning</a>
-            </span>
-            <span class="tags">
-                <i class="fa fa-tags padding-small"></i>
-                <a href="http://lostsummer.github.io/tag/docker.html">Docker</a> /                 <a href="http://lostsummer.github.io/tag/prometheus.html">Prometheus</a> /                 <a href="http://lostsummer.github.io/tag/influxdb.html">InfluxDB</a>            </span>
-        </small>
-    </div>
-</div><!-- /.post-info -->                </h2>
-                <div class="summary">
-                    <p>根据一篇不错的文章: &rdquo; <a href="https://mp.weixin.qq.com/s?__biz=MzA5OTAyNzQ2OA==&amp;mid=2649696965&amp;idx=1&amp;sn=acdbaf74f837d6e07d753bc4e3199206&amp;chksm=889315a6bfe49cb04686cd6d7a19ec73fdc7ddec98387d4ba5e524616669ee13f2f5b277a673&amp;mpshare=1&amp;scene=1&amp;srcid=0225cAhRGuYUIQ4Qidt6eXFU#rd">容器领域的十大监控系统对比 </a> &rdquo;&nbsp;列出的流行监控方案</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>方案</th>
-<th>备注</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td><span class="caps">DOCKER</span> <span class="caps">STATS</span></td>
-<td>原生命令行工具</td>
-</tr>
-<tr>
-<td>2</td>
-<td><span class="caps">CADVISOR</span></td>
-<td>通常作为信息采集组件</td>
-</tr>
-<tr>
-<td>3</td>
-<td><span class="caps">SCOUT</span></td>
-<td>付费云服务</td>
-</tr>
-<tr>
-<td>4</td>
-<td><span class="caps">PINGDOM</span></td>
-<td>付费云服务</td>
-</tr>
-<tr>
-<td>5</td>
-<td><span class="caps">DATADOG</span></td>
-<td>付费云服务</td>
-</tr>
-<tr>
-<td>6</td>
-<td><span class="caps">SYSDIG</span></td>
-<td>付费云服务</td>
-</tr>
-<tr>
-<td>7</td>
-<td><span class="caps">PROMETHEUS</span></td>
-<td>数据收集、告警</td>
-</tr>
-<tr>
-<td>8</td>
-<td><span class="caps">HEAPSTER</span></td>
-<td>Kuberenets only</td>
-</tr>
-<tr>
-<td>9</td>
-<td><span class="caps">ELK</span> <span class="caps">STACK</span></td>
-<td>日志分析，监控的一环</td>
-</tr>
-<tr>
-<td>10</td>
-<td><span class="caps">SENSU</span></td>
-<td>没有容器化，部署麻烦，免费版功能不强</td>
-</tr>
-</tbody>
-</table>
-<p>更加确定了我们目前试用的以Prometheus为核心的方案。筛选的过程很简单，撇除掉商业付费的方案，</p>
-<ul>
-<li>Docker stats&nbsp;只是一个命令行接口，称不上方案，可能会被其他采集工具调用 …</li></ul>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2>
-                    <a href="http://lostsummer.github.io/posts/2018/Mar/30/201803301025.html">我在Linux环境创建私有Go项目环境的方法</a>
-<div class="post-info">
-    <div class="publish-info-block">
-        <small>
-            <span class="published">
-                <i class="fa fa-calendar padding-small"></i><time datetime="2018-03-30T00:00:00+08:00"> Fri 30 March 2018</time>
-            </span>
-            <span class="category">
-                <i class="fa fa-folder-open padding-small"></i><a href="http://lostsummer.github.io/category/learning.html">Learning</a>
-            </span>
-            <span class="tags">
-                <i class="fa fa-tags padding-small"></i>
-                <a href="http://lostsummer.github.io/tag/go.html">Go</a> /                 <a href="http://lostsummer.github.io/tag/linux.html">Linux</a>            </span>
-        </small>
-    </div>
-</div><!-- /.post-info -->                </h2>
-                <div class="summary">
-                    <p>初次开发构建Go项目的朋友可能对如果创建一个干净独立的项目环境有些疑惑，这里介绍一下个人经验。</p>
-<h1 id="_1"><a class="toclink" href="#_1">前提</a></h1>
-<ol>
-<li>你安装配置好了golang编译器</li>
-<li>你懂得配置GOPATH，了解GO开发环境的目录结构</li>
-</ol>
-<h1 id="_2"><a class="toclink" href="#_2">主要问题及解决手段概述</a></h1>
-<ol>
-<li>隔离的开发环境。通过覆盖GOPATH环境变量解决。</li>
-<li>三方依赖库的项目隔离。通过vendor机制。</li>
-<li>三方库版本依赖。通过govendor工具。</li>
-<li>golang.org/ 包不能直接go&nbsp;get的问题。通过github镜像解决。</li>
-</ol>
-<h1 id="_3"><a class="toclink" href="#_3">步骤</a></h1>
-<h2 id="_4"><a class="toclink" href="#_4">工具安装</a></h2>
-<p>govendor</p>
-<p>具体使用方法见项目主页：https://github.com/kardianos/govendor</p>
-<p>安装：</p>
-<p>go get -u&nbsp;github.com/kardianos/govendor</p>
-<p>该命令会将govender安装在你默认配置的的\$<span class="caps">GOPATH</span>/bin目录下，通常你已经将这个目录配置到了环境变量PATH中。</p>
-<h2 id="_5"><a class="toclink" href="#_5">从一个实例开始</a></h2>
-<p>已有的所有项目地址：http://git.emoney.cn/monitor/monitorplat.git
-代码包导入路径：MonitorPlat …</p>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2>
-                    <a href="http://lostsummer.github.io/posts/2016/Apr/28/201604282215.html">第一篇 github pages&nbsp;文章</a>
-<div class="post-info">
-    <div class="publish-info-block">
-        <small>
-            <span class="published">
-                <i class="fa fa-calendar padding-small"></i><time datetime="2016-04-28T00:00:00+08:00"> Thu 28 April 2016</time>
-            </span>
-            <span class="category">
-                <i class="fa fa-folder-open padding-small"></i><a href="http://lostsummer.github.io/category/recommendation.html">Recommendation</a>
-            </span>
-            <span class="tags">
-                <i class="fa fa-tags padding-small"></i>
-                <a href="http://lostsummer.github.io/tag/python.html">Python</a> /                 <a href="http://lostsummer.github.io/tag/git.html">Git</a>            </span>
-        </small>
-    </div>
-</div><!-- /.post-info -->                </h2>
-                <div class="summary">
-                    <p>想利用 github blog 做一些技术知识的学习整理，一些技术文档的翻译等。关于用 github 写博客的好处，大家可以搜搜阮一峰的文章《搭建一个免费的，无限流量的Blog&mdash;&mdash;github&nbsp;Pages和Jekyll入门》</p>
-<p>本博客搭建选用 pelican，因为我习惯用 Python。所以除了感谢 pelican 的作者以及 pelican&nbsp;众多插件和主题的作者之外，还感谢以下两篇博文的作者，我是参照他们的教程搭好博客的：</p>
-<p><a href="http://www.xycoding.com/articles/2013/11/21/blog-create/">xycoding: 使用Pelican和GitHub Pages搭建个人博客 &mdash;&mdash;&nbsp;基础篇</a></p>
-<p><a href="http://x-wei.github.io/pelican_github_blog.html">mx:&nbsp;用pelican在github上创建自己的博客!</a></p>
-<hr/>
-<p>2017-04-26&nbsp;update:</p>
-<p>今天更新一下这个&nbsp;blog，发现距离它创建之初已经一年零两天，唏嘘一下。</p>
-<p>把少得可怜的三篇文章整理到 <a href="http://wiki.lostsummer.love/">wiki</a>&nbsp;中，产出太少而时间太快，提醒自己要抓紧学习，重视整理。</p>
-<p>这个 wiki 也使用了一个 Python 生成工具，叫 <a href="http://simiki.org/">simiki</a>，是中国程序员 …</p>
-                </div>
-            </article>
-        <div class="btn-more text-right">
-            <a class="btn btn-default btn-xs twitchy-background" href="http://lostsummer.github.io/archives.html">
-                View all Articles ...
-            </a>
-        </div>
     </div>
 </div>
 <footer>
@@ -597,8 +357,10 @@
             }
         });
     }
+
     articles = $("article").fadeTo(0, 0.05);
     FadeInOnScroll(articles)
+
     $(window).scroll(function() {
         FadeInOnScroll(articles)
     });

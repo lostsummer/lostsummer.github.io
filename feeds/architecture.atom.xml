@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>$ kill -1 - Architecture</title><link href="http://lostsummer.github.io/" rel="alternate"></link><link href="http://lostsummer.github.io/feeds/architecture.atom.xml" rel="self"></link><id>http://lostsummer.github.io/</id><updated>2018-04-11T18:15:14+08:00</updated><entry><title>容器平台监控方案大体设计</title><link href="http://lostsummer.github.io/posts/2018/Apr/11/%E5%AE%B9%E5%99%A8%E5%B9%B3%E5%8F%B0%E7%9B%91%E6%8E%A7%E6%96%B9%E6%A1%88%E5%A4%A7%E4%BD%93%E8%AE%BE%E8%AE%A1.html" rel="alternate"></link><published>2018-04-11T18:15:14+08:00</published><updated>2018-04-11T18:15:14+08:00</updated><author><name>lostsummer</name></author><id>tag:lostsummer.github.io,2018-04-11:/posts/2018/Apr/11/容器平台监控方案大体设计.html</id><summary type="html">&lt;h2 id="_1"&gt;&lt;a class="toclink" href="#_1"&gt;监控对象&lt;/a&gt;&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;容器集群节点 &lt;/li&gt;
+&lt;li&gt;集群上运行的容器&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="_2"&gt;&lt;a class="toclink" href="#_2"&gt;监控数据类型&lt;/a&gt;&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;性能状态图表&amp;nbsp;各性能指标的不间断连续数据&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;服务心跳&amp;nbsp;定时上报，确认服务活性&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;报警&amp;nbsp;由状态数据经过报警逻辑计算触发（阈值，断流等）的报警信息&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="_3"&gt;&lt;a class="toclink" href="#_3"&gt;不同类型数据流向&lt;/a&gt;&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;状态
+   集群节点采集器 -&amp;gt; Prometheus -&amp;gt;&amp;nbsp;Grafana&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;心跳
+   被监控容器自身 -&amp;gt; oneAgent -&amp;gt; InfluxDB -&amp;gt;&amp;nbsp;Grafana&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;报警
+   集群节点采集器 -&amp;gt; Prometheus -&amp;gt; AlertManager -&amp;gt; oneAgent -&amp;gt;&amp;nbsp;报警终端&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;注： &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;集群节点采集器包括cAdvisor， node-exporter&amp;nbsp;等容器&lt;/li&gt;
+&lt;li&gt;心跳需要特殊编写脚本，对于容器，要在Dockerfile编写时加入，并在启动时启用heartbeat相关参数&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="_4"&gt;&lt;a class="toclink" href="#_4"&gt;架构及部署变化&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;目前测试运行的 Docker Swarm&amp;nbsp;栈将要发生变化，首要目的是处于节约容器集群资源考虑，将Prometheus剥离出集群单独部署。&lt;/p&gt;
+&lt;p&gt;&lt;img alt="architecture_changing" src="http://ooyi4zkat.bkt.clouddn.com/容器监控信息采集.png"/&gt;&lt;/p&gt;
+&lt;h2 id="_5"&gt;&lt;a class="toclink" href="#_5"&gt;设计任务&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;关键指标的提前整理归类等&lt;/p&gt;
+&lt;h2 id="_6"&gt;&lt;a class="toclink" href="#_6"&gt;部署任务&lt;/a&gt;&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;解决Prometheus和AlterManager剥离出集群后的服务发现问题（或通过配置中静态配置采集器地址 …&lt;/li&gt;&lt;/ol&gt;</summary><content type="html">&lt;h2 id="_1"&gt;&lt;a class="toclink" href="#_1"&gt;监控对象&lt;/a&gt;&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;容器集群节点 &lt;/li&gt;
+&lt;li&gt;集群上运行的容器&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="_2"&gt;&lt;a class="toclink" href="#_2"&gt;监控数据类型&lt;/a&gt;&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;性能状态图表&amp;nbsp;各性能指标的不间断连续数据&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;服务心跳&amp;nbsp;定时上报，确认服务活性&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;报警&amp;nbsp;由状态数据经过报警逻辑计算触发（阈值，断流等）的报警信息&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="_3"&gt;&lt;a class="toclink" href="#_3"&gt;不同类型数据流向&lt;/a&gt;&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;状态
+   集群节点采集器 -&amp;gt; Prometheus -&amp;gt;&amp;nbsp;Grafana&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;心跳
+   被监控容器自身 -&amp;gt; oneAgent -&amp;gt; InfluxDB -&amp;gt;&amp;nbsp;Grafana&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;报警
+   集群节点采集器 -&amp;gt; Prometheus -&amp;gt; AlertManager -&amp;gt; oneAgent -&amp;gt;&amp;nbsp;报警终端&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;注： &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;集群节点采集器包括cAdvisor， node-exporter&amp;nbsp;等容器&lt;/li&gt;
+&lt;li&gt;心跳需要特殊编写脚本，对于容器，要在Dockerfile编写时加入，并在启动时启用heartbeat相关参数&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="_4"&gt;&lt;a class="toclink" href="#_4"&gt;架构及部署变化&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;目前测试运行的 Docker Swarm&amp;nbsp;栈将要发生变化，首要目的是处于节约容器集群资源考虑，将Prometheus剥离出集群单独部署。&lt;/p&gt;
+&lt;p&gt;&lt;img alt="architecture_changing" src="http://ooyi4zkat.bkt.clouddn.com/容器监控信息采集.png"/&gt;&lt;/p&gt;
+&lt;h2 id="_5"&gt;&lt;a class="toclink" href="#_5"&gt;设计任务&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;关键指标的提前整理归类等&lt;/p&gt;
+&lt;h2 id="_6"&gt;&lt;a class="toclink" href="#_6"&gt;部署任务&lt;/a&gt;&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;解决Prometheus和AlterManager剥离出集群后的服务发现问题（或通过配置中静态配置采集器地址）&lt;/li&gt;
+&lt;li&gt;数据采集效率和延迟测试&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="_7"&gt;&lt;a class="toclink" href="#_7"&gt;开发任务&lt;/a&gt;&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;容器节点和容器的心跳上报脚本，心跳功能考虑纳入今后容器构建发布的规范。&lt;/li&gt;
+&lt;li&gt;AlterManager&amp;nbsp;报错脚本编写。需要了解学习Prometheus技术栈，提取报警通用逻辑，避免随着服务变动频繁增添脚本。&lt;/li&gt;
+&lt;li&gt;oneAgent接口研究，修改（如有必需）&lt;/li&gt;
+&lt;/ol&gt;</content><category term="Prometheus"></category><category term="Docker"></category></entry></feed>

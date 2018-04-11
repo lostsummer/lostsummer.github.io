@@ -119,6 +119,12 @@
                     </li>
                     <li class="panel anti-panel"><ul id="collapse-latest" class="sidebar_submenu collapse in">
                         <li class="">
+                            <a class="hide-overflow" href="http://lostsummer.github.io/posts/2018/Apr/11/容器平台监控方案大体设计.html" title="容器平台监控方案大体设计">
+                                <i class="fa fa-file-text padding-small"></i>
+                                容器平台监控方案大体设计
+                            </a>
+                        </li>
+                        <li class="">
                             <a class="hide-overflow" href="http://lostsummer.github.io/posts/2018/Apr/09/201804091040.html" title="容器监控方案选型">
                                 <i class="fa fa-file-text padding-small"></i>
                                 容器监控方案选型
@@ -220,6 +226,13 @@
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
                     <li >
+                        <a href="http://lostsummer.github.io/category/architecture.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Architecture
+                            <span class="badge pull-right categorybadge">1</span>
+                        </a>
+                    </li>
+                    <li >
                         <a href="http://lostsummer.github.io/category/learning.html">
                             <i class="fa fa-folder-open padding-small"></i>
                             Learning
@@ -243,37 +256,37 @@
                     </a>
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-tags" class="sidebar_submenu collapse ">
-                    <li class="tag-[<pelican.contents.Article object at 0x7fb37a39e940>]">
-                        <a href="http://lostsummer.github.io/tag/docker.html">
-                            Docker
-                        </a>
-                    </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7fb37a39e940>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f0a67ee99b0>, <pelican.contents.Article object at 0x7f0a67ec4a20>]">
                         <a href="http://lostsummer.github.io/tag/prometheus.html">
                             Prometheus
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7fb37a39e940>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f0a67ee99b0>, <pelican.contents.Article object at 0x7f0a67ec4a20>]">
+                        <a href="http://lostsummer.github.io/tag/docker.html">
+                            Docker
+                        </a>
+                    </li>
+                    <li class="tag-[<pelican.contents.Article object at 0x7f0a67ec4a20>]">
                         <a href="http://lostsummer.github.io/tag/influxdb.html">
                             InfluxDB
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7fb37c190ef0>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f0a69cb5ef0>]">
                         <a href="http://lostsummer.github.io/tag/go.html">
                             Go
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7fb37c190ef0>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f0a69cb5ef0>]">
                         <a href="http://lostsummer.github.io/tag/linux.html">
                             Linux
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7fb37f327a20>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f0a6ce47a20>]">
                         <a href="http://lostsummer.github.io/tag/python.html">
                             Python
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7fb37f327a20>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f0a6ce47a20>]">
                         <a href="http://lostsummer.github.io/tag/git.html">
                             Git
                         </a>
@@ -313,6 +326,73 @@
 </section>
 <div class="row">
     <div class="col-lg-9">
+            <article>
+                <h2>
+                    <a href="http://lostsummer.github.io/posts/2018/Apr/11/容器平台监控方案大体设计.html">容器平台监控方案大体设计</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2018-04-11T18:15:14+08:00"> Wed 11 April 2018</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="http://lostsummer.github.io/category/architecture.html">Architecture</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="http://lostsummer.github.io/tag/prometheus.html">Prometheus</a> /                 <a href="http://lostsummer.github.io/tag/docker.html">Docker</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <h2 id="_1"><a class="toclink" href="#_1">监控对象</a></h2>
+<ul>
+<li>容器集群节点 </li>
+<li>集群上运行的容器</li>
+</ul>
+<h2 id="_2"><a class="toclink" href="#_2">监控数据类型</a></h2>
+<ol>
+<li>
+<p>性能状态图表&nbsp;各性能指标的不间断连续数据</p>
+</li>
+<li>
+<p>服务心跳&nbsp;定时上报，确认服务活性</p>
+</li>
+<li>
+<p>报警&nbsp;由状态数据经过报警逻辑计算触发（阈值，断流等）的报警信息</p>
+</li>
+</ol>
+<h2 id="_3"><a class="toclink" href="#_3">不同类型数据流向</a></h2>
+<ol>
+<li>
+<p>状态
+   集群节点采集器 -&gt; Prometheus -&gt;&nbsp;Grafana</p>
+</li>
+<li>
+<p>心跳
+   被监控容器自身 -&gt; oneAgent -&gt; InfluxDB -&gt;&nbsp;Grafana</p>
+</li>
+<li>
+<p>报警
+   集群节点采集器 -&gt; Prometheus -&gt; AlertManager -&gt; oneAgent -&gt;&nbsp;报警终端</p>
+</li>
+</ol>
+<p>注： </p>
+<ul>
+<li>集群节点采集器包括cAdvisor， node-exporter&nbsp;等容器</li>
+<li>心跳需要特殊编写脚本，对于容器，要在Dockerfile编写时加入，并在启动时启用heartbeat相关参数</li>
+</ul>
+<h2 id="_4"><a class="toclink" href="#_4">架构及部署变化</a></h2>
+<p>目前测试运行的 Docker Swarm&nbsp;栈将要发生变化，首要目的是处于节约容器集群资源考虑，将Prometheus剥离出集群单独部署。</p>
+<p><img alt="architecture_changing" src="http://ooyi4zkat.bkt.clouddn.com/容器监控信息采集.png"/></p>
+<h2 id="_5"><a class="toclink" href="#_5">设计任务</a></h2>
+<p>关键指标的提前整理归类等</p>
+<h2 id="_6"><a class="toclink" href="#_6">部署任务</a></h2>
+<ol>
+<li>解决Prometheus和AlterManager剥离出集群后的服务发现问题（或通过配置中静态配置采集器地址 …</li></ol>
+                </div>
+            </article>
+            <hr/>
             <article>
                 <h2>
                     <a href="http://lostsummer.github.io/posts/2018/Apr/09/201804091040.html">容器监控方案选型</a>
