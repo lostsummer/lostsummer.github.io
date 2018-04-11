@@ -8,15 +8,15 @@ SITESUBTITLE = u'code less talk more :)'
 SITEURL = ''
 
 TIMEZONE = 'Asia/Shanghai'
-DEFAULT_LANG = u'en'
+DEFAULT_LANG = u'zh'
 
 PATH = 'content'
 PLUGIN_PATHS = ['plugins']
 STATIC_PATHS = ['images', 'extra']
 FAVICON = 'images/favicon.ico'
-#PLUGINS = ['extract_toc']
 PLUGINS = ['pelican-toc']
 THEME = 'themes/pelican-twitchy'
+CHECK_MODIFIED_METHOD = "mtime"
 DISPLAY_TAGS_ON_MENU = True
 DISPLAY_PAGES_ON_MENU = False
 DISPLAY_RECENT_POSTS_ON_MENU = True
@@ -26,7 +26,9 @@ ARTICLE_SAVE_AS = 'posts/{date:%Y}/{date:%b}/{date:%d}/{slug}.html'
 PAGE_URL = 'pages/{slug}.html'
 PAGE_SAVE_AS = 'pages/{slug}.html'
 NEWEST_FIRST_ARCHIVES = True
+RESPONSIVE_IMAGES = True
 CC_LICENSE = "CC-BY-NC-SA"
+SUMMARY_MAX_LENGTH = 0
 
 
 
