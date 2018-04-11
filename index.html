@@ -137,6 +137,12 @@
                             </a>
                         </li>
                         <li class="">
+                            <a class="hide-overflow" href="http://lostsummer.github.io/posts/2017/Apr/11/移动版行情服务器架构分析.html" title="移动版行情服务器架构分析">
+                                <i class="fa fa-file-text padding-small"></i>
+                                移动版行情服务器架构分析
+                            </a>
+                        </li>
+                        <li class="">
                             <a class="hide-overflow" href="http://lostsummer.github.io/posts/2016/Apr/28/201604282215.html" title="第一篇 github pages 文章">
                                 <i class="fa fa-file-text padding-small"></i>
                                 第一篇 github pages 文章
@@ -229,7 +235,7 @@
                         <a href="http://lostsummer.github.io/category/architecture.html">
                             <i class="fa fa-folder-open padding-small"></i>
                             Architecture
-                            <span class="badge pull-right categorybadge">1</span>
+                            <span class="badge pull-right categorybadge">2</span>
                         </a>
                     </li>
                     <li >
@@ -256,37 +262,37 @@
                     </a>
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-tags" class="sidebar_submenu collapse ">
-                    <li class="tag-[<pelican.contents.Article object at 0x7f0a67ee99b0>, <pelican.contents.Article object at 0x7f0a67ec4a20>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f4b1b1e6978>, <pelican.contents.Article object at 0x7f4b1b1c32e8>]">
                         <a href="http://lostsummer.github.io/tag/prometheus.html">
                             Prometheus
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f0a67ee99b0>, <pelican.contents.Article object at 0x7f0a67ec4a20>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f4b1b1e6978>, <pelican.contents.Article object at 0x7f4b1b1c32e8>]">
                         <a href="http://lostsummer.github.io/tag/docker.html">
                             Docker
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f0a67ec4a20>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f4b1b1c32e8>]">
                         <a href="http://lostsummer.github.io/tag/influxdb.html">
                             InfluxDB
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f0a69cb5ef0>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f4b1b24f860>]">
                         <a href="http://lostsummer.github.io/tag/go.html">
                             Go
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f0a69cb5ef0>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f4b1b24f860>]">
                         <a href="http://lostsummer.github.io/tag/linux.html">
                             Linux
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f0a6ce47a20>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f4b20147a20>]">
                         <a href="http://lostsummer.github.io/tag/python.html">
                             Python
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f0a6ce47a20>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f4b20147a20>]">
                         <a href="http://lostsummer.github.io/tag/git.html">
                             Git
                         </a>
@@ -353,31 +359,31 @@
 <h2 id="_2"><a class="toclink" href="#_2">监控数据类型</a></h2>
 <ol>
 <li>
-<p>性能状态图表&nbsp;各性能指标的不间断连续数据</p>
+<p>性能状态图表:&nbsp;各性能指标的不间断连续数据</p>
 </li>
 <li>
-<p>服务心跳&nbsp;定时上报，确认服务活性</p>
+<p>服务心跳:&nbsp;定时上报，确认服务活性</p>
 </li>
 <li>
-<p>报警&nbsp;由状态数据经过报警逻辑计算触发（阈值，断流等）的报警信息</p>
+<p>报警:&nbsp;由状态数据经过报警逻辑计算触发（阈值，断流等）的报警信息</p>
 </li>
 </ol>
 <h2 id="_3"><a class="toclink" href="#_3">不同类型数据流向</a></h2>
 <ol>
 <li>
-<p>状态
-   集群节点采集器 -&gt; Prometheus -&gt;&nbsp;Grafana</p>
+<p>状态:
+    集群节点采集器 -&gt; Prometheus -&gt;&nbsp;Grafana</p>
 </li>
 <li>
-<p>心跳
-   被监控容器自身 -&gt; oneAgent -&gt; InfluxDB -&gt;&nbsp;Grafana</p>
+<p>心跳:
+    被监控容器自身 -&gt; oneAgent -&gt; InfluxDB -&gt;&nbsp;Grafana</p>
 </li>
 <li>
-<p>报警
-   集群节点采集器 -&gt; Prometheus -&gt; AlertManager -&gt; oneAgent -&gt;&nbsp;报警终端</p>
+<p>报警:
+    集群节点采集器 -&gt; Prometheus -&gt; AlertManager -&gt; oneAgent -&gt;&nbsp;报警终端</p>
 </li>
 </ol>
-<p>注： </p>
+<p>注: </p>
 <ul>
 <li>集群节点采集器包括cAdvisor， node-exporter&nbsp;等容器</li>
 <li>心跳需要特殊编写脚本，对于容器，要在Dockerfile编写时加入，并在启动时启用heartbeat相关参数</li>
@@ -522,6 +528,54 @@
 <h2 id="_5"><a class="toclink" href="#_5">从一个实例开始</a></h2>
 <p>已有的所有项目地址：http://git.emoney.cn/monitor/monitorplat.git
 代码包导入路径：MonitorPlat …</p>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="http://lostsummer.github.io/posts/2017/Apr/11/移动版行情服务器架构分析.html">移动版行情服务器架构分析</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2017-04-11T18:30:54+08:00"> Tue 11 April 2017</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="http://lostsummer.github.io/category/architecture.html">Architecture</a>
+            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <h1 id="_1"><a class="toclink" href="#_1">当前移动版架构</a></h1>
+<p>仅展示移动版行情功能涉及的上下游结构，不涉及交易模块</p>
+<p>Front&nbsp;上游是上证或券商提供的行情数据接口，部分外盘数据可能来自新浪公开的接口</p>
+<p>FSServer 部署在公司，Memcache&nbsp;由公司服务定时远程写入数据</p>
+<p><img alt="" src="http://ooyi4zkat.bkt.clouddn.com/%E8%A1%8C%E6%83%85%E6%9E%B6%E6%9E%84.png"/></p>
+<h1 id="_2"><a class="toclink" href="#_2">主要业务流程</a></h1>
+<h2 id="_3"><a class="toclink" href="#_3">用户登录流程</a></h2>
+<p>用户登录区分匿名/实名，首次/非首次</p>
+<p>Fee 验证通过后，<span class="caps">LB</span> 返回一个相对空闲的 <span class="caps">DS</span> <span class="caps">URL</span> （实际就是 <span class="caps">IP</span>：<span class="caps">PORT</span>&nbsp;拼合）返回给客户端</p>
+<p>所有 <span class="caps">DS</span> 的&nbsp;服务端口要暴露在公网中</p>
+<p><img alt="" src="http://ooyi4zkat.bkt.clouddn.com/%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95%E6%97%B6%E5%BA%8F%E5%9B%BE.png"/></p>
+<h2 id="_4"><a class="toclink" href="#_4">用户信息查询修改流程</a></h2>
+<p><span class="caps">DS</span> 转发客户请求给&nbsp;Fee</p>
+<p><img alt="" src="http://ooyi4zkat.bkt.clouddn.com/%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF%E6%9F%A5%E8%AF%A2%E4%BF%AE%E6%94%B9.png"/></p>
+<h2 id="_5"><a class="toclink" href="#_5">用户行情数据获取</a></h2>
+<p><img alt="" src="http://ooyi4zkat.bkt.clouddn.com/%E7%94%A8%E6%88%B7%E8%A1%8C%E6%83%85%E6%95%B0%E6%8D%AE%E8%AF%B7%E6%B1%82.png"/></p>
+<h1 id="_7"><a class="toclink" href="#_6">缺陷分析</a></h1>
+<h2 id="_8"><a class="toclink" href="#_7">共同缺陷</a></h2>
+<ul>
+<li>功能定义混子不明确</li>
+<li>稳定性差</li>
+<li>接口复杂不明晰且文档缺位</li>
+<li>缺少热备，自动恢复方案</li>
+<li>Debug困难</li>
+</ul>
+<h2 id="_9"><a class="toclink" href="#_8">各部分缺陷</a></h2>
+<ol>
+<li>数据上游 Front&nbsp;没有好的高可用方案</li>
+<li><span class="caps">DM</span> <span class="caps">DS …</span></li></ol>
                 </div>
             </article>
             <hr/>

@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="author" content="Yushin" />
+        <meta name="author" content="lostsummer" />
         <meta name="keywords" content="Go,Linux" />
         <meta name="description" content="初次开发构建Go项目的朋友可能对如果创建一个干净独立的项目环境有些疑惑，这里介绍一下个人经验。 前提 你安装配置好了golang编译器 你懂得配置GOPATH，了解GO开发环境的目录结构 主要问题及解决手段概述 隔离的开发环境。通过覆盖GOPATH环境变量解决。 三方依赖库的项目隔离。通过vendor机制。 三方库版本依赖。通过govendor工具。 golang.org/ 包不能直接go get的问题。通过github镜像解决。 步骤 工具安装 govendor 具体使用方法见项目主页：https://github.com/kardianos/govendor 安装： go get -u github.com/kardianos/govendor 该命令会将govender安装在你默认配置的的\$GOPATH/bin目录下，通常你已经将这个目录配置到了环境变量PATH中。 从一个实例开始 已有的所有项目地址：http://git.emoney.cn/monitor/monitorplat.git 代码包导入路径：MonitorPlat …" />
 
@@ -138,6 +138,12 @@
                             </a>
                         </li>
                         <li class="">
+                            <a class="hide-overflow" href="http://lostsummer.github.io/posts/2017/Apr/11/移动版行情服务器架构分析.html" title="移动版行情服务器架构分析">
+                                <i class="fa fa-file-text padding-small"></i>
+                                移动版行情服务器架构分析
+                            </a>
+                        </li>
+                        <li class="">
                             <a class="hide-overflow" href="http://lostsummer.github.io/posts/2016/Apr/28/201604282215.html" title="第一篇 github pages 文章">
                                 <i class="fa fa-file-text padding-small"></i>
                                 第一篇 github pages 文章
@@ -230,7 +236,7 @@
                         <a href="http://lostsummer.github.io/category/architecture.html">
                             <i class="fa fa-folder-open padding-small"></i>
                             Architecture
-                            <span class="badge pull-right categorybadge">1</span>
+                            <span class="badge pull-right categorybadge">2</span>
                         </a>
                     </li>
                     <li class="active">
@@ -257,37 +263,37 @@
                     </a>
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-tags" class="sidebar_submenu collapse ">
-                    <li class="tag-[<pelican.contents.Article object at 0x7f0a67ee99b0>, <pelican.contents.Article object at 0x7f0a67ec4a20>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f4b1b1e6978>, <pelican.contents.Article object at 0x7f4b1b1c32e8>]">
                         <a href="http://lostsummer.github.io/tag/prometheus.html">
                             Prometheus
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f0a67ee99b0>, <pelican.contents.Article object at 0x7f0a67ec4a20>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f4b1b1e6978>, <pelican.contents.Article object at 0x7f4b1b1c32e8>]">
                         <a href="http://lostsummer.github.io/tag/docker.html">
                             Docker
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f0a67ec4a20>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f4b1b1c32e8>]">
                         <a href="http://lostsummer.github.io/tag/influxdb.html">
                             InfluxDB
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f0a69cb5ef0>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f4b1b24f860>]">
                         <a href="http://lostsummer.github.io/tag/go.html">
                             Go
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f0a69cb5ef0>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f4b1b24f860>]">
                         <a href="http://lostsummer.github.io/tag/linux.html">
                             Linux
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f0a6ce47a20>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f4b20147a20>]">
                         <a href="http://lostsummer.github.io/tag/python.html">
                             Python
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f0a6ce47a20>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f4b20147a20>]">
                         <a href="http://lostsummer.github.io/tag/git.html">
                             Git
                         </a>
@@ -481,7 +487,7 @@ govender sync
 </pre></div>
                 </div>
                 <footer class="text-right">
-                    <p>- Yushin</p>
+                    <p>- lostsummer</p>
                 </footer>
     <div id="show-comments" class="span7 text-center">
         <a href="http://lostsummer.github.io/posts/2018/Mar/30/201803301025.html#disqus_thread" data-disqus-identifier="201803301025" class="btn btn-default">Show Comments</a>

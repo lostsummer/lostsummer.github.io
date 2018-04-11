@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="lostsummer" />
         <meta name="keywords" content="Prometheus,Docker" />
-        <meta name="description" content="监控对象 容器集群节点 集群上运行的容器 监控数据类型 性能状态图表 各性能指标的不间断连续数据 服务心跳 定时上报，确认服务活性 报警 由状态数据经过报警逻辑计算触发（阈值，断流等）的报警信息 不同类型数据流向 状态 集群节点采集器 -&gt; Prometheus -&gt; Grafana 心跳 被监控容器自身 -&gt; oneAgent -&gt; InfluxDB -&gt; Grafana 报警 集群节点采集器 -&gt; Prometheus -&gt; AlertManager -&gt; oneAgent -&gt; 报警终端 注： 集群节点采集器包括cAdvisor， node-exporter 等容器 心跳需要特殊编写脚本，对于容器，要在Dockerfile编写时加入，并在启动时启用heartbeat相关参数 架构及部署变化 目前测试运行的 Docker Swarm 栈将要发生变化，首要目的是处于节约容器集群资源考虑，将Prometheus剥离出集群单独部署。 设计任务 关键指标的提前整理归类等 部署任务 解决Prometheus和AlterManager剥离出集群后的服务发现问题（或通过配置中静态配置采集器地址 …" />
+        <meta name="description" content="监控对象 容器集群节点 集群上运行的容器 监控数据类型 性能状态图表: 各性能指标的不间断连续数据 服务心跳: 定时上报，确认服务活性 报警: 由状态数据经过报警逻辑计算触发（阈值，断流等）的报警信息 不同类型数据流向 状态: 集群节点采集器 -&gt; Prometheus -&gt; Grafana 心跳: 被监控容器自身 -&gt; oneAgent -&gt; InfluxDB -&gt; Grafana 报警: 集群节点采集器 -&gt; Prometheus -&gt; AlertManager -&gt; oneAgent -&gt; 报警终端 注: 集群节点采集器包括cAdvisor， node-exporter 等容器 心跳需要特殊编写脚本，对于容器，要在Dockerfile编写时加入，并在启动时启用heartbeat相关参数 架构及部署变化 目前测试运行的 Docker Swarm 栈将要发生变化，首要目的是处于节约容器集群资源考虑，将Prometheus剥离出集群单独部署。 设计任务 关键指标的提前整理归类等 部署任务 解决Prometheus和AlterManager剥离出集群后的服务发现问题（或通过配置中静态配置采集器地址 …" />
 
 
     <title>容器平台监控方案大体设计 - $ kill -1</title>
@@ -138,6 +138,12 @@
                             </a>
                         </li>
                         <li class="">
+                            <a class="hide-overflow" href="http://lostsummer.github.io/posts/2017/Apr/11/移动版行情服务器架构分析.html" title="移动版行情服务器架构分析">
+                                <i class="fa fa-file-text padding-small"></i>
+                                移动版行情服务器架构分析
+                            </a>
+                        </li>
+                        <li class="">
                             <a class="hide-overflow" href="http://lostsummer.github.io/posts/2016/Apr/28/201604282215.html" title="第一篇 github pages 文章">
                                 <i class="fa fa-file-text padding-small"></i>
                                 第一篇 github pages 文章
@@ -230,7 +236,7 @@
                         <a href="http://lostsummer.github.io/category/architecture.html">
                             <i class="fa fa-folder-open padding-small"></i>
                             Architecture
-                            <span class="badge pull-right categorybadge">1</span>
+                            <span class="badge pull-right categorybadge">2</span>
                         </a>
                     </li>
                     <li >
@@ -257,37 +263,37 @@
                     </a>
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-tags" class="sidebar_submenu collapse ">
-                    <li class="tag-[<pelican.contents.Article object at 0x7f0a67ee99b0>, <pelican.contents.Article object at 0x7f0a67ec4a20>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f4b1b1e6978>, <pelican.contents.Article object at 0x7f4b1b1c32e8>]">
                         <a href="http://lostsummer.github.io/tag/prometheus.html">
                             Prometheus
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f0a67ee99b0>, <pelican.contents.Article object at 0x7f0a67ec4a20>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f4b1b1e6978>, <pelican.contents.Article object at 0x7f4b1b1c32e8>]">
                         <a href="http://lostsummer.github.io/tag/docker.html">
                             Docker
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f0a67ec4a20>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f4b1b1c32e8>]">
                         <a href="http://lostsummer.github.io/tag/influxdb.html">
                             InfluxDB
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f0a69cb5ef0>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f4b1b24f860>]">
                         <a href="http://lostsummer.github.io/tag/go.html">
                             Go
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f0a69cb5ef0>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f4b1b24f860>]">
                         <a href="http://lostsummer.github.io/tag/linux.html">
                             Linux
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f0a6ce47a20>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f4b20147a20>]">
                         <a href="http://lostsummer.github.io/tag/python.html">
                             Python
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f0a6ce47a20>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f4b20147a20>]">
                         <a href="http://lostsummer.github.io/tag/git.html">
                             Git
                         </a>
@@ -348,31 +354,31 @@
 <h2 id="_2"><a class="toclink" href="#_2">监控数据类型</a></h2>
 <ol>
 <li>
-<p>性能状态图表&nbsp;各性能指标的不间断连续数据</p>
+<p>性能状态图表:&nbsp;各性能指标的不间断连续数据</p>
 </li>
 <li>
-<p>服务心跳&nbsp;定时上报，确认服务活性</p>
+<p>服务心跳:&nbsp;定时上报，确认服务活性</p>
 </li>
 <li>
-<p>报警&nbsp;由状态数据经过报警逻辑计算触发（阈值，断流等）的报警信息</p>
+<p>报警:&nbsp;由状态数据经过报警逻辑计算触发（阈值，断流等）的报警信息</p>
 </li>
 </ol>
 <h2 id="_3"><a class="toclink" href="#_3">不同类型数据流向</a></h2>
 <ol>
 <li>
-<p>状态
-   集群节点采集器 -&gt; Prometheus -&gt;&nbsp;Grafana</p>
+<p>状态:
+    集群节点采集器 -&gt; Prometheus -&gt;&nbsp;Grafana</p>
 </li>
 <li>
-<p>心跳
-   被监控容器自身 -&gt; oneAgent -&gt; InfluxDB -&gt;&nbsp;Grafana</p>
+<p>心跳:
+    被监控容器自身 -&gt; oneAgent -&gt; InfluxDB -&gt;&nbsp;Grafana</p>
 </li>
 <li>
-<p>报警
-   集群节点采集器 -&gt; Prometheus -&gt; AlertManager -&gt; oneAgent -&gt;&nbsp;报警终端</p>
+<p>报警:
+    集群节点采集器 -&gt; Prometheus -&gt; AlertManager -&gt; oneAgent -&gt;&nbsp;报警终端</p>
 </li>
 </ol>
-<p>注： </p>
+<p>注: </p>
 <ul>
 <li>集群节点采集器包括cAdvisor， node-exporter&nbsp;等容器</li>
 <li>心跳需要特殊编写脚本，对于容器，要在Dockerfile编写时加入，并在启动时启用heartbeat相关参数</li>
