@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="Yushin" />
         <meta name="keywords" content="Go,Linux" />
-        <meta name="description" content="初次开发构建Go项目的朋友可能对如果创建一个干净独立的项目环境有些疑惑，这里介绍一下个人经验。 前提 你安装配置好了golang编译器 你懂得配置GOPATH，了解GO开发环境的目录结构 主要问题及解决手段概述 隔离的开发环境。通过覆盖GOPATH环境变量解决。 三方依赖库的项目隔离。通过vendor机制。 三方库版本依赖。通过govendor工具。 golang.org/ 包不能直接go get的问题。通过github镜像解决。 步骤 工具安装 govendor 具体使用方法见项目主页：https://github.com/kardianos/govendor 安装： go get -u github.com/kardianos/govendor 该命令会将govender安装在你默认配置的的\$GOPATH/bin目录下，通常你已经将这个目录配置到了环境变量PATH中。 从一个实例开始 已有的所有项目地址：http://git.emoney.cn/monitor/monitorplat.git 代码包导入路径：MonitorPlat …" />
+        <meta name="description" content="初次开发构建Go项目的朋友可能对如果创建一个干净独立的项目环境有些疑惑，这里介绍一下个人经验。 前提 你安装配置好了golang编译器 你懂得配置GOPATH，了解GO开发环境的目录结构 主要问题及解决手段概述 隔离的开发环境。通过覆盖GOPATH环境变量解决。 三方依赖库的项目隔离。通过vendor机制。 三方库版本依赖。通过govendor工具。 golang.org/ 包不能直接go get的问题。通过github镜像解决。 步骤 工具安装 govendor 具体使用方法见项目主页：https://github.com/kardianos/govendor 安装： go get -u github.com/kardianos/govendor 该命令会将govender安装在你默认配置的的\$GOPATH/bin目录下，通常你已经将这个目录配置到了环境变量PATH中。 从一个实例开始 已有的所有项目地址：http://git.emoney.cn/monitor/monitorplat.git 代码包导入路径：MonitorPlat …" />
 
 
     <title>我在Linux环境创建私有Go项目环境的方法 - $ kill -1</title>
@@ -250,42 +250,42 @@
                     </a>
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-tags" class="sidebar_submenu collapse ">
-                    <li class="tag-[<pelican.contents.Article object at 0x7f61812e3f60>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7fd0e9cbacc0>]">
                         <a href="http://lostsummer.github.io/tag/docker.html">
                             Docker
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f61812e3f60>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7fd0e9cbacc0>]">
                         <a href="http://lostsummer.github.io/tag/prometheus.html">
                             Prometheus
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f61812e3f60>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7fd0e9cbacc0>]">
                         <a href="http://lostsummer.github.io/tag/influxdb.html">
                             InfluxDB
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f61830ec860>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7fd0e9c6c0b8>]">
                         <a href="http://lostsummer.github.io/tag/go.html">
                             Go
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f61830ec860>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7fd0e9c6c0b8>]">
                         <a href="http://lostsummer.github.io/tag/linux.html">
                             Linux
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f61830d89e8>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7fd0e9ca3f60>]">
                         <a href="http://lostsummer.github.io/tag/markdown.html">
                             markdown
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f61862766d8>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7fd0ece3aa20>]">
                         <a href="http://lostsummer.github.io/tag/python.html">
                             Python
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f61862766d8>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7fd0ece3aa20>]">
                         <a href="http://lostsummer.github.io/tag/git.html">
                             Git
                         </a>
@@ -338,8 +338,7 @@
         <div class="row">
             <div class="col-lg-9">
                 <div class="entry-content">
-                    
-<p>初次开发构建Go项目的朋友可能对如果创建一个干净独立的项目环境有些疑惑，这里介绍一下个人经验。</p>
+                    <p>初次开发构建Go项目的朋友可能对如果创建一个干净独立的项目环境有些疑惑，这里介绍一下个人经验。</p>
 <h1 id="_1"><a class="toclink" href="#_1">前提</a></h1>
 <ol>
 <li>你安装配置好了golang编译器</li>
@@ -350,18 +349,18 @@
 <li>隔离的开发环境。通过覆盖GOPATH环境变量解决。</li>
 <li>三方依赖库的项目隔离。通过vendor机制。</li>
 <li>三方库版本依赖。通过govendor工具。</li>
-<li>golang.org/ 包不能直接go get的问题。通过github镜像解决。</li>
+<li>golang.org/ 包不能直接go&nbsp;get的问题。通过github镜像解决。</li>
 </ol>
 <h1 id="_3"><a class="toclink" href="#_3">步骤</a></h1>
 <h2 id="_4"><a class="toclink" href="#_4">工具安装</a></h2>
 <p>govendor</p>
 <p>具体使用方法见项目主页：https://github.com/kardianos/govendor</p>
 <p>安装：</p>
-<p>go get -u github.com/kardianos/govendor</p>
+<p>go get -u&nbsp;github.com/kardianos/govendor</p>
 <p>该命令会将govender安装在你默认配置的的\$<span class="caps">GOPATH</span>/bin目录下，通常你已经将这个目录配置到了环境变量PATH中。</p>
 <h2 id="_5"><a class="toclink" href="#_5">从一个实例开始</a></h2>
 <p>已有的所有项目地址：http://git.emoney.cn/monitor/monitorplat.git
-代码包导入路径：MonitorPlat/oneagent, MonitorPlat/onedistribute, … (该项目由多个程序组成)</p>
+代码包导入路径：MonitorPlat/oneagent, MonitorPlat/onedistribute, &hellip;&nbsp;(该项目由多个程序组成)</p>
 <h3 id="_6"><a class="toclink" href="#_6">创建目录结构</a></h3>
 <div class="highlight"><pre><span></span>mkdir -p dev_projects/src/MonitorPlat
 </pre></div>
@@ -369,7 +368,7 @@
 <div class="highlight"><pre><span></span>cd dev_projects
 git clone http://git.emoney.cn/monitor/monitorplat.git src/MonitorPlat
 </pre></div>
-<h2 id="_8"><a class="toclink" href="#_8">环境隔离</a></h2>
+<h2 id="_9"><a class="toclink" href="#_8">环境隔离</a></h2>
 <p>为了和.bashrc中配置的\$GOPATH隔离，需要在dev_projects下运行：</p>
 <div class="highlight"><pre><span></span>export GOPATH=$(pwd)
 </pre></div>
@@ -389,7 +388,7 @@ export GOPATH="$CURDIR"
 <div class="highlight"><pre><span></span>source env_deactivate.sh
 </pre></div>
 <p>来切换</p>
-<h3 id="vendor"><a class="toclink" href="#vendor">vendor 初始化</a></h3>
+<h3 id="vendor"><a class="toclink" href="#vendor">vendor&nbsp;初始化</a></h3>
 <div class="highlight"><pre><span></span>cd src/MonitorPlat
 govendor init
 </pre></div>
@@ -452,27 +451,27 @@ govendor init
   m github.com/influxdata/influxdb/models
   m github.com/influxdata/influxdb/pkg/escape
 </pre></div>
-<p>其中行首 m 标识的，是目前环境缺少的包。从 golang.org 的依赖主要是 x/net 和 x/text 两部分。</p>
-<p>vendor 目录中创建 golang.org/x 目录</p>
+<p>其中行首 m 标识的，是目前环境缺少的包。从 golang.org 的依赖主要是 x/net 和 x/text&nbsp;两部分。</p>
+<p>vendor 目录中创建 golang.org/x&nbsp;目录</p>
 <div class="highlight"><pre><span></span>mkdir -p vendor/golang.org/x
 </pre></div>
 <p>项目子模块添加</p>
 <div class="highlight"><pre><span></span>git submodule add https://github.com/golang/net.git vendor/golang.org/x/net
 git submodule add https://github.com/golang/text.git vendor/golang.org/x/text
 </pre></div>
-<h3 id="_9"><a class="toclink" href="#_9">获取其他依赖包</a></h3>
+<h3 id="_10"><a class="toclink" href="#_9">获取其他依赖包</a></h3>
 <p>可以简单的通过一个命令</p>
 <div class="highlight"><pre><span></span>govendor fetch +m
 </pre></div>
-<h3 id="git"><a class="toclink" href="#git">git 追踪</a></h3>
+<h3 id="git"><a class="toclink" href="#git">git&nbsp;追踪</a></h3>
 <div class="highlight"><pre><span></span>git add vendor/vendor.json
 git commit ...
 git push ...
 </pre></div>
-<h3 id="_10"><a class="toclink" href="#_10">新位置使用</a></h3>
+<h3 id="_11"><a class="toclink" href="#_10">新位置使用</a></h3>
 <p>git submodule 已经把vendor/golang.org 下的项目版本记住
-其他的包，vendor.json 记录了版本。</p>
-<p>commit 并提交到远程库后，在新的位置迁出后</p>
+其他的包，vendor.json&nbsp;记录了版本。</p>
+<p>commit&nbsp;并提交到远程库后，在新的位置迁出后</p>
 <div class="highlight"><pre><span></span>export GOPATH=$(pwd)
 cd src/MonitorPlat
 git submodule update
@@ -496,29 +495,7 @@ govender sync
             </div>
     <div id="scrollspy">
         <div class="col-lg-3 nav nav-stacked hidden-xs hidden-sm" data-spy="affix" data-offset-top="135">
-            <div class="toc">
-<ul>
-<li><a href="#_1">前提</a></li>
-<li><a href="#_2">主要问题及解决手段概述</a></li>
-<li><a href="#_3">步骤</a><ul>
-<li><a href="#_4">工具安装</a></li>
-<li><a href="#_5">从一个实例开始</a><ul>
-<li><a href="#_6">创建目录结构</a></li>
-<li><a href="#_7">迁出代码</a></li>
-</ul>
-</li>
-<li><a href="#_8">环境隔离</a><ul>
-<li><a href="#vendor">vendor 初始化</a></li>
-<li><a href="#githubgolangorg">从github镜像获取golang.org依赖包</a></li>
-<li><a href="#_9">获取其他依赖包</a></li>
-<li><a href="#git">git 追踪</a></li>
-<li><a href="#_10">新位置使用</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</div>
+            <div id="toc"><ul><li><a class="toc-href" href="#" title="我在Linux环境创建私有Go项目环境的方法">我在Linux环境创建私有Go项目环境的方法</a><ul><li><a class="toc-href" href="#_1" title="前提">前提</a></li><li><a class="toc-href" href="#_2" title="主要问题及解决手段概述">主要问题及解决手段概述</a></li><li><a class="toc-href" href="#_3" title="步骤">步骤</a><ul><li><a class="toc-href" href="#_4" title="工具安装">工具安装</a></li><li><a class="toc-href" href="#_5" title="从一个实例开始">从一个实例开始</a><ul><li><a class="toc-href" href="#_6" title="创建目录结构">创建目录结构</a></li><li><a class="toc-href" href="#_7" title="迁出代码">迁出代码</a></li></ul></li><li><a class="toc-href" href="#_9" title="环境隔离">环境隔离</a><ul><li><a class="toc-href" href="#vendor" title="vendor&nbsp;初始化">vendor&nbsp;初始化</a></li><li><a class="toc-href" href="#githubgolangorg" title="从github镜像获取golang.org依赖包">从github镜像获取golang.org依赖包</a></li><li><a class="toc-href" href="#_10" title="获取其他依赖包">获取其他依赖包</a></li><li><a class="toc-href" href="#git" title="git&nbsp;追踪">git&nbsp;追踪</a></li><li><a class="toc-href" href="#_11" title="新位置使用">新位置使用</a></li></ul></li></ul></li></ul></li></ul></div>
         </div>
     </div>
         </div>
