@@ -1,12 +1,11 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="lostsummer" />
-        <meta name="description" content="当前移动版架构 仅展示移动版行情功能涉及的上下游结构，不涉及交易模块 Front 上游是上证或券商提供的行情数据接口，部分外盘数据可能来自新浪公开的接口 FSServer 部署在公司，Memcache 由公司服务定时远程写入数据 主要业务流程 用户登录流程 用户登录区分匿名/实名，首次/非首次 Fee 验证通过后，LB 返回一个相对空闲的 DS URL （实际就是 IP：PORT 拼合）返回给客户端 所有 DS 的 服务端口要暴露在公网中 用户信息查询修改流程 DS 转发客户请求给 Fee 用户行情数据获取 缺陷分析 共同缺陷 功能定义混子不明确 稳定性差 接口复杂不明晰且文档缺位 缺少热备，自动恢复方案 Debug困难 各部分缺陷 数据上游 Front 没有好的高可用方案 DM DS …" />
 
 
     <title>移动版行情服务器架构分析 - $ kill -1</title>
@@ -262,37 +261,37 @@
                     </a>
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-tags" class="sidebar_submenu collapse ">
-                    <li class="tag-[<pelican.contents.Article object at 0x7f4b1b1e6978>, <pelican.contents.Article object at 0x7f4b1b1c32e8>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7ff5d66c0978>, <pelican.contents.Article object at 0x7ff5d669e2e8>]">
                         <a href="http://lostsummer.github.io/tag/prometheus.html">
                             Prometheus
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f4b1b1e6978>, <pelican.contents.Article object at 0x7f4b1b1c32e8>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7ff5d66c0978>, <pelican.contents.Article object at 0x7ff5d669e2e8>]">
                         <a href="http://lostsummer.github.io/tag/docker.html">
                             Docker
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f4b1b1c32e8>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7ff5d669e2e8>]">
                         <a href="http://lostsummer.github.io/tag/influxdb.html">
                             InfluxDB
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f4b1b24f860>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7ff5d6739e10>]">
                         <a href="http://lostsummer.github.io/tag/go.html">
                             Go
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f4b1b24f860>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7ff5d6739e10>]">
                         <a href="http://lostsummer.github.io/tag/linux.html">
                             Linux
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f4b20147a20>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7ff5db61ca58>]">
                         <a href="http://lostsummer.github.io/tag/python.html">
                             Python
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f4b20147a20>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7ff5db61ca58>]">
                         <a href="http://lostsummer.github.io/tag/git.html">
                             Git
                         </a>
@@ -479,7 +478,7 @@
         var disqus_url = 'http://lostsummer.github.io/posts/2017/Apr/11/移动版行情服务器架构分析.html';
 
     var disqus_config = function () {
-        this.language = "en";
+        this.language = "zh";
     };
         /*load script for comment count*/
         /* * * DON'T EDIT BELOW THIS LINE * * */

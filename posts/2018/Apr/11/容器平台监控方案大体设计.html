@@ -1,13 +1,12 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="lostsummer" />
         <meta name="keywords" content="Prometheus,Docker" />
-        <meta name="description" content="监控对象 容器集群节点 集群上运行的容器 监控数据类型 性能状态图表: 各性能指标的不间断连续数据 服务心跳: 定时上报，确认服务活性 报警: 由状态数据经过报警逻辑计算触发（阈值，断流等）的报警信息 不同类型数据流向 状态: 集群节点采集器 -&gt; Prometheus -&gt; Grafana 心跳: 被监控容器自身 -&gt; oneAgent -&gt; InfluxDB -&gt; Grafana 报警: 集群节点采集器 -&gt; Prometheus -&gt; AlertManager -&gt; oneAgent -&gt; 报警终端 注: 集群节点采集器包括cAdvisor， node-exporter 等容器 心跳需要特殊编写脚本，对于容器，要在Dockerfile编写时加入，并在启动时启用heartbeat相关参数 架构及部署变化 目前测试运行的 Docker Swarm 栈将要发生变化，首要目的是处于节约容器集群资源考虑，将Prometheus剥离出集群单独部署。 设计任务 关键指标的提前整理归类等 部署任务 解决Prometheus和AlterManager剥离出集群后的服务发现问题（或通过配置中静态配置采集器地址 …" />
 
 
     <title>容器平台监控方案大体设计 - $ kill -1</title>
@@ -263,37 +262,37 @@
                     </a>
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-tags" class="sidebar_submenu collapse ">
-                    <li class="tag-[<pelican.contents.Article object at 0x7f4b1b1e6978>, <pelican.contents.Article object at 0x7f4b1b1c32e8>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7ff5d66c0978>, <pelican.contents.Article object at 0x7ff5d669e2e8>]">
                         <a href="http://lostsummer.github.io/tag/prometheus.html">
                             Prometheus
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f4b1b1e6978>, <pelican.contents.Article object at 0x7f4b1b1c32e8>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7ff5d66c0978>, <pelican.contents.Article object at 0x7ff5d669e2e8>]">
                         <a href="http://lostsummer.github.io/tag/docker.html">
                             Docker
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f4b1b1c32e8>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7ff5d669e2e8>]">
                         <a href="http://lostsummer.github.io/tag/influxdb.html">
                             InfluxDB
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f4b1b24f860>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7ff5d6739e10>]">
                         <a href="http://lostsummer.github.io/tag/go.html">
                             Go
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f4b1b24f860>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7ff5d6739e10>]">
                         <a href="http://lostsummer.github.io/tag/linux.html">
                             Linux
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f4b20147a20>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7ff5db61ca58>]">
                         <a href="http://lostsummer.github.io/tag/python.html">
                             Python
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f4b20147a20>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7ff5db61ca58>]">
                         <a href="http://lostsummer.github.io/tag/git.html">
                             Git
                         </a>
@@ -457,7 +456,7 @@
         var disqus_url = 'http://lostsummer.github.io/posts/2018/Apr/11/容器平台监控方案大体设计.html';
 
     var disqus_config = function () {
-        this.language = "en";
+        this.language = "zh";
     };
         /*load script for comment count*/
         /* * * DON'T EDIT BELOW THIS LINE * * */
