@@ -242,7 +242,7 @@
                         <a href="http://lostsummer.github.io/category/learning.html">
                             <i class="fa fa-folder-open padding-small"></i>
                             Learning
-                            <span class="badge pull-right categorybadge">2</span>
+                            <span class="badge pull-right categorybadge">3</span>
                         </a>
                     </li>
                     <li >
@@ -262,37 +262,37 @@
                     </a>
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-tags" class="sidebar_submenu collapse ">
-                    <li class="tag-[<pelican.contents.Article object at 0x7ff5d66c0978>, <pelican.contents.Article object at 0x7ff5d669e2e8>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f9357e28f98>, <pelican.contents.Article object at 0x7f9357dfb860>]">
                         <a href="http://lostsummer.github.io/tag/prometheus.html">
                             Prometheus
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7ff5d66c0978>, <pelican.contents.Article object at 0x7ff5d669e2e8>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f9357e28f98>, <pelican.contents.Article object at 0x7f9357dfb860>]">
                         <a href="http://lostsummer.github.io/tag/docker.html">
                             Docker
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7ff5d669e2e8>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f9357dfb860>]">
                         <a href="http://lostsummer.github.io/tag/influxdb.html">
                             InfluxDB
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7ff5d6739e10>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f9357f50eb8>]">
                         <a href="http://lostsummer.github.io/tag/go.html">
                             Go
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7ff5d6739e10>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f9357f50eb8>, <pelican.contents.Article object at 0x7f9359a4e518>]">
                         <a href="http://lostsummer.github.io/tag/linux.html">
                             Linux
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7ff5db61ca58>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f935bc1e5c0>]">
                         <a href="http://lostsummer.github.io/tag/python.html">
                             Python
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7ff5db61ca58>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f935bc1e5c0>]">
                         <a href="http://lostsummer.github.io/tag/git.html">
                             Git
                         </a>
@@ -369,120 +369,120 @@
 <p>已有的所有项目地址：http://git.emoney.cn/monitor/monitorplat.git
 代码包导入路径：MonitorPlat/oneagent, MonitorPlat/onedistribute, &hellip;&nbsp;(该项目由多个程序组成)</p>
 <h3 id="_6"><a class="toclink" href="#_6">创建目录结构</a></h3>
-<div class="highlight"><pre><span></span>mkdir -p dev_projects/src/MonitorPlat
+<div class="highlight"><pre><span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="n">dev_projects</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">MonitorPlat</span>
 </pre></div>
 <h3 id="_7"><a class="toclink" href="#_7">迁出代码</a></h3>
-<div class="highlight"><pre><span></span>cd dev_projects
-git clone http://git.emoney.cn/monitor/monitorplat.git src/MonitorPlat
+<div class="highlight"><pre><span class="n">cd</span> <span class="n">dev_projects</span>
+<span class="n">git</span> <span class="n">clone</span> <span class="n">http</span><span class="o">:</span><span class="c1">//git.emoney.cn/monitor/monitorplat.git src/MonitorPlat</span>
 </pre></div>
 <h2 id="_9"><a class="toclink" href="#_8">环境隔离</a></h2>
 <p>为了和.bashrc中配置的\$GOPATH隔离，需要在dev_projects下运行：</p>
-<div class="highlight"><pre><span></span>export GOPATH=$(pwd)
+<div class="highlight"><pre><span class="n">export</span> <span class="n">GOPATH</span><span class="o">=</span><span class="err">$</span><span class="p">(</span><span class="n">pwd</span><span class="p">)</span>
 </pre></div>
 <p>为了使用方便，可以写两个脚本</p>
 <p>env_activate.sh</p>
-<div class="highlight"><pre><span></span>CURDIR=`pwd`
-OLDGOPATH="$GOPATH"
-export GOPATH="$CURDIR"
+<div class="highlight"><pre><span class="n">CURDIR</span><span class="o">=</span><span class="err">`</span><span class="n">pwd</span><span class="err">`</span>
+<span class="n">OLDGOPATH</span><span class="o">=</span><span class="s">"$GOPATH"</span>
+<span class="n">export</span> <span class="n">GOPATH</span><span class="o">=</span><span class="s">"$CURDIR"</span>
 </pre></div>
 <p>env_deactivate.sh</p>
-<div class="highlight"><pre><span></span>export GOPATH=$OLDGOPATH
+<div class="highlight"><pre><span class="n">export</span> <span class="n">GOPATH</span><span class="o">=</span><span class="err">$</span><span class="n">OLDGOPATH</span>
 </pre></div>
 <p>这样你可以通过</p>
-<div class="highlight"><pre><span></span>source env_activate.sh
+<div class="highlight"><pre><span class="n">source</span> <span class="n">env_activate</span><span class="p">.</span><span class="n">sh</span>
 </pre></div>
 <p>和</p>
-<div class="highlight"><pre><span></span>source env_deactivate.sh
+<div class="highlight"><pre><span class="n">source</span> <span class="n">env_deactivate</span><span class="p">.</span><span class="n">sh</span>
 </pre></div>
 <p>来切换</p>
 <h3 id="vendor"><a class="toclink" href="#vendor">vendor&nbsp;初始化</a></h3>
-<div class="highlight"><pre><span></span>cd src/MonitorPlat
-govendor init
+<div class="highlight"><pre><span class="n">cd</span> <span class="n">src</span><span class="o">/</span><span class="n">MonitorPlat</span>
+<span class="n">govendor</span> <span class="n">init</span>
 </pre></div>
 <h3 id="githubgolangorg"><a class="toclink" href="#githubgolangorg">从github镜像获取golang.org依赖包</a></h3>
 <p>首先可以在Monitor目录下用命令看到项目所有依赖包</p>
-<div class="highlight"><pre><span></span>govendor list
+<div class="highlight"><pre><span class="n">govendor</span> <span class="n">list</span>
 
-...
-  m golang.org/x/net/context
-  m golang.org/x/net/context/ctxhttp
-  m golang.org/x/net/websocket
-  m golang.org/x/text/cases
-  m golang.org/x/text/encoding
-  m golang.org/x/text/encoding/charmap
-  m golang.org/x/text/encoding/internal
-  m golang.org/x/text/encoding/internal/enctest
-  m golang.org/x/text/encoding/internal/identifier
-  m golang.org/x/text/encoding/simplifiedchinese
-  m golang.org/x/text/encoding/unicode
-  m golang.org/x/text/internal
-  m golang.org/x/text/internal/gen
-  m golang.org/x/text/internal/language
-  m golang.org/x/text/internal/language/compact
-  m golang.org/x/text/internal/tag
-  m golang.org/x/text/internal/testtext
-  m golang.org/x/text/internal/ucd
-  m golang.org/x/text/internal/utf8internal
-  m golang.org/x/text/language
-  m golang.org/x/text/runes
-  m golang.org/x/text/transform
-  m golang.org/x/text/unicode/cldr
-  m golang.org/x/text/unicode/norm
-  m golang.org/x/text/unicode/rangetable
-  m golang.org/x/text/width
-  m github.com/devfeel/dottask
-  m github.com/devfeel/dotweb
-  m github.com/devfeel/dotweb/cache
-  m github.com/devfeel/dotweb/cache/redis
-  m github.com/devfeel/dotweb/cache/runtime
-  m github.com/devfeel/dotweb/config
-  m github.com/devfeel/dotweb/const
-  m github.com/devfeel/dotweb/core
-  m github.com/devfeel/dotweb/feature
-  m github.com/devfeel/dotweb/framework/convert
-  m github.com/devfeel/dotweb/framework/crypto
-  m github.com/devfeel/dotweb/framework/crypto/uuid
-  m github.com/devfeel/dotweb/framework/encodes/gob
-  m github.com/devfeel/dotweb/framework/exception
-  m github.com/devfeel/dotweb/framework/file
-  m github.com/devfeel/dotweb/framework/json
-  m github.com/devfeel/dotweb/framework/redis
-  m github.com/devfeel/dotweb/framework/reflects
-  m github.com/devfeel/dotweb/logger
-  m github.com/devfeel/dotweb/servers
-  m github.com/devfeel/dotweb/session
-  m github.com/devfeel/dotweb/test
-  m github.com/garyburd/redigo/internal
-  m github.com/garyburd/redigo/redis
-  m github.com/influxdata/influxdb/client/v2
-  m github.com/influxdata/influxdb/models
-  m github.com/influxdata/influxdb/pkg/escape
+<span class="p">...</span>
+  <span class="n">m</span> <span class="n">golang</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">x</span><span class="o">/</span><span class="n">net</span><span class="o">/</span><span class="n">context</span>
+  <span class="n">m</span> <span class="n">golang</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">x</span><span class="o">/</span><span class="n">net</span><span class="o">/</span><span class="n">context</span><span class="o">/</span><span class="n">ctxhttp</span>
+  <span class="n">m</span> <span class="n">golang</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">x</span><span class="o">/</span><span class="n">net</span><span class="o">/</span><span class="n">websocket</span>
+  <span class="n">m</span> <span class="n">golang</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">x</span><span class="o">/</span><span class="n">text</span><span class="o">/</span><span class="n">cases</span>
+  <span class="n">m</span> <span class="n">golang</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">x</span><span class="o">/</span><span class="n">text</span><span class="o">/</span><span class="n">encoding</span>
+  <span class="n">m</span> <span class="n">golang</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">x</span><span class="o">/</span><span class="n">text</span><span class="o">/</span><span class="n">encoding</span><span class="o">/</span><span class="n">charmap</span>
+  <span class="n">m</span> <span class="n">golang</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">x</span><span class="o">/</span><span class="n">text</span><span class="o">/</span><span class="n">encoding</span><span class="o">/</span><span class="n">internal</span>
+  <span class="n">m</span> <span class="n">golang</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">x</span><span class="o">/</span><span class="n">text</span><span class="o">/</span><span class="n">encoding</span><span class="o">/</span><span class="n">internal</span><span class="o">/</span><span class="n">enctest</span>
+  <span class="n">m</span> <span class="n">golang</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">x</span><span class="o">/</span><span class="n">text</span><span class="o">/</span><span class="n">encoding</span><span class="o">/</span><span class="n">internal</span><span class="o">/</span><span class="n">identifier</span>
+  <span class="n">m</span> <span class="n">golang</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">x</span><span class="o">/</span><span class="n">text</span><span class="o">/</span><span class="n">encoding</span><span class="o">/</span><span class="n">simplifiedchinese</span>
+  <span class="n">m</span> <span class="n">golang</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">x</span><span class="o">/</span><span class="n">text</span><span class="o">/</span><span class="n">encoding</span><span class="o">/</span><span class="n">unicode</span>
+  <span class="n">m</span> <span class="n">golang</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">x</span><span class="o">/</span><span class="n">text</span><span class="o">/</span><span class="n">internal</span>
+  <span class="n">m</span> <span class="n">golang</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">x</span><span class="o">/</span><span class="n">text</span><span class="o">/</span><span class="n">internal</span><span class="o">/</span><span class="n">gen</span>
+  <span class="n">m</span> <span class="n">golang</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">x</span><span class="o">/</span><span class="n">text</span><span class="o">/</span><span class="n">internal</span><span class="o">/</span><span class="n">language</span>
+  <span class="n">m</span> <span class="n">golang</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">x</span><span class="o">/</span><span class="n">text</span><span class="o">/</span><span class="n">internal</span><span class="o">/</span><span class="n">language</span><span class="o">/</span><span class="n">compact</span>
+  <span class="n">m</span> <span class="n">golang</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">x</span><span class="o">/</span><span class="n">text</span><span class="o">/</span><span class="n">internal</span><span class="o">/</span><span class="n">tag</span>
+  <span class="n">m</span> <span class="n">golang</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">x</span><span class="o">/</span><span class="n">text</span><span class="o">/</span><span class="n">internal</span><span class="o">/</span><span class="n">testtext</span>
+  <span class="n">m</span> <span class="n">golang</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">x</span><span class="o">/</span><span class="n">text</span><span class="o">/</span><span class="n">internal</span><span class="o">/</span><span class="n">ucd</span>
+  <span class="n">m</span> <span class="n">golang</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">x</span><span class="o">/</span><span class="n">text</span><span class="o">/</span><span class="n">internal</span><span class="o">/</span><span class="n">utf8internal</span>
+  <span class="n">m</span> <span class="n">golang</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">x</span><span class="o">/</span><span class="n">text</span><span class="o">/</span><span class="n">language</span>
+  <span class="n">m</span> <span class="n">golang</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">x</span><span class="o">/</span><span class="n">text</span><span class="o">/</span><span class="n">runes</span>
+  <span class="n">m</span> <span class="n">golang</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">x</span><span class="o">/</span><span class="n">text</span><span class="o">/</span><span class="n">transform</span>
+  <span class="n">m</span> <span class="n">golang</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">x</span><span class="o">/</span><span class="n">text</span><span class="o">/</span><span class="n">unicode</span><span class="o">/</span><span class="n">cldr</span>
+  <span class="n">m</span> <span class="n">golang</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">x</span><span class="o">/</span><span class="n">text</span><span class="o">/</span><span class="n">unicode</span><span class="o">/</span><span class="n">norm</span>
+  <span class="n">m</span> <span class="n">golang</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">x</span><span class="o">/</span><span class="n">text</span><span class="o">/</span><span class="n">unicode</span><span class="o">/</span><span class="n">rangetable</span>
+  <span class="n">m</span> <span class="n">golang</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">x</span><span class="o">/</span><span class="n">text</span><span class="o">/</span><span class="n">width</span>
+  <span class="n">m</span> <span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">devfeel</span><span class="o">/</span><span class="n">dottask</span>
+  <span class="n">m</span> <span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">devfeel</span><span class="o">/</span><span class="n">dotweb</span>
+  <span class="n">m</span> <span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">devfeel</span><span class="o">/</span><span class="n">dotweb</span><span class="o">/</span><span class="n">cache</span>
+  <span class="n">m</span> <span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">devfeel</span><span class="o">/</span><span class="n">dotweb</span><span class="o">/</span><span class="n">cache</span><span class="o">/</span><span class="n">redis</span>
+  <span class="n">m</span> <span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">devfeel</span><span class="o">/</span><span class="n">dotweb</span><span class="o">/</span><span class="n">cache</span><span class="o">/</span><span class="n">runtime</span>
+  <span class="n">m</span> <span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">devfeel</span><span class="o">/</span><span class="n">dotweb</span><span class="o">/</span><span class="n">config</span>
+  <span class="n">m</span> <span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">devfeel</span><span class="o">/</span><span class="n">dotweb</span><span class="o">/</span><span class="k">const</span>
+  <span class="n">m</span> <span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">devfeel</span><span class="o">/</span><span class="n">dotweb</span><span class="o">/</span><span class="n">core</span>
+  <span class="n">m</span> <span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">devfeel</span><span class="o">/</span><span class="n">dotweb</span><span class="o">/</span><span class="n">feature</span>
+  <span class="n">m</span> <span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">devfeel</span><span class="o">/</span><span class="n">dotweb</span><span class="o">/</span><span class="n">framework</span><span class="o">/</span><span class="n">convert</span>
+  <span class="n">m</span> <span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">devfeel</span><span class="o">/</span><span class="n">dotweb</span><span class="o">/</span><span class="n">framework</span><span class="o">/</span><span class="n">crypto</span>
+  <span class="n">m</span> <span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">devfeel</span><span class="o">/</span><span class="n">dotweb</span><span class="o">/</span><span class="n">framework</span><span class="o">/</span><span class="n">crypto</span><span class="o">/</span><span class="n">uuid</span>
+  <span class="n">m</span> <span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">devfeel</span><span class="o">/</span><span class="n">dotweb</span><span class="o">/</span><span class="n">framework</span><span class="o">/</span><span class="n">encodes</span><span class="o">/</span><span class="n">gob</span>
+  <span class="n">m</span> <span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">devfeel</span><span class="o">/</span><span class="n">dotweb</span><span class="o">/</span><span class="n">framework</span><span class="o">/</span><span class="n">exception</span>
+  <span class="n">m</span> <span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">devfeel</span><span class="o">/</span><span class="n">dotweb</span><span class="o">/</span><span class="n">framework</span><span class="o">/</span><span class="n">file</span>
+  <span class="n">m</span> <span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">devfeel</span><span class="o">/</span><span class="n">dotweb</span><span class="o">/</span><span class="n">framework</span><span class="o">/</span><span class="n">json</span>
+  <span class="n">m</span> <span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">devfeel</span><span class="o">/</span><span class="n">dotweb</span><span class="o">/</span><span class="n">framework</span><span class="o">/</span><span class="n">redis</span>
+  <span class="n">m</span> <span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">devfeel</span><span class="o">/</span><span class="n">dotweb</span><span class="o">/</span><span class="n">framework</span><span class="o">/</span><span class="n">reflects</span>
+  <span class="n">m</span> <span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">devfeel</span><span class="o">/</span><span class="n">dotweb</span><span class="o">/</span><span class="n">logger</span>
+  <span class="n">m</span> <span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">devfeel</span><span class="o">/</span><span class="n">dotweb</span><span class="o">/</span><span class="n">servers</span>
+  <span class="n">m</span> <span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">devfeel</span><span class="o">/</span><span class="n">dotweb</span><span class="o">/</span><span class="n">session</span>
+  <span class="n">m</span> <span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">devfeel</span><span class="o">/</span><span class="n">dotweb</span><span class="o">/</span><span class="n">test</span>
+  <span class="n">m</span> <span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">garyburd</span><span class="o">/</span><span class="n">redigo</span><span class="o">/</span><span class="n">internal</span>
+  <span class="n">m</span> <span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">garyburd</span><span class="o">/</span><span class="n">redigo</span><span class="o">/</span><span class="n">redis</span>
+  <span class="n">m</span> <span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">influxdata</span><span class="o">/</span><span class="n">influxdb</span><span class="o">/</span><span class="n">client</span><span class="o">/</span><span class="n">v2</span>
+  <span class="n">m</span> <span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">influxdata</span><span class="o">/</span><span class="n">influxdb</span><span class="o">/</span><span class="n">models</span>
+  <span class="n">m</span> <span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">influxdata</span><span class="o">/</span><span class="n">influxdb</span><span class="o">/</span><span class="n">pkg</span><span class="o">/</span><span class="n">escape</span>
 </pre></div>
 <p>其中行首 m 标识的，是目前环境缺少的包。从 golang.org 的依赖主要是 x/net 和 x/text&nbsp;两部分。</p>
 <p>vendor 目录中创建 golang.org/x&nbsp;目录</p>
-<div class="highlight"><pre><span></span>mkdir -p vendor/golang.org/x
+<div class="highlight"><pre><span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="n">vendor</span><span class="o">/</span><span class="n">golang</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">x</span>
 </pre></div>
 <p>项目子模块添加</p>
-<div class="highlight"><pre><span></span>git submodule add https://github.com/golang/net.git vendor/golang.org/x/net
-git submodule add https://github.com/golang/text.git vendor/golang.org/x/text
+<div class="highlight"><pre><span class="n">git</span> <span class="n">submodule</span> <span class="n">add</span> <span class="n">https</span><span class="o">:</span><span class="c1">//github.com/golang/net.git vendor/golang.org/x/net</span>
+<span class="n">git</span> <span class="n">submodule</span> <span class="n">add</span> <span class="n">https</span><span class="o">:</span><span class="c1">//github.com/golang/text.git vendor/golang.org/x/text</span>
 </pre></div>
 <h3 id="_10"><a class="toclink" href="#_9">获取其他依赖包</a></h3>
 <p>可以简单的通过一个命令</p>
-<div class="highlight"><pre><span></span>govendor fetch +m
+<div class="highlight"><pre><span class="n">govendor</span> <span class="n">fetch</span> <span class="o">+</span><span class="n">m</span>
 </pre></div>
 <h3 id="git"><a class="toclink" href="#git">git&nbsp;追踪</a></h3>
-<div class="highlight"><pre><span></span>git add vendor/vendor.json
-git commit ...
-git push ...
+<div class="highlight"><pre><span class="n">git</span> <span class="n">add</span> <span class="n">vendor</span><span class="o">/</span><span class="n">vendor</span><span class="p">.</span><span class="n">json</span>
+<span class="n">git</span> <span class="n">commit</span> <span class="p">...</span>
+<span class="n">git</span> <span class="n">push</span> <span class="p">...</span>
 </pre></div>
 <h3 id="_11"><a class="toclink" href="#_10">新位置使用</a></h3>
 <p>git submodule 已经把vendor/golang.org 下的项目版本记住
 其他的包，vendor.json&nbsp;记录了版本。</p>
 <p>commit&nbsp;并提交到远程库后，在新的位置迁出后</p>
-<div class="highlight"><pre><span></span>export GOPATH=$(pwd)
-cd src/MonitorPlat
-git submodule update
-govender sync
+<div class="highlight"><pre><span class="n">export</span> <span class="n">GOPATH</span><span class="o">=</span><span class="err">$</span><span class="p">(</span><span class="n">pwd</span><span class="p">)</span>
+<span class="n">cd</span> <span class="n">src</span><span class="o">/</span><span class="n">MonitorPlat</span>
+<span class="n">git</span> <span class="n">submodule</span> <span class="n">update</span>
+<span class="n">govender</span> <span class="n">sync</span>
 </pre></div>
                 </div>
                 <footer class="text-right">
