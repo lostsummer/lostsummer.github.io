@@ -221,6 +221,21 @@
                     </li>
                 </ul></li>
                 
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-pages">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Pages
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-pages" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="http://lostsummer.github.io/pages/about-me.html">
+                            <i class="fa fa-file-text padding-small"></i>
+                            About&nbsp;Me
+                        </a>
+                    </li>
+                </ul></li>
                 
                 <li class="nav-divider"></li>
                 <li>
@@ -261,37 +276,37 @@
                     </a>
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-tags" class="sidebar_submenu collapse ">
-                    <li class="tag-[<pelican.contents.Article object at 0x7f9357e28f98>, <pelican.contents.Article object at 0x7f9357dfb860>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7feb6e3c1400>, <pelican.contents.Article object at 0x7feb6e428b70>]">
                         <a href="http://lostsummer.github.io/tag/prometheus.html">
                             Prometheus
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f9357e28f98>, <pelican.contents.Article object at 0x7f9357dfb860>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7feb6e3c1400>, <pelican.contents.Article object at 0x7feb6e428b70>]">
                         <a href="http://lostsummer.github.io/tag/docker.html">
                             Docker
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f9357dfb860>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7feb6e428b70>]">
                         <a href="http://lostsummer.github.io/tag/influxdb.html">
                             InfluxDB
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f9357f50eb8>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7feb6e57c630>]">
                         <a href="http://lostsummer.github.io/tag/go.html">
                             Go
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f9357f50eb8>, <pelican.contents.Article object at 0x7f9359a4e518>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7feb6e57c630>, <pelican.contents.Article object at 0x7feb6e395198>]">
                         <a href="http://lostsummer.github.io/tag/linux.html">
                             Linux
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f935bc1e5c0>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7feb707570f0>]">
                         <a href="http://lostsummer.github.io/tag/python.html">
                             Python
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f935bc1e5c0>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7feb707570f0>]">
                         <a href="http://lostsummer.github.io/tag/git.html">
                             Git
                         </a>
@@ -345,18 +360,18 @@
 <p>仅展示移动版行情功能涉及的上下游结构，不涉及交易模块</p>
 <p>Front&nbsp;上游是上证或券商提供的行情数据接口，部分外盘数据可能来自新浪公开的接口</p>
 <p>FSServer 部署在公司，Memcache&nbsp;由公司服务定时远程写入数据</p>
-<p><img alt="" src="http://img.lostsummer.love/wiki-img/%E8%A1%8C%E6%83%85%E6%9E%B6%E6%9E%84.png"/></p>
+<p><img alt="" src="http://140.143.250.15/wiki-img/%E8%A1%8C%E6%83%85%E6%9E%B6%E6%9E%84.png"/></p>
 <h1 id="_2"><a class="toclink" href="#_2">主要业务流程</a></h1>
 <h2 id="_3"><a class="toclink" href="#_3">用户登录流程</a></h2>
 <p>用户登录区分匿名/实名，首次/非首次</p>
 <p>Fee 验证通过后，<span class="caps">LB</span> 返回一个相对空闲的 <span class="caps">DS</span> <span class="caps">URL</span> （实际就是 <span class="caps">IP</span>：<span class="caps">PORT</span>&nbsp;拼合）返回给客户端</p>
 <p>所有 <span class="caps">DS</span> 的&nbsp;服务端口要暴露在公网中</p>
-<p><img alt="" src="http://img.lostsummer.love/wiki-img/%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95%E6%97%B6%E5%BA%8F%E5%9B%BE.png"/></p>
+<p><img alt="" src="http://140.143.250.15/wiki-img/%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95%E6%97%B6%E5%BA%8F%E5%9B%BE.png"/></p>
 <h2 id="_4"><a class="toclink" href="#_4">用户信息查询修改流程</a></h2>
 <p><span class="caps">DS</span> 转发客户请求给&nbsp;Fee</p>
-<p><img alt="" src="http://img.lostsummer.love/wiki-img/%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF%E6%9F%A5%E8%AF%A2%E4%BF%AE%E6%94%B9.png"/></p>
+<p><img alt="" src="http://140.143.250.15/wiki-img/%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF%E6%9F%A5%E8%AF%A2%E4%BF%AE%E6%94%B9.png"/></p>
 <h2 id="_5"><a class="toclink" href="#_5">用户行情数据获取</a></h2>
-<p><img alt="" src="http://img.lostsummer.love/wiki-img/%E7%94%A8%E6%88%B7%E8%A1%8C%E6%83%85%E6%95%B0%E6%8D%AE%E8%AF%B7%E6%B1%82.png"/></p>
+<p><img alt="" src="http://140.143.250.15/wiki-img/%E7%94%A8%E6%88%B7%E8%A1%8C%E6%83%85%E6%95%B0%E6%8D%AE%E8%AF%B7%E6%B1%82.png"/></p>
 <h1 id="_7"><a class="toclink" href="#_6">缺陷分析</a></h1>
 <h2 id="_8"><a class="toclink" href="#_7">共同缺陷</a></h2>
 <ul>
