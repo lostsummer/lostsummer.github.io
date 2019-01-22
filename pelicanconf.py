@@ -49,8 +49,8 @@ LINKS = (
         )
 
 # Code syntax
-PYGMENTS_STYLE = 'manni'
-BOOTSTRAP_THEME = 'paper'
+PYGMENTS_STYLE = 'autumn'
+BOOTSTRAP_THEME = 'flatly'
 SHARE = True
 CUSTOM_CSS = "extra/custom.css"
 
