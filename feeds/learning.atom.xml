@@ -1,5 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>$ kill -1 - Learning</title><link href="http://lostsummer.github.io/" rel="alternate"></link><link href="http://lostsummer.github.io/feeds/learning.atom.xml" rel="self"></link><id>http://lostsummer.github.io/</id><updated>2018-04-09T00:00:00+08:00</updated><subtitle>code less talk more :)</subtitle><entry><title>容器监控方案选型</title><link href="http://lostsummer.github.io/posts/2018/Apr/09/201804091040.html" rel="alternate"></link><published>2018-04-09T00:00:00+08:00</published><updated>2018-04-09T00:00:00+08:00</updated><author><name>lostsummer</name></author><id>tag:lostsummer.github.io,2018-04-09:/posts/2018/Apr/09/201804091040.html</id><summary type="html"></summary><content type="html">&lt;p&gt;根据一篇不错的文章: &amp;rdquo; &lt;a href="https://mp.weixin.qq.com/s?__biz=MzA5OTAyNzQ2OA==&amp;amp;mid=2649696965&amp;amp;idx=1&amp;amp;sn=acdbaf74f837d6e07d753bc4e3199206&amp;amp;chksm=889315a6bfe49cb04686cd6d7a19ec73fdc7ddec98387d4ba5e524616669ee13f2f5b277a673&amp;amp;mpshare=1&amp;amp;scene=1&amp;amp;srcid=0225cAhRGuYUIQ4Qidt6eXFU#rd"&gt;容器领域的十大监控系统对比 &lt;/a&gt; &amp;rdquo;&amp;nbsp;列出的流行监控方案&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>$ kill -1 - Learning</title><link href="http://lostsummer.github.io/" rel="alternate"></link><link href="http://lostsummer.github.io/feeds/learning.atom.xml" rel="self"></link><id>http://lostsummer.github.io/</id><updated>2018-10-22T00:00:00+08:00</updated><subtitle>code less talk more :)</subtitle><entry><title>使用tmux和watch组合一个redis监控面板</title><link href="http://lostsummer.github.io/posts/2018/Oct/22/201810221843.html" rel="alternate"></link><published>2018-10-22T00:00:00+08:00</published><updated>2018-10-22T00:00:00+08:00</updated><author><name>Yushin</name></author><id>tag:lostsummer.github.io,2018-10-22:/posts/2018/Oct/22/201810221843.html</id><summary type="html"></summary><content type="html">&lt;p&gt;对于开发来说，有些特定服务器数据的实时监控可以不必大而全，比方阮一峰 &lt;a href="http://www.ruanyifeng.com/blog/2017/05/websocket.html"&gt;WebSocket 教程&lt;/a&gt;中提到的使用Websocketd +&amp;nbsp;简单脚本实现的对服务器性能指标的监控服务程序。而我现在自己有个需求更加简单，只要验证redis中几个key的数据是否在不断更新。我既不想自己不断刷新桌面redis客户端，也不想不断在cli里敲回车，实际上借助几个命令也可以非常简单地满足：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;redis-cli：输出指定key的值&lt;/li&gt;
+&lt;li&gt;watch：连续调用指定面命，并把输出刷新到屏幕上，类似top、tailf那样的效果，它是独占终端屏幕的&lt;/li&gt;
+&lt;li&gt;tmux：会话保持、分屏。有了tmux就可以在一个平面查看多个watch命令的实时输出&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;于是有了下面的脚本：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;HOST&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mf"&gt;127.0.0.1&lt;/span&gt;
+&lt;span class="n"&gt;PORT&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;6379&lt;/span&gt;
+&lt;span class="n"&gt;DB&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;
+
+&lt;span class="n"&gt;R_CONN&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;"redis-cli -h $HOST -p $PORT -n $DB"&lt;/span&gt;
+&lt;span class="n"&gt;R_MIN1_CMD&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;"lrange min1:0600000 -1 -1"&lt;/span&gt;
+&lt;span class="n"&gt;R_CMINFO_CMD&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;"get codemap:info"&lt;/span&gt;
+&lt;span class="n"&gt;R_CMLEN_CMD&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;"hlen codemap:codes"&lt;/span&gt;
+&lt;span class="n"&gt;R_QUOTE_CMD&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;"get quote:0600000"&lt;/span&gt;
+
+&lt;span class="n"&gt;WATCH_MIN1_CMD&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;"watch &lt;/span&gt;&lt;span class="se"&gt;\"&lt;/span&gt;&lt;span class="s"&gt;$R_CONN $R_MIN1_CMD|python -m json.tool&lt;/span&gt;&lt;span class="se"&gt;\"&lt;/span&gt;&lt;span class="s"&gt;"&lt;/span&gt;
+&lt;span class="n"&gt;WATCH_CMINFO_CMD&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;"watch &lt;/span&gt;&lt;span class="se"&gt;\"&lt;/span&gt;&lt;span class="s"&gt;$R_CONN $R_CMINFO_CMD&lt;/span&gt;&lt;span class="se"&gt;\"&lt;/span&gt;&lt;span class="s"&gt;"&lt;/span&gt;
+&lt;span class="n"&gt;WATCH_CMLEN_CMD&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;"watch &lt;/span&gt;&lt;span class="se"&gt;\"&lt;/span&gt;&lt;span class="s"&gt;$R_CONN $R_CMLEN_CMD&lt;/span&gt;&lt;span class="se"&gt;\"&lt;/span&gt;&lt;span class="s"&gt;"&lt;/span&gt;
+&lt;span class="n"&gt;WATCH_QUOTE_CMD&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;"watch &lt;/span&gt;&lt;span class="se"&gt;\"&lt;/span&gt;&lt;span class="s"&gt;$R_CONN $R_QUOTE_CMD|python -m json.tool|grep time&lt;/span&gt;&lt;span class="se"&gt;\"&lt;/span&gt;&lt;span class="s"&gt;"&lt;/span&gt;
+
+&lt;span class="n"&gt;SESS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;monitor&lt;/span&gt;
+
+&lt;span class="n"&gt;tmux&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;SESS&lt;/span&gt;
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="o"&gt;?&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;ne&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="n"&gt;then&lt;/span&gt;
+    &lt;span class="n"&gt;tmux&lt;/span&gt; &lt;span class="n"&gt;new&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;session&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;SESS&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt; &lt;span class="s"&gt;"$WATCH_MIN1_CMD"&lt;/span&gt; &lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; \
+    &lt;span class="n"&gt;split&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;window&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;h&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt; &lt;span class="s"&gt;"$WATCH_CMINFO_CMD"&lt;/span&gt; &lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; \
+    &lt;span class="n"&gt;split&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;window&lt;/span&gt;  &lt;span class="s"&gt;"$WATCH_CMLEN_CMD"&lt;/span&gt; &lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; \
+    &lt;span class="n"&gt;select&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;pane&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;R&lt;/span&gt; &lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; \
+    &lt;span class="n"&gt;split&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;window&lt;/span&gt;  &lt;span class="s"&gt;"$WATCH_QUOTE_CMD"&lt;/span&gt; &lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; \
+    &lt;span class="n"&gt;attach&lt;/span&gt;
+&lt;span class="n"&gt;fi&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;需要说明的是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;watch 默认刷新的频率是2s，这个可以通过 -n 指定，watch 还有个 -d&amp;nbsp;选项会高亮刷新后的差异部分&lt;/li&gt;
+&lt;li&gt;python -m json.tool&amp;nbsp;会把压缩的json格式化成美观可读的样式&lt;/li&gt;
+&lt;li&gt;tmux 大家可能已经熟悉分屏操作的快捷键，这些操作其实在启动session时可以通过一连串的命令定义，这些命令之间需要&lt;code&gt;' \; '&lt;/code&gt;分隔&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;脚本运行效果是这样的：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="mon" src="http://140.143.250.15/wiki-img/tmux_mon.png"/&gt;&lt;/p&gt;</content></entry><entry><title>容器监控方案选型</title><link href="http://lostsummer.github.io/posts/2018/Apr/09/201804091040.html" rel="alternate"></link><published>2018-04-09T00:00:00+08:00</published><updated>2018-04-09T00:00:00+08:00</updated><author><name>lostsummer</name></author><id>tag:lostsummer.github.io,2018-04-09:/posts/2018/Apr/09/201804091040.html</id><summary type="html"></summary><content type="html">&lt;p&gt;根据一篇不错的文章: &amp;rdquo; &lt;a href="https://mp.weixin.qq.com/s?__biz=MzA5OTAyNzQ2OA==&amp;amp;mid=2649696965&amp;amp;idx=1&amp;amp;sn=acdbaf74f837d6e07d753bc4e3199206&amp;amp;chksm=889315a6bfe49cb04686cd6d7a19ec73fdc7ddec98387d4ba5e524616669ee13f2f5b277a673&amp;amp;mpshare=1&amp;amp;scene=1&amp;amp;srcid=0225cAhRGuYUIQ4Qidt6eXFU#rd"&gt;容器领域的十大监控系统对比 &lt;/a&gt; &amp;rdquo;&amp;nbsp;列出的流行监控方案&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
