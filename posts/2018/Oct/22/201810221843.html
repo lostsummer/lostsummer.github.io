@@ -276,37 +276,37 @@
                     </a>
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-tags" class="sidebar_submenu collapse ">
-                    <li class="tag-[<pelican.contents.Article object at 0x7fa8e4dcb198>, <pelican.contents.Article object at 0x7fa8e4e0dd30>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f971fdf1f28>, <pelican.contents.Article object at 0x7f971ff86b38>]">
                         <a href="http://lostsummer.github.io/tag/python.html">
                             Python
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7fa8e4de5a90>, <pelican.contents.Article object at 0x7fa8e4cbacc0>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f971fe05c18>, <pelican.contents.Article object at 0x7f971fe6cfd0>]">
                         <a href="http://lostsummer.github.io/tag/prometheus.html">
                             Prometheus
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7fa8e4de5a90>, <pelican.contents.Article object at 0x7fa8e4cbacc0>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f971fe05c18>, <pelican.contents.Article object at 0x7f971fe6cfd0>]">
                         <a href="http://lostsummer.github.io/tag/docker.html">
                             Docker
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7fa8e4cbacc0>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f971fe6cfd0>]">
                         <a href="http://lostsummer.github.io/tag/influxdb.html">
                             InfluxDB
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7fa8e4dbdeb8>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f971fe4ad68>]">
                         <a href="http://lostsummer.github.io/tag/go.html">
                             Go
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7fa8e4dbdeb8>, <pelican.contents.Article object at 0x7fa8e4dd6b38>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f971fe4ad68>, <pelican.contents.Article object at 0x7f971fe06630>]">
                         <a href="http://lostsummer.github.io/tag/linux.html">
                             Linux
                         </a>
                     </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7fa8e4e0dd30>]">
+                    <li class="tag-[<pelican.contents.Article object at 0x7f971ff86b38>]">
                         <a href="http://lostsummer.github.io/tag/git.html">
                             Git
                         </a>
@@ -363,33 +363,33 @@
 <li>tmux：会话保持、分屏。有了tmux就可以在一个平面查看多个watch命令的实时输出</li>
 </ul>
 <p>于是有了下面的脚本：</p>
-<div class="highlight"><pre><span class="n">HOST</span><span class="o">=</span><span class="mf">127.0.0.1</span>
-<span class="n">PORT</span><span class="o">=</span><span class="mi">6379</span>
-<span class="n">DB</span><span class="o">=</span><span class="mi">1</span>
+<div class="highlight"><pre><span></span><span class="nv">HOST</span><span class="o">=</span><span class="m">127</span>.0.0.1
+<span class="nv">PORT</span><span class="o">=</span><span class="m">6379</span>
+<span class="nv">DB</span><span class="o">=</span><span class="m">1</span>
 
-<span class="n">R_CONN</span><span class="o">=</span><span class="s">"redis-cli -h $HOST -p $PORT -n $DB"</span>
-<span class="n">R_MIN1_CMD</span><span class="o">=</span><span class="s">"lrange min1:0600000 -1 -1"</span>
-<span class="n">R_CMINFO_CMD</span><span class="o">=</span><span class="s">"get codemap:info"</span>
-<span class="n">R_CMLEN_CMD</span><span class="o">=</span><span class="s">"hlen codemap:codes"</span>
-<span class="n">R_QUOTE_CMD</span><span class="o">=</span><span class="s">"get quote:0600000"</span>
+<span class="nv">R_CONN</span><span class="o">=</span><span class="s2">"redis-cli -h </span><span class="nv">$HOST</span><span class="s2"> -p </span><span class="nv">$PORT</span><span class="s2"> -n </span><span class="nv">$DB</span><span class="s2">"</span>
+<span class="nv">R_MIN1_CMD</span><span class="o">=</span><span class="s2">"lrange min1:0600000 -1 -1"</span>
+<span class="nv">R_CMINFO_CMD</span><span class="o">=</span><span class="s2">"get codemap:info"</span>
+<span class="nv">R_CMLEN_CMD</span><span class="o">=</span><span class="s2">"hlen codemap:codes"</span>
+<span class="nv">R_QUOTE_CMD</span><span class="o">=</span><span class="s2">"get quote:0600000"</span>
 
-<span class="n">WATCH_MIN1_CMD</span><span class="o">=</span><span class="s">"watch </span><span class="se">\"</span><span class="s">$R_CONN $R_MIN1_CMD|python -m json.tool</span><span class="se">\"</span><span class="s">"</span>
-<span class="n">WATCH_CMINFO_CMD</span><span class="o">=</span><span class="s">"watch </span><span class="se">\"</span><span class="s">$R_CONN $R_CMINFO_CMD</span><span class="se">\"</span><span class="s">"</span>
-<span class="n">WATCH_CMLEN_CMD</span><span class="o">=</span><span class="s">"watch </span><span class="se">\"</span><span class="s">$R_CONN $R_CMLEN_CMD</span><span class="se">\"</span><span class="s">"</span>
-<span class="n">WATCH_QUOTE_CMD</span><span class="o">=</span><span class="s">"watch </span><span class="se">\"</span><span class="s">$R_CONN $R_QUOTE_CMD|python -m json.tool|grep time</span><span class="se">\"</span><span class="s">"</span>
+<span class="nv">WATCH_MIN1_CMD</span><span class="o">=</span><span class="s2">"watch \"</span><span class="nv">$R_CONN</span><span class="s2"> </span><span class="nv">$R_MIN1_CMD</span><span class="s2">|python -m json.tool\""</span>
+<span class="nv">WATCH_CMINFO_CMD</span><span class="o">=</span><span class="s2">"watch \"</span><span class="nv">$R_CONN</span><span class="s2"> </span><span class="nv">$R_CMINFO_CMD</span><span class="s2">\""</span>
+<span class="nv">WATCH_CMLEN_CMD</span><span class="o">=</span><span class="s2">"watch \"</span><span class="nv">$R_CONN</span><span class="s2"> </span><span class="nv">$R_CMLEN_CMD</span><span class="s2">\""</span>
+<span class="nv">WATCH_QUOTE_CMD</span><span class="o">=</span><span class="s2">"watch \"</span><span class="nv">$R_CONN</span><span class="s2"> </span><span class="nv">$R_QUOTE_CMD</span><span class="s2">|python -m json.tool|grep time\""</span>
 
-<span class="n">SESS</span><span class="o">=</span><span class="n">monitor</span>
+<span class="nv">SESS</span><span class="o">=</span>monitor
 
-<span class="n">tmux</span> <span class="n">a</span> <span class="o">-</span><span class="n">t</span> <span class="err">$</span><span class="n">SESS</span>
-<span class="k">if</span> <span class="p">[</span> <span class="err">$</span><span class="o">?</span> <span class="o">-</span><span class="n">ne</span> <span class="mi">0</span> <span class="p">]</span>
-<span class="n">then</span>
-    <span class="n">tmux</span> <span class="n">new</span><span class="o">-</span><span class="n">session</span> <span class="o">-</span><span class="n">s</span> <span class="err">$</span><span class="n">SESS</span> <span class="o">-</span><span class="n">d</span> <span class="s">"$WATCH_MIN1_CMD"</span> <span class="err">\</span><span class="p">;</span> \
-    <span class="n">split</span><span class="o">-</span><span class="n">window</span> <span class="o">-</span><span class="n">h</span> <span class="o">-</span><span class="n">d</span> <span class="s">"$WATCH_CMINFO_CMD"</span> <span class="err">\</span><span class="p">;</span> \
-    <span class="n">split</span><span class="o">-</span><span class="n">window</span>  <span class="s">"$WATCH_CMLEN_CMD"</span> <span class="err">\</span><span class="p">;</span> \
-    <span class="n">select</span><span class="o">-</span><span class="n">pane</span> <span class="o">-</span><span class="n">R</span> <span class="err">\</span><span class="p">;</span> \
-    <span class="n">split</span><span class="o">-</span><span class="n">window</span>  <span class="s">"$WATCH_QUOTE_CMD"</span> <span class="err">\</span><span class="p">;</span> \
-    <span class="n">attach</span>
-<span class="n">fi</span>
+tmux a -t <span class="nv">$SESS</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$?</span> -ne <span class="m">0</span> <span class="o">]</span>
+<span class="k">then</span>
+    tmux new-session -s <span class="nv">$SESS</span> -d <span class="s2">"</span><span class="nv">$WATCH_MIN1_CMD</span><span class="s2">"</span> <span class="se">\;</span> <span class="se">\</span>
+    split-window -h -d <span class="s2">"</span><span class="nv">$WATCH_CMINFO_CMD</span><span class="s2">"</span> <span class="se">\;</span> <span class="se">\</span>
+    split-window  <span class="s2">"</span><span class="nv">$WATCH_CMLEN_CMD</span><span class="s2">"</span> <span class="se">\;</span> <span class="se">\</span>
+    <span class="k">select</span>-pane -R <span class="se">\;</span> <span class="se">\</span>
+    split-window  <span class="s2">"</span><span class="nv">$WATCH_QUOTE_CMD</span><span class="s2">"</span> <span class="se">\;</span> <span class="se">\</span>
+    attach
+<span class="k">fi</span>
 </pre></div>
 <p>需要说明的是：</p>
 <ul>
@@ -403,10 +403,7 @@
                 <footer class="text-right">
                     <p>- Yushin</p>
                 </footer>
-    <div id="show-comments" class="span7 text-center">
-        <a href="http://lostsummer.github.io/posts/2018/Oct/22/201810221843.html#disqus_thread" data-disqus-identifier="201810221843" class="btn btn-default">Show Comments</a>
-    </div>
-    <section id="comments" class="comments hidden">
+    <section id="comments" class="comments ">
         <hr/>
         <h2>Comments</h2>
         <div id="disqus_thread"></div>
@@ -454,17 +451,7 @@
     var disqus_config = function () {
         this.language = "zh";
     };
-        /*load script for comment count*/
         /* * * DON'T EDIT BELOW THIS LINE * * */
-        (function () {
-        var s = document.createElement('script'); s.async = true;
-        s.type = 'text/javascript';
-        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
-        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-        }());
-    
-        $('#show-comments').click(function () {
-            /* * * DON'T EDIT BELOW THIS LINE * * */
     (function () {
         var dsq = document.createElement('script');
         dsq.type = 'text/javascript';
@@ -472,10 +459,6 @@
         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
-            $('#show-comments').fadeOut();
-            /*$('#comments').toggleClass('hidden');*/
-            $('#comments').fadeIn().removeClass('hidden');
-        });
 </script>
 <!-- /disqus -->
 </body>
