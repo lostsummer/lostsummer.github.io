@@ -40,7 +40,7 @@ AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
 DISQUS_SITENAME = 'lostsummer'
-DISQUS_LOAD_LATER = True
+#DISQUS_LOAD_LATER = True
 
 # Blogroll
 LINKS = (
