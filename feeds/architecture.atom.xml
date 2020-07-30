@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>$ kill -1 - Architecture</title><link href="http://lostsummer.github.io/" rel="alternate"></link><link href="http://lostsummer.github.io/feeds/architecture.atom.xml" rel="self"></link><id>http://lostsummer.github.io/</id><updated>2018-04-11T18:15:14+08:00</updated><subtitle>code less talk more :)</subtitle><entry><title>容器平台监控方案大体设计</title><link href="http://lostsummer.github.io/posts/2018/Apr/11/%E5%AE%B9%E5%99%A8%E5%B9%B3%E5%8F%B0%E7%9B%91%E6%8E%A7%E6%96%B9%E6%A1%88%E5%A4%A7%E4%BD%93%E8%AE%BE%E8%AE%A1.html" rel="alternate"></link><published>2018-04-11T18:15:14+08:00</published><updated>2018-04-11T18:15:14+08:00</updated><author><name>lostsummer</name></author><id>tag:lostsummer.github.io,2018-04-11:/posts/2018/Apr/11/容器平台监控方案大体设计.html</id><summary type="html"></summary><content type="html">&lt;h2 id="_1"&gt;&lt;a class="toclink" href="#_1"&gt;监控对象&lt;/a&gt;&lt;/h2&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>$ kill -1 - Architecture</title><link href="http://www.lostsummer.love/" rel="alternate"></link><link href="http://www.lostsummer.love/feeds/architecture.atom.xml" rel="self"></link><id>http://www.lostsummer.love/</id><updated>2018-04-11T18:15:14+08:00</updated><subtitle>code less talk more :)</subtitle><entry><title>容器平台监控方案大体设计</title><link href="http://www.lostsummer.love/posts/2018/Apr/11/%E5%AE%B9%E5%99%A8%E5%B9%B3%E5%8F%B0%E7%9B%91%E6%8E%A7%E6%96%B9%E6%A1%88%E5%A4%A7%E4%BD%93%E8%AE%BE%E8%AE%A1.html" rel="alternate"></link><published>2018-04-11T18:15:14+08:00</published><updated>2018-04-11T18:15:14+08:00</updated><author><name>lostsummer</name></author><id>tag:www.lostsummer.love,2018-04-11:/posts/2018/Apr/11/容器平台监控方案大体设计.html</id><summary type="html"></summary><content type="html">&lt;h2 id="_1"&gt;&lt;a class="toclink" href="#_1"&gt;监控对象&lt;/a&gt;&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;容器集群节点 &lt;/li&gt;
 &lt;li&gt;集群上运行的容器&lt;/li&gt;
@@ -51,7 +51,7 @@
 &lt;li&gt;容器节点和容器的心跳上报脚本，心跳功能考虑纳入今后容器构建发布的规范。&lt;/li&gt;
 &lt;li&gt;AlterManager&amp;nbsp;报错脚本编写。需要了解学习Prometheus技术栈，提取报警通用逻辑，避免随着服务变动频繁增添脚本。&lt;/li&gt;
 &lt;li&gt;oneAgent接口研究，修改（如有必需）&lt;/li&gt;
-&lt;/ol&gt;</content><category term="Prometheus"></category><category term="Docker"></category></entry><entry><title>移动版行情服务器架构分析</title><link href="http://lostsummer.github.io/posts/2017/Apr/11/%E7%A7%BB%E5%8A%A8%E7%89%88%E8%A1%8C%E6%83%85%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90.html" rel="alternate"></link><published>2017-04-11T18:30:54+08:00</published><updated>2017-04-11T18:30:54+08:00</updated><author><name>lostsummer</name></author><id>tag:lostsummer.github.io,2017-04-11:/posts/2017/Apr/11/移动版行情服务器架构分析.html</id><summary type="html"></summary><content type="html">&lt;h1 id="_1"&gt;&lt;a class="toclink" href="#_1"&gt;当前移动版架构&lt;/a&gt;&lt;/h1&gt;
+&lt;/ol&gt;</content><category term="Architecture"></category><category term="Prometheus"></category><category term="Docker"></category></entry><entry><title>移动版行情服务器架构分析</title><link href="http://www.lostsummer.love/posts/2017/Apr/11/%E7%A7%BB%E5%8A%A8%E7%89%88%E8%A1%8C%E6%83%85%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90.html" rel="alternate"></link><published>2017-04-11T18:30:54+08:00</published><updated>2017-04-11T18:30:54+08:00</updated><author><name>lostsummer</name></author><id>tag:www.lostsummer.love,2017-04-11:/posts/2017/Apr/11/移动版行情服务器架构分析.html</id><summary type="html"></summary><content type="html">&lt;h1 id="_1"&gt;&lt;a class="toclink" href="#_1"&gt;当前移动版架构&lt;/a&gt;&lt;/h1&gt;
 &lt;p&gt;仅展示移动版行情功能涉及的上下游结构，不涉及交易模块&lt;/p&gt;
 &lt;p&gt;Front&amp;nbsp;上游是上证或券商提供的行情数据接口，部分外盘数据可能来自新浪公开的接口&lt;/p&gt;
 &lt;p&gt;FSServer 部署在公司，Memcache&amp;nbsp;由公司服务定时远程写入数据&lt;/p&gt;
@@ -129,4 +129,4 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;Fee 和 &lt;span class="caps"&gt;DB&lt;/span&gt; 的 Redis&amp;nbsp;缓存做的不够好&lt;/li&gt;
-&lt;/ol&gt;</content></entry></feed>
+&lt;/ol&gt;</content><category term="Architecture"></category></entry></feed>

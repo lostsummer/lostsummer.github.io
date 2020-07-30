@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>$ kill -1 - Learning</title><link href="http://lostsummer.github.io/" rel="alternate"></link><link href="http://lostsummer.github.io/feeds/learning.atom.xml" rel="self"></link><id>http://lostsummer.github.io/</id><updated>2018-11-28T00:00:00+08:00</updated><subtitle>code less talk more :)</subtitle><entry><title>浅谈Python生成器的妙处</title><link href="http://lostsummer.github.io/posts/2018/Nov/28/201811281543.html" rel="alternate"></link><published>2018-11-28T00:00:00+08:00</published><updated>2018-11-28T00:00:00+08:00</updated><author><name>Yushin</name></author><id>tag:lostsummer.github.io,2018-11-28:/posts/2018/Nov/28/201811281543.html</id><summary type="html"></summary><content type="html">&lt;p&gt;大多数使用Python的同学应该都了解生成器语法，不知道大家使用场合是什么，我想结合自己的一点粗浅经验谈谈它给我的代码带来的好处。&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>$ kill -1 - Learning</title><link href="http://www.lostsummer.love/" rel="alternate"></link><link href="http://www.lostsummer.love/feeds/learning.atom.xml" rel="self"></link><id>http://www.lostsummer.love/</id><updated>2018-11-28T00:00:00+08:00</updated><subtitle>code less talk more :)</subtitle><entry><title>浅谈Python生成器的妙处</title><link href="http://www.lostsummer.love/posts/2018/Nov/28/201811281543.html" rel="alternate"></link><published>2018-11-28T00:00:00+08:00</published><updated>2018-11-28T00:00:00+08:00</updated><author><name>Yushin</name></author><id>tag:www.lostsummer.love,2018-11-28:/posts/2018/Nov/28/201811281543.html</id><summary type="html"></summary><content type="html">&lt;p&gt;大多数使用Python的同学应该都了解生成器语法，不知道大家使用场合是什么，我想结合自己的一点粗浅经验谈谈它给我的代码带来的好处。&lt;/p&gt;
 &lt;h3 id="1"&gt;&lt;a class="toclink" href="#1"&gt;1.&amp;nbsp;不浪费内存的的逻辑分层&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;一个大家熟悉的例子是python2 的xrange 和 python3&amp;nbsp;的range函数，生成器的&amp;ldquo;惰性求值&amp;rdquo;特性使得不用开辟一个list，而只是在迭代中&amp;ldquo;现取现用&amp;rdquo;。&lt;/p&gt;
 &lt;p&gt;我在使用中更有体验的经历是：写一个特殊格式的数据文件的parser，这种文件按特定大小的块增长，而每一条数据记录，存储在一条文件块的链表中。解析一条数据记录的逻辑是：现按照链表顺序拼合出连续缓存，再再缓存基础上解析数据记录，这样逻辑上是清晰的，但要再代码上照写逻辑，就是要单拿出一块很大的buffer，或者说拼合一个很大的列表，浪费空间，有效率的方法是，读到一个块，就可以解析此块上的数据记录，不过这样写，块的解析和记录的解析掺和到一个函数中，看上去很混乱（实际上原本有个C实现就是这样）。好的方法是，在解析block层面的函数ReadBlocks() 中 yield block，在解析数据记录的函数ReadRecs()中一个迭代中 &lt;code&gt;for block in ReadBlocks():&lt;/code&gt;处理Record的解析就好。我写这个工具中文件解析的实际代码在&amp;nbsp;https://github.com/lostsummer/emdfparse/blob/master/emdfparse/datafile.py&lt;/p&gt;
 &lt;h3 id="2"&gt;&lt;a class="toclink" href="#2"&gt;2.&amp;nbsp;递归结构中减少全局变量&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;比方某一类算法问题需要你对图作深度或广度遍历，得出所有符合条件的路径，这不避免的需要一个全局或者闭包的List存储这些路径，而有了 yield 和 yield from，大可不用这个全局变量，写出的函数更有&amp;ldquo;状态机&amp;rdquo;的意味。这里有我为两个算法题写的代码 https://github.com/lostsummer/fun 。一个是连接奶牛的路径问题，一个是组合问题，对这类问题，我很愿意把 yield from&amp;nbsp;当作一个范式来用，代码行数更少，思路更简明。&lt;/p&gt;
 &lt;h3 id="3"&gt;&lt;a class="toclink" href="#3"&gt;3.&amp;nbsp;协程范式&lt;/a&gt;&lt;/h3&gt;
-&lt;p&gt;早在2009年，David Beazley 就写了 A Curious Course on Coroutines and Concurrency （http://www.dabeaz.com/coroutines/）我觉得读透所有技巧和思想对现在的写python程序也是很有帮助，尤其是理解复杂的asyncio。我觉得，不管是 &lt;code&gt;yield&lt;/code&gt; 还是 &lt;code&gt;x = yield&lt;/code&gt;都可以算是协程，了解golang的同学会说，这不就是只读channel和只写channel吗？但是，单一个yield还构不成协程管理的全部，单靠协程，asyncio，还构不成完整的并发模型。在CSP、actor都整合到GoLang和ErLang语言层面的时代，Py界还在犹豫到底拥抱asyncio还是愉快的用着gevent。我觉得，还是先用go吧。但是作为py异步编程的未来，asyncio值得研究，即使不学asyncio，那些使用协程解决问题的思路，也能给我们很多新的启发。关于py的协程，有很多可说，来日再开篇幅。&lt;/p&gt;</content><category term="Python"></category></entry><entry><title>使用tmux和watch组合一个redis监控面板</title><link href="http://lostsummer.github.io/posts/2018/Oct/22/201810221843.html" rel="alternate"></link><published>2018-10-22T00:00:00+08:00</published><updated>2018-10-22T00:00:00+08:00</updated><author><name>Yushin</name></author><id>tag:lostsummer.github.io,2018-10-22:/posts/2018/Oct/22/201810221843.html</id><summary type="html"></summary><content type="html">&lt;p&gt;对于开发来说，有些特定服务器数据的实时监控可以不必大而全，比方阮一峰 &lt;a href="http://www.ruanyifeng.com/blog/2017/05/websocket.html"&gt;WebSocket 教程&lt;/a&gt;中提到的使用Websocketd +&amp;nbsp;简单脚本实现的对服务器性能指标的监控服务程序。而我现在自己有个需求更加简单，只要验证redis中几个key的数据是否在不断更新。我既不想自己不断刷新桌面redis客户端，也不想不断在cli里敲回车，实际上借助几个命令也可以非常简单地满足：&lt;/p&gt;
+&lt;p&gt;早在2009年，David Beazley 就写了 A Curious Course on Coroutines and Concurrency （http://www.dabeaz.com/coroutines/）我觉得读透所有技巧和思想对现在的写python程序也是很有帮助，尤其是理解复杂的asyncio。我觉得，不管是 &lt;code&gt;yield&lt;/code&gt; 还是 &lt;code&gt;x = yield&lt;/code&gt;都可以算是协程，了解golang的同学会说，这不就是只读channel和只写channel吗？但是，单一个yield还构不成协程管理的全部，单靠协程，asyncio，还构不成完整的并发模型。在CSP、actor都整合到GoLang和ErLang语言层面的时代，Py界还在犹豫到底拥抱asyncio还是愉快的用着gevent。我觉得，还是先用go吧。但是作为py异步编程的未来，asyncio值得研究，即使不学asyncio，那些使用协程解决问题的思路，也能给我们很多新的启发。关于py的协程，有很多可说，来日再开篇幅。&lt;/p&gt;</content><category term="Learning"></category><category term="Python"></category></entry><entry><title>使用tmux和watch组合一个redis监控面板</title><link href="http://www.lostsummer.love/posts/2018/Oct/22/201810221843.html" rel="alternate"></link><published>2018-10-22T00:00:00+08:00</published><updated>2018-10-22T00:00:00+08:00</updated><author><name>Yushin</name></author><id>tag:www.lostsummer.love,2018-10-22:/posts/2018/Oct/22/201810221843.html</id><summary type="html"></summary><content type="html">&lt;p&gt;对于开发来说，有些特定服务器数据的实时监控可以不必大而全，比方阮一峰 &lt;a href="http://www.ruanyifeng.com/blog/2017/05/websocket.html"&gt;WebSocket 教程&lt;/a&gt;中提到的使用Websocketd +&amp;nbsp;简单脚本实现的对服务器性能指标的监控服务程序。而我现在自己有个需求更加简单，只要验证redis中几个key的数据是否在不断更新。我既不想自己不断刷新桌面redis客户端，也不想不断在cli里敲回车，实际上借助几个命令也可以非常简单地满足：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;redis-cli：输出指定key的值&lt;/li&gt;
 &lt;li&gt;watch：连续调用指定面命，并把输出刷新到屏幕上，类似top、tailf那样的效果，它是独占终端屏幕的&lt;/li&gt;
 &lt;li&gt;tmux：会话保持、分屏。有了tmux就可以在一个平面查看多个watch命令的实时输出&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;于是有了下面的脚本：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nv"&gt;HOST&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;127&lt;/span&gt;.0.0.1
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nv"&gt;HOST&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;127&lt;/span&gt;.0.0.1
 &lt;span class="nv"&gt;PORT&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;6379&lt;/span&gt;
 &lt;span class="nv"&gt;DB&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;
 
@@ -40,7 +40,7 @@ tmux a -t &lt;span class="nv"&gt;$SESS&lt;/span&gt;
     split-window  &lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="nv"&gt;$WATCH_QUOTE_CMD&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt; &lt;span class="se"&gt;\;&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
     attach
 &lt;span class="k"&gt;fi&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;需要说明的是：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;watch 默认刷新的频率是2s，这个可以通过 -n 指定，watch 还有个 -d&amp;nbsp;选项会高亮刷新后的差异部分&lt;/li&gt;
@@ -48,7 +48,7 @@ tmux a -t &lt;span class="nv"&gt;$SESS&lt;/span&gt;
 &lt;li&gt;tmux 大家可能已经熟悉分屏操作的快捷键，这些操作其实在启动session时可以通过一连串的命令定义，这些命令之间需要&lt;code&gt;' \; '&lt;/code&gt;分隔&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;脚本运行效果是这样的：&lt;/p&gt;
-&lt;p&gt;&lt;img alt="mon" src="http://140.143.250.15/wiki-img/tmux_mon.png"/&gt;&lt;/p&gt;</content></entry><entry><title>容器监控方案选型</title><link href="http://lostsummer.github.io/posts/2018/Apr/09/201804091040.html" rel="alternate"></link><published>2018-04-09T00:00:00+08:00</published><updated>2018-04-09T00:00:00+08:00</updated><author><name>lostsummer</name></author><id>tag:lostsummer.github.io,2018-04-09:/posts/2018/Apr/09/201804091040.html</id><summary type="html"></summary><content type="html">&lt;p&gt;根据一篇不错的文章: &amp;rdquo; &lt;a href="https://mp.weixin.qq.com/s?__biz=MzA5OTAyNzQ2OA==&amp;amp;mid=2649696965&amp;amp;idx=1&amp;amp;sn=acdbaf74f837d6e07d753bc4e3199206&amp;amp;chksm=889315a6bfe49cb04686cd6d7a19ec73fdc7ddec98387d4ba5e524616669ee13f2f5b277a673&amp;amp;mpshare=1&amp;amp;scene=1&amp;amp;srcid=0225cAhRGuYUIQ4Qidt6eXFU#rd"&gt;容器领域的十大监控系统对比 &lt;/a&gt; &amp;rdquo;&amp;nbsp;列出的流行监控方案&lt;/p&gt;
+&lt;p&gt;&lt;img alt="mon" src="http://140.143.250.15/wiki-img/tmux_mon.png"/&gt;&lt;/p&gt;</content><category term="Learning"></category></entry><entry><title>容器监控方案选型</title><link href="http://www.lostsummer.love/posts/2018/Apr/09/201804091040.html" rel="alternate"></link><published>2018-04-09T00:00:00+08:00</published><updated>2018-04-09T00:00:00+08:00</updated><author><name>lostsummer</name></author><id>tag:www.lostsummer.love,2018-04-09:/posts/2018/Apr/09/201804091040.html</id><summary type="html"></summary><content type="html">&lt;p&gt;根据一篇不错的文章: &amp;rdquo; &lt;a href="https://mp.weixin.qq.com/s?__biz=MzA5OTAyNzQ2OA==&amp;amp;mid=2649696965&amp;amp;idx=1&amp;amp;sn=acdbaf74f837d6e07d753bc4e3199206&amp;amp;chksm=889315a6bfe49cb04686cd6d7a19ec73fdc7ddec98387d4ba5e524616669ee13f2f5b277a673&amp;amp;mpshare=1&amp;amp;scene=1&amp;amp;srcid=0225cAhRGuYUIQ4Qidt6eXFU#rd"&gt;容器领域的十大监控系统对比 &lt;/a&gt; &amp;rdquo;&amp;nbsp;列出的流行监控方案&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -140,7 +140,7 @@ tmux a -t &lt;span class="nv"&gt;$SESS&lt;/span&gt;
 &lt;p&gt;文中很多部分提到 Rancher 通过插件等方式整合CAdvisor， Promethues  等组件。Rancher&amp;nbsp;是否适合Swarm集群，整合的方式是否好用，还需要研究Rancher后再看。&lt;/p&gt;
 &lt;hr/&gt;
 &lt;p&gt;update:&amp;nbsp;2018-04-10&lt;/p&gt;
-&lt;p&gt;Rancher 的调研写在Wiki里：&lt;a href="http://wiki.lostsummer.love/Docker/rancher%E5%BA%94%E7%94%A8%E4%BA%8Eswarm%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86%E7%9A%84%E8%B0%83%E7%A0%94.html"&gt;Rancher应用于swarm集群管理的调研&lt;/a&gt;&lt;/p&gt;</content><category term="Docker"></category><category term="Prometheus"></category><category term="InfluxDB"></category></entry><entry><title>我在Linux环境创建私有Go项目环境的方法</title><link href="http://lostsummer.github.io/posts/2018/Mar/30/201803301025.html" rel="alternate"></link><published>2018-03-30T00:00:00+08:00</published><updated>2018-03-30T00:00:00+08:00</updated><author><name>lostsummer</name></author><id>tag:lostsummer.github.io,2018-03-30:/posts/2018/Mar/30/201803301025.html</id><summary type="html"></summary><content type="html">&lt;p&gt;初次开发构建Go项目的朋友可能对如果创建一个干净独立的项目环境有些疑惑，这里介绍一下个人经验。&lt;/p&gt;
+&lt;p&gt;Rancher 的调研写在Wiki里：&lt;a href="http://wiki.lostsummer.love/Docker/rancher%E5%BA%94%E7%94%A8%E4%BA%8Eswarm%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86%E7%9A%84%E8%B0%83%E7%A0%94.html"&gt;Rancher应用于swarm集群管理的调研&lt;/a&gt;&lt;/p&gt;</content><category term="Learning"></category><category term="Docker"></category><category term="Prometheus"></category><category term="InfluxDB"></category></entry><entry><title>我在Linux环境创建私有Go项目环境的方法</title><link href="http://www.lostsummer.love/posts/2018/Mar/30/201803301025.html" rel="alternate"></link><published>2018-03-30T00:00:00+08:00</published><updated>2018-03-30T00:00:00+08:00</updated><author><name>lostsummer</name></author><id>tag:www.lostsummer.love,2018-03-30:/posts/2018/Mar/30/201803301025.html</id><summary type="html"></summary><content type="html">&lt;p&gt;初次开发构建Go项目的朋友可能对如果创建一个干净独立的项目环境有些疑惑，这里介绍一下个人经验。&lt;/p&gt;
 &lt;h1 id="_1"&gt;&lt;a class="toclink" href="#_1"&gt;前提&lt;/a&gt;&lt;/h1&gt;
 &lt;ol&gt;
 &lt;li&gt;你安装配置好了golang编译器&lt;/li&gt;
@@ -164,121 +164,121 @@ tmux a -t &lt;span class="nv"&gt;$SESS&lt;/span&gt;
 &lt;p&gt;已有的所有项目地址：http://git.emoney.cn/monitor/monitorplat.git
 代码包导入路径：MonitorPlat/oneagent, MonitorPlat/onedistribute, &amp;hellip;&amp;nbsp;(该项目由多个程序组成)&lt;/p&gt;
 &lt;h3 id="_6"&gt;&lt;a class="toclink" href="#_6"&gt;创建目录结构&lt;/a&gt;&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;mkdir -p dev_projects/src/MonitorPlat
-&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;mkdir -p dev_projects/src/MonitorPlat&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h3 id="_7"&gt;&lt;a class="toclink" href="#_7"&gt;迁出代码&lt;/a&gt;&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;cd dev_projects
-git clone http://git.emoney.cn/monitor/monitorplat.git src/MonitorPlat
-&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;cd dev_projects&lt;/span&gt;
+&lt;span class="err"&gt;git clone http://git.emoney.cn/monitor/monitorplat.git src/MonitorPlat&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h2 id="_9"&gt;&lt;a class="toclink" href="#_8"&gt;环境隔离&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;为了和.bashrc中配置的\$GOPATH隔离，需要在dev_projects下运行：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;export GOPATH=$(pwd)
-&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;export GOPATH=$(pwd)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;为了使用方便，可以写两个脚本&lt;/p&gt;
 &lt;p&gt;env_activate.sh&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;CURDIR=`pwd`
-OLDGOPATH="$GOPATH"
-export GOPATH="$CURDIR"
-&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;CURDIR&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="ss"&gt;`pwd`&lt;/span&gt;
+&lt;span class="n"&gt;OLDGOPATH&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"$GOPATH"&lt;/span&gt;
+&lt;span class="n"&gt;export&lt;/span&gt; &lt;span class="n"&gt;GOPATH&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"$CURDIR"&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;env_deactivate.sh&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;export GOPATH=$OLDGOPATH
-&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;export GOPATH=$OLDGOPATH&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;这样你可以通过&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;source env_activate.sh
-&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;source env_activate.sh&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;和&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;source env_deactivate.sh
-&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;source env_deactivate.sh&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;来切换&lt;/p&gt;
 &lt;h3 id="vendor"&gt;&lt;a class="toclink" href="#vendor"&gt;vendor&amp;nbsp;初始化&lt;/a&gt;&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;cd src/MonitorPlat
-govendor init
-&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;cd src/MonitorPlat&lt;/span&gt;
+&lt;span class="err"&gt;govendor init&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h3 id="githubgolangorg"&gt;&lt;a class="toclink" href="#githubgolangorg"&gt;从github镜像获取golang.org依赖包&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;首先可以在Monitor目录下用命令看到项目所有依赖包&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;govendor list
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;govendor&lt;/span&gt; &lt;span class="n"&gt;list&lt;/span&gt;
 
-...
-  m golang.org/x/net/context
-  m golang.org/x/net/context/ctxhttp
-  m golang.org/x/net/websocket
-  m golang.org/x/text/cases
-  m golang.org/x/text/encoding
-  m golang.org/x/text/encoding/charmap
-  m golang.org/x/text/encoding/internal
-  m golang.org/x/text/encoding/internal/enctest
-  m golang.org/x/text/encoding/internal/identifier
-  m golang.org/x/text/encoding/simplifiedchinese
-  m golang.org/x/text/encoding/unicode
-  m golang.org/x/text/internal
-  m golang.org/x/text/internal/gen
-  m golang.org/x/text/internal/language
-  m golang.org/x/text/internal/language/compact
-  m golang.org/x/text/internal/tag
-  m golang.org/x/text/internal/testtext
-  m golang.org/x/text/internal/ucd
-  m golang.org/x/text/internal/utf8internal
-  m golang.org/x/text/language
-  m golang.org/x/text/runes
-  m golang.org/x/text/transform
-  m golang.org/x/text/unicode/cldr
-  m golang.org/x/text/unicode/norm
-  m golang.org/x/text/unicode/rangetable
-  m golang.org/x/text/width
-  m github.com/devfeel/dottask
-  m github.com/devfeel/dotweb
-  m github.com/devfeel/dotweb/cache
-  m github.com/devfeel/dotweb/cache/redis
-  m github.com/devfeel/dotweb/cache/runtime
-  m github.com/devfeel/dotweb/config
-  m github.com/devfeel/dotweb/const
-  m github.com/devfeel/dotweb/core
-  m github.com/devfeel/dotweb/feature
-  m github.com/devfeel/dotweb/framework/convert
-  m github.com/devfeel/dotweb/framework/crypto
-  m github.com/devfeel/dotweb/framework/crypto/uuid
-  m github.com/devfeel/dotweb/framework/encodes/gob
-  m github.com/devfeel/dotweb/framework/exception
-  m github.com/devfeel/dotweb/framework/file
-  m github.com/devfeel/dotweb/framework/json
-  m github.com/devfeel/dotweb/framework/redis
-  m github.com/devfeel/dotweb/framework/reflects
-  m github.com/devfeel/dotweb/logger
-  m github.com/devfeel/dotweb/servers
-  m github.com/devfeel/dotweb/session
-  m github.com/devfeel/dotweb/test
-  m github.com/garyburd/redigo/internal
-  m github.com/garyburd/redigo/redis
-  m github.com/influxdata/influxdb/client/v2
-  m github.com/influxdata/influxdb/models
-  m github.com/influxdata/influxdb/pkg/escape
-&lt;/pre&gt;&lt;/div&gt;
+&lt;span class="p"&gt;...&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;golang&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;org&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;net&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;context&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;golang&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;org&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;net&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;context&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;ctxhttp&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;golang&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;org&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;net&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;websocket&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;golang&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;org&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nb"&gt;text&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;cases&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;golang&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;org&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nb"&gt;text&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="k"&gt;encoding&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;golang&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;org&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nb"&gt;text&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="k"&gt;encoding&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;charmap&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;golang&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;org&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nb"&gt;text&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="k"&gt;encoding&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;internal&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;golang&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;org&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nb"&gt;text&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="k"&gt;encoding&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;internal&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;enctest&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;golang&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;org&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nb"&gt;text&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="k"&gt;encoding&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;internal&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;identifier&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;golang&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;org&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nb"&gt;text&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="k"&gt;encoding&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;simplifiedchinese&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;golang&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;org&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nb"&gt;text&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="k"&gt;encoding&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;unicode&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;golang&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;org&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nb"&gt;text&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;internal&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;golang&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;org&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nb"&gt;text&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;internal&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;gen&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;golang&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;org&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nb"&gt;text&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;internal&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="k"&gt;language&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;golang&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;org&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nb"&gt;text&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;internal&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="k"&gt;language&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;compact&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;golang&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;org&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nb"&gt;text&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;internal&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;tag&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;golang&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;org&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nb"&gt;text&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;internal&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;testtext&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;golang&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;org&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nb"&gt;text&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;internal&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;ucd&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;golang&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;org&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nb"&gt;text&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;internal&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;utf8internal&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;golang&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;org&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nb"&gt;text&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="k"&gt;language&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;golang&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;org&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nb"&gt;text&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;runes&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;golang&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;org&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nb"&gt;text&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="k"&gt;transform&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;golang&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;org&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nb"&gt;text&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;unicode&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;cldr&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;golang&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;org&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nb"&gt;text&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;unicode&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;norm&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;golang&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;org&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nb"&gt;text&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;unicode&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;rangetable&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;golang&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;org&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nb"&gt;text&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;width&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;devfeel&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dottask&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;devfeel&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dotweb&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;devfeel&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dotweb&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="k"&gt;cache&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;devfeel&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dotweb&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="k"&gt;cache&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;redis&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;devfeel&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dotweb&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="k"&gt;cache&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;runtime&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;devfeel&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dotweb&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;config&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;devfeel&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dotweb&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;const&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;devfeel&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dotweb&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;core&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;devfeel&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dotweb&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;feature&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;devfeel&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dotweb&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;framework&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="k"&gt;convert&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;devfeel&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dotweb&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;framework&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;crypto&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;devfeel&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dotweb&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;framework&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;crypto&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;uuid&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;devfeel&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dotweb&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;framework&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;encodes&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;gob&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;devfeel&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dotweb&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;framework&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="k"&gt;exception&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;devfeel&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dotweb&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;framework&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;file&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;devfeel&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dotweb&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;framework&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;json&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;devfeel&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dotweb&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;framework&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;redis&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;devfeel&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dotweb&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;framework&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;reflects&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;devfeel&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dotweb&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;logger&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;devfeel&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dotweb&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;servers&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;devfeel&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dotweb&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="k"&gt;session&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;devfeel&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dotweb&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;garyburd&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;redigo&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;internal&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;garyburd&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;redigo&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;redis&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;influxdata&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;influxdb&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;client&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;v2&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;influxdata&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;influxdb&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;models&lt;/span&gt;
+  &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;influxdata&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;influxdb&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pkg&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="k"&gt;escape&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;其中行首 m 标识的，是目前环境缺少的包。从 golang.org 的依赖主要是 x/net 和 x/text&amp;nbsp;两部分。&lt;/p&gt;
 &lt;p&gt;vendor 目录中创建 golang.org/x&amp;nbsp;目录&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;mkdir -p vendor/golang.org/x
-&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;mkdir -p vendor/golang.org/x&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;项目子模块添加&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git submodule add https://github.com/golang/net.git vendor/golang.org/x/net
-git submodule add https://github.com/golang/text.git vendor/golang.org/x/text
-&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;git submodule add https://github.com/golang/net.git vendor/golang.org/x/net&lt;/span&gt;
+&lt;span class="err"&gt;git submodule add https://github.com/golang/text.git vendor/golang.org/x/text&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h3 id="_10"&gt;&lt;a class="toclink" href="#_9"&gt;获取其他依赖包&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;可以简单的通过一个命令&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;govendor fetch +m
-&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;govendor fetch +m&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h3 id="git"&gt;&lt;a class="toclink" href="#git"&gt;git&amp;nbsp;追踪&lt;/a&gt;&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git add vendor/vendor.json
-git commit ...
-git push ...
-&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;git add vendor/vendor.json&lt;/span&gt;
+&lt;span class="err"&gt;git commit ...&lt;/span&gt;
+&lt;span class="err"&gt;git push ...&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h3 id="_11"&gt;&lt;a class="toclink" href="#_10"&gt;新位置使用&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;git submodule 已经把vendor/golang.org 下的项目版本记住
 其他的包，vendor.json&amp;nbsp;记录了版本。&lt;/p&gt;
 &lt;p&gt;commit&amp;nbsp;并提交到远程库后，在新的位置迁出后&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;export GOPATH=$(pwd)
-cd src/MonitorPlat
-git submodule update
-govender sync
-&lt;/pre&gt;&lt;/div&gt;</content><category term="Go"></category><category term="Linux"></category></entry><entry><title>Linux 趁手工具之剪贴板系列</title><link href="http://lostsummer.github.io/posts/2016/Mar/17/linux_clipboard.html" rel="alternate"></link><published>2016-03-17T15:01:18+08:00</published><updated>2016-03-17T15:01:18+08:00</updated><author><name>lostsummer</name></author><id>tag:lostsummer.github.io,2016-03-17:/posts/2016/Mar/17/linux_clipboard.html</id><summary type="html"></summary><content type="html">&lt;p&gt;懂 Linux 的程序员朋友很多，但是把 Linux 当作日常桌面系统用的还是不多。我自己的小破笔记本上，350G 的机械硬盘跑着 Win7， 120G 的MSATA &lt;span class="caps"&gt;SSD&lt;/span&gt; 跑过Ubuntu，OpenSuse，Kali(基于 Debian )，现在跑着  Debian 8， 开机秒速，不比 Win10 的平板或是Chromebook&amp;nbsp;慢，且更功能更强大。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;export GOPATH=$(pwd)&lt;/span&gt;
+&lt;span class="err"&gt;cd src/MonitorPlat&lt;/span&gt;
+&lt;span class="err"&gt;git submodule update&lt;/span&gt;
+&lt;span class="err"&gt;govender sync&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content><category term="Learning"></category><category term="Go"></category><category term="Linux"></category></entry><entry><title>Linux 趁手工具之剪贴板系列</title><link href="http://www.lostsummer.love/posts/2016/Mar/17/linux_clipboard.html" rel="alternate"></link><published>2016-03-17T15:01:18+08:00</published><updated>2016-03-17T15:01:18+08:00</updated><author><name>lostsummer</name></author><id>tag:www.lostsummer.love,2016-03-17:/posts/2016/Mar/17/linux_clipboard.html</id><summary type="html"></summary><content type="html">&lt;p&gt;懂 Linux 的程序员朋友很多，但是把 Linux 当作日常桌面系统用的还是不多。我自己的小破笔记本上，350G 的机械硬盘跑着 Win7， 120G 的MSATA &lt;span class="caps"&gt;SSD&lt;/span&gt; 跑过Ubuntu，OpenSuse，Kali(基于 Debian )，现在跑着  Debian 8， 开机秒速，不比 Win10 的平板或是Chromebook&amp;nbsp;慢，且更功能更强大。&lt;/p&gt;
 &lt;p&gt;我个人也并没有把 Linux 完全取代 Windows 来用，毕竟很多时候还要用到微软的 Office 等工具，或者有些网站至今为止还是&amp;ldquo;&lt;span class="caps"&gt;IE6&lt;/span&gt; Only&amp;rdquo;。但是日常大部分工作，Linux 已经完全可以代替 Windows；在开发方面，如果你是一个 Unix/Linux 平台的开发者，当然是直接使用 Linux 更好啊，那种在 Windows 上用 &lt;span class="caps"&gt;UE&lt;/span&gt; 写代码，用 SourceInsight 浏览代码，scp 到 Linux&amp;nbsp;上编译代码的方式既不方便也无效率。&lt;/p&gt;
 &lt;p&gt;我打算陆续总结和分享下 Linux 下好用的工具，这些工具要么是在 Windows 上 power tools 的同功能替代，要么是更加好用和有趣。我不打算写篇幅很多，很系统的 Linux&amp;nbsp;工具介绍，只是兴之所至，在一个小的分类或相关标签下做简短的介绍。日后有新的发现也许会在历史文章上做些更新。&lt;/p&gt;
 &lt;p&gt;另外，我推荐的工具基本是基于Debian，&lt;span class="caps"&gt;GNOME&lt;/span&gt;。&lt;/p&gt;
@@ -315,4 +315,4 @@ xclip -selection c -o &amp;gt;&amp;nbsp;~/test.txt&lt;/p&gt;
 &lt;p&gt;这两个软件都很轻量，都可以apt-get install 来安装，Ubuntu 和 Debian&amp;nbsp;的源中都有。&lt;/p&gt;
 &lt;p&gt;使用都很简单，修改下呼出剪贴版历史的热键就可以用起来。但 diodon&amp;nbsp;在我的系统中，热键要按两次才能呼出不知道为何。&lt;/p&gt;
 &lt;p&gt;而 Parcellite 默认没有启用 AutoPaste，就是点选历史记录后，并没有直接粘贴到光标焦点位置上，还需要用户自己&amp;ldquo;Ctrl + V&amp;rdquo; 或右键菜单粘贴，这很不方便。配置里勾选 AutoPaste 后，提示必须要先安装 xdotool 才能启用。apt-get install xdotool&amp;nbsp;后就可以启用，用起来就方便了。&lt;/p&gt;
-&lt;p&gt;&lt;img alt="" src="http://oc3b8hnrg.bkt.clouddn.com/2016-03-17-221500-%E7%9A%84%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png"/&gt;&lt;/p&gt;</content><category term="Linux"></category></entry></feed>
+&lt;p&gt;&lt;img alt="" src="http://oc3b8hnrg.bkt.clouddn.com/2016-03-17-221500-%E7%9A%84%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png"/&gt;&lt;/p&gt;</content><category term="Learning"></category><category term="Linux"></category></entry></feed>
