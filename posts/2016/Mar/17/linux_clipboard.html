@@ -1,21 +1,22 @@
 
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="lostsummer" />
         <meta name="keywords" content="Linux" />
+        <meta name="description" content="懂 Linux 的程序员朋友很多，但是把 Linux 当作日常桌面系统用的还是不多。我自己的小破笔记本上，350G 的机械硬盘跑着 Win7， 120G 的MSATA …" />
 
 
     <title>Linux 趁手工具之剪贴板系列 - $ kill -1</title>
 
-        <link rel="stylesheet" href="../../../../theme/css/bootstrap.flatly.min.css" type="text/css"/>
+        <link rel="stylesheet" href="../../../../theme/css/bootstrap.journal.min.css" type="text/css"/>
 
-    <link href="../../../../theme/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="../../../../theme/css/pygments/autumn.css" rel="stylesheet" />
-    
+    <link href="../../../../theme/css/fontawesome-all.min.css" rel="stylesheet" />
+    <link href="../../../../theme/css/pygments/emacs.css" rel="stylesheet" />
+
         <link href="../../../../theme/css/typogrify.css" rel="stylesheet" />
     <link href="../../../../theme/css/pelican-twitchy.min.css" rel="stylesheet" />
 
@@ -29,7 +30,6 @@
     <!-- Feeds -->
         <link href="../../../../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
               title="$ kill -1 ATOM Feed" />
-        <link href="../../../../extra/custom.css" rel="stylesheet" />
 </head>
 <body data-spy="scroll" data-target="#scrollspy">
     <div id="wrapper">
@@ -38,66 +38,65 @@
             <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
                 <li>
         <a href="../../../.." title="$ kill -1" class="collapsed">
-            <span class="glyphicon glyphicon-home"></span>
+            <span class="fas fa-home"></span>
         </a>
     </li>
                 <li class="nav-divider"></li>
                 <li>
         <a href="../../../../archives.html" title="Recent Articles" class="collapsed">
-            <span class="glyphicon glyphicon-th-list"></span>
+            <span class="fas fa-th-list"></span>
         </a>
     </li>
-                
                 <li class="nav-divider"></li>
                 <li id="share-small">
                     <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-share-small" title="Share" class="collapsed">
-                        <i class="fa fa-share-alt padding-small"></i>
+                        <i class="fas fa-share-alt padding-small"></i>
                     </a>
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-share-small" class="collapse ">
                     <li>
                         <a href="https://www.facebook.com/sharer/sharer.php?u=../../../../posts/2016/Mar/17/linux_clipboard.html" title="Share via Facebook" target="popup">
-                            <i class="fa fa-facebook-square padding-small"></i>
+                            <i class="fas fa-facebook-square padding-small"></i>
                         </a>
                     </li>
                     <li>
                         <a href="https://plus.google.com/share?url=../../../../posts/2016/Mar/17/linux_clipboard.html" title="Share via Google+" target="popup">
-                            <i class="fa fa-google-plus padding-small"></i>
+                            <i class="fas fa-google-plus padding-small"></i>
                         </a>
                     </li>
                     <li>
                         <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" title="Share via Twitter" target="popup">
-                            <i class="fa fa-twitter-square padding-small"></i>
+                            <i class="fas fa-twitter-square padding-small"></i>
                         </a>
                     </li>
                 </ul></li>
                 <li class="nav-divider"></li>
                 <li>
                     <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-social-small" title="Social" class="collapsed">
-                        <i class="fa fa-users padding-small"></i>
+                        <i class="fas fa-users padding-small"></i>
                     </a>
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-social-small" class="collapse ">
                     <li>
-                        <a href="mailto:lostsummer@gmail.com" title="Email"><i class="fa fa-envelope-square fa-lg padding-small"></i></a>
+                        <a href="mailto:lostsummer@gmail.com" title="Email"><i class="fas fa-envelope-square padding-small"></i></a>
                     </li>
                     <li>
-                        <a href="https://www.facebook.com/fisher.wong.3" title="facebook"><i class="fa fa-facebook-square fa-lg padding-small"></i></a>
+                        <a href="https://www.facebook.com/fisher.wong.3" title="facebook"><i class="fab fa-facebook-square padding-small"></i></a>
                     </li>
                     <li>
-                        <a href="https://github.com/lostsummer" title="github"><i class="fa fa-github-square fa-lg padding-small"></i></a>
+                        <a href="https://github.com/lostsummer" title="github"><i class="fab fa-github-square padding-small"></i></a>
                     </li>
                     <li>
-                        <a href="https://plus.google.com/+FisherWong" title="google+"><i class="fa fa-google-plus-square fa-lg padding-small"></i></a>
+                        <a href="https://plus.google.com/+FisherWong" title="google+"><i class="fab fa-google-plus-square padding-small"></i></a>
                     </li>
                     <li>
-                        <a href="https://twitter.com/lostsummer" title="twitter"><i class="fa fa-twitter-square fa-lg padding-small"></i></a>
+                        <a href="https://twitter.com/lostsummer" title="twitter"><i class="fab fa-twitter-square padding-small"></i></a>
                     </li>
                 </ul></li>
                 <li class="nav-divider"></li>
                 <li>
         <a href="#" title="Back to top" class="collapsed">
-            <span class="fa fa-arrow-up"></span>
+            <span class="fas fa-arrow-up"></span>
         </a>
     </li>
             </ul>
@@ -106,51 +105,51 @@
             <ul id="accordion" class="sidebar-nav">
                 <li class="sidebar-brand">
                     <a href="../../../../">
-                            <span class="glyphicon glyphicon-home padding-small"></span>
+                            <span class="fas fa-home padding-small"></span>
                             $ kill -1
                     </a>
                 </li>
                     <li class="nav-divider"></li>
                     <li>
                         <a data-toggle="collapse" data-parent="#accordion" href="#collapse-latest">
-                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            <span class="fas fa-th-list padding-small"></span>
                             Recent Articles
                         </a>
                     </li>
                     <li class="panel anti-panel"><ul id="collapse-latest" class="sidebar_submenu collapse in">
                         <li class="">
                             <a class="hide-overflow" href="../../../../posts/2018/Nov/28/201811281543.html" title="浅谈Python生成器的妙处">
-                                <i class="fa fa-file-text padding-small"></i>
+                                <i class="fas fa-file-alt padding-small"></i>
                                 浅谈Python生成器的妙处
                             </a>
                         </li>
                         <li class="">
                             <a class="hide-overflow" href="../../../../posts/2018/Nov/22/201811221843.html" title="与蟒共舞">
-                                <i class="fa fa-file-text padding-small"></i>
+                                <i class="fas fa-file-alt padding-small"></i>
                                 与蟒共舞
                             </a>
                         </li>
                         <li class="">
                             <a class="hide-overflow" href="../../../../posts/2018/Oct/22/201810221843.html" title="使用tmux和watch组合一个redis监控面板">
-                                <i class="fa fa-file-text padding-small"></i>
+                                <i class="fas fa-file-alt padding-small"></i>
                                 使用tmux和watch组合一个redis监控面板
                             </a>
                         </li>
                         <li class="">
                             <a class="hide-overflow" href="../../../../posts/2018/Apr/11/容器平台监控方案大体设计.html" title="容器平台监控方案大体设计">
-                                <i class="fa fa-file-text padding-small"></i>
+                                <i class="fas fa-file-alt padding-small"></i>
                                 容器平台监控方案大体设计
                             </a>
                         </li>
                         <li class="">
                             <a class="hide-overflow" href="../../../../posts/2018/Apr/09/201804091040.html" title="容器监控方案选型">
-                                <i class="fa fa-file-text padding-small"></i>
+                                <i class="fas fa-file-alt padding-small"></i>
                                 容器监控方案选型
                             </a>
                         </li>
                     <li>
                         <a href="../../../../archives.html">
-                            <i class="fa fa-arrow-right padding-small"></i>
+                            <i class="fas fa-arrow-right padding-small"></i>
                             More
                         </a>
                     </li>
@@ -158,26 +157,26 @@
                 <li class="nav-divider"></li>
                 <li id="share">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse-share" title="Share" class="collapsed">
-                        <i class="fa fa-share-alt padding-small"></i>
+                        <i class="fas fa-share-alt padding-small"></i>
                         Share
                     </a>
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-share" class="sidebar_submenu collapse ">
                     <li>
                         <a href="https://www.facebook.com/sharer/sharer.php?u=../../../../posts/2016/Mar/17/linux_clipboard.html" target="popup">
-                            <i class="fa fa-facebook-square padding-small"></i>
+                            <i class="fab fa-facebook-square padding-small"></i>
                             Facebook
                         </a>
                     </li>
                     <li>
                         <a href="https://plus.google.com/share?url=../../../../posts/2016/Mar/17/linux_clipboard.html" target="popup">
-                            <i class="fa fa-google-plus padding-small"></i>
+                            <i class="fab fa-google-plus-square padding-small"></i>
                             Google+
                         </a>
                     </li>
                     <li>
                         <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" target="popup">
-                            <i class="fa fa-twitter-square padding-small"></i>
+                            <i class="fab fa-twitter-square padding-small"></i>
                             Twitter
                         </a>
                     </li>
@@ -185,38 +184,38 @@
                 <li class="nav-divider"></li>
                 <li>
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse-social">
-                        <i class="fa fa-users padding-small"></i>
+                        <i class="fas fa-users padding-small"></i>
                         Contact
                     </a>
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-social" class="sidebar_submenu collapse ">
                     <li>
                         <a href="mailto:lostsummer@gmail.com" title="Email">
-                            <i class="fa fa-envelope-square fa-lg padding-small"></i>
+                            <i class="fas fa-envelope-square padding-small"></i>
                             Email
                         </a>
                     </li>
                     <li>
                         <a href="https://www.facebook.com/fisher.wong.3" title="facebook">
-                            <i class="fa fa-facebook-square fa-lg padding-small"></i>
+                            <i class="fab fa-facebook-square padding-small"></i>
                             facebook
                         </a>
                     </li>
                     <li>
                         <a href="https://github.com/lostsummer" title="github">
-                            <i class="fa fa-github-square fa-lg padding-small"></i>
+                            <i class="fab fa-github-square padding-small"></i>
                             github
                         </a>
                     </li>
                     <li>
                         <a href="https://plus.google.com/+FisherWong" title="google+">
-                            <i class="fa fa-google-plus-square fa-lg padding-small"></i>
+                            <i class="fab fa-google-plus-square padding-small"></i>
                             google+
                         </a>
                     </li>
                     <li>
                         <a href="https://twitter.com/lostsummer" title="twitter">
-                            <i class="fa fa-twitter-square fa-lg padding-small"></i>
+                            <i class="fab fa-twitter-square padding-small"></i>
                             twitter
                         </a>
                     </li>
@@ -225,107 +224,70 @@
                 <li class="nav-divider"></li>
                 <li>
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse-pages">
-                        <i class="fa fa-folder-open padding-small"></i>
+                        <i class="fas fa-folder-open padding-small"></i>
                         Pages
                     </a>
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-pages" class="sidebar_submenu collapse ">
                     <li>
                         <a href="../../../../pages/about-me.html">
-                            <i class="fa fa-file-text padding-small"></i>
+                            <i class="fas fa-file-alt padding-small"></i>
                             About&nbsp;Me
                         </a>
                     </li>
                 </ul></li>
-                
                 <li class="nav-divider"></li>
                 <li>
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
-                        <i class="fa fa-folder-open padding-small"></i>
+                        <i class="fas fa-folder-open padding-small"></i>
                         Categories
                     </a>
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
                     <li >
                         <a href="../../../../category/architecture.html">
-                            <i class="fa fa-folder-open padding-small"></i>
+                            <i class="fas fa-folder-open padding-small"></i>
                             Architecture
-                            <span class="badge pull-right categorybadge">2</span>
+                            <span class="badge badge-secondary float-right categorybadge">2</span>
                         </a>
                     </li>
                     <li class="active">
                         <a href="../../../../category/learning.html">
-                            <i class="fa fa-folder-open padding-small"></i>
+                            <i class="fas fa-folder-open padding-small"></i>
                             Learning
-                            <span class="badge pull-right categorybadge">5</span>
+                            <span class="badge badge-secondary float-right categorybadge">5</span>
                         </a>
                     </li>
                     <li >
                         <a href="../../../../category/recommendation.html">
-                            <i class="fa fa-folder-open padding-small"></i>
+                            <i class="fas fa-folder-open padding-small"></i>
                             Recommendation
-                            <span class="badge pull-right categorybadge">2</span>
+                            <span class="badge badge-secondary float-right categorybadge">2</span>
                         </a>
                     </li>
                 </ul></li>
-                
                 <li class="nav-divider"></li>
                 <li>
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse-tags">
-                        <i class="fa fa-tags padding-small"></i>
+                        <i class="fas fa-tags padding-small"></i>
                         Tags
                     </a>
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-tags" class="sidebar_submenu collapse ">
-                    <li class="tag-[<pelican.contents.Article object at 0x7f6feca1de48>, <pelican.contents.Article object at 0x7f6fe9fde128>]">
-                        <a href="../../../../tag/python.html">
-                            Python
-                        </a>
-                    </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f6fe9fde518>, <pelican.contents.Article object at 0x7f6fec9d5438>]">
-                        <a href="../../../../tag/prometheus.html">
-                            Prometheus
-                        </a>
-                    </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f6fe9fde518>, <pelican.contents.Article object at 0x7f6fec9d5438>]">
-                        <a href="../../../../tag/docker.html">
-                            Docker
-                        </a>
-                    </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f6fec9d5438>]">
-                        <a href="../../../../tag/influxdb.html">
-                            InfluxDB
-                        </a>
-                    </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f6fec9d25c0>]">
-                        <a href="../../../../tag/go.html">
-                            Go
-                        </a>
-                    </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f6fec9d25c0>, <pelican.contents.Article object at 0x7f6feca2ea58>]">
-                        <a href="../../../../tag/linux.html">
-                            Linux
-                        </a>
-                    </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f6fe9fde128>]">
-                        <a href="../../../../tag/git.html">
-                            Git
-                        </a>
-                    </li>
                 </ul></li>
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
         <!-- open/close sidebar -->
-        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
-            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
-            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        <a href="#menu-toggle" class="btn btn-primary" id="menu-toggle">
+            <span id="right-arrow" class="fas fa-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="fas fa-chevron-left" title="minimize sidebar"></span>
         </a>
        <!-- /open/close sidebar -->
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
-            <div class="container-fluid">
+            <div class="container">
 <section id="content">
     <article>
         <div class="row">
@@ -364,10 +326,10 @@
 <p>我个人也并没有把 Linux 完全取代 Windows 来用，毕竟很多时候还要用到微软的 Office 等工具，或者有些网站至今为止还是&ldquo;<span class="caps">IE6</span> Only&rdquo;。但是日常大部分工作，Linux 已经完全可以代替 Windows；在开发方面，如果你是一个 Unix/Linux 平台的开发者，当然是直接使用 Linux 更好啊，那种在 Windows 上用 <span class="caps">UE</span> 写代码，用 SourceInsight 浏览代码，scp 到 Linux&nbsp;上编译代码的方式既不方便也无效率。</p>
 <p>我打算陆续总结和分享下 Linux 下好用的工具，这些工具要么是在 Windows 上 power tools 的同功能替代，要么是更加好用和有趣。我不打算写篇幅很多，很系统的 Linux&nbsp;工具介绍，只是兴之所至，在一个小的分类或相关标签下做简短的介绍。日后有新的发现也许会在历史文章上做些更新。</p>
 <p>另外，我推荐的工具基本是基于Debian，<span class="caps">GNOME</span>。</p>
-<h2 id="linux"><a class="toclink" href="#linux">Linux&nbsp;剪贴板原理</a></h2>
+<h2 id="linux-jian-tie-ban-yuan-li">Linux&nbsp;剪贴板原理</h2>
 <p>对 Linux 剪贴板原理感兴趣的朋友可以参看这篇文章 <a href="http://blog.51cto.com/laokaddk/945304">Linux 剪贴板原理</a> ，其中关于 &ldquo;selection&rdquo;&nbsp;的概念，在之后介绍的一个工具中会用到。</p>
-<h3 id="_1"><a class="toclink" href="#_1">终端与剪贴板的通道</a></h3>
-<h4 id="xclip"><a class="toclink" href="#xclip">xclip</a></h4>
+<h3 id="zhong-duan-yu-jian-tie-ban-de-tong-dao">终端与剪贴板的通道</h3>
+<h4 id="xclip">xclip</h4>
 <p>xclip命令建立了终端和剪切板之间通道，可以用命令的方式将终端输出或文件的内容保存到剪切板中，也可以将剪切板的内容输出到终端或文件
 不加选项时只在保存在X <span class="caps">PRIMARY</span>（终端剪贴板），加上选项 -selection c后保存在 X <span class="caps">CLIPBOARD</span>（外部程序剪贴板）。
 参考：http://www.debian-administration.org/articles/565
@@ -386,7 +348,7 @@ xclip -selection c&nbsp;-o</p>
 <p><strong>剪切板内容输出到文件</strong>
 xclip -o &gt; ~/test.txt
 xclip -selection c -o &gt;&nbsp;~/test.txt</p>
-<h4 id="_2"><a class="toclink" href="#_2">剪贴板管理器</a></h4>
+<h4 id="jian-tie-ban-guan-li-qi">剪贴板管理器</h4>
 <p>如果你在 Windows 上用过 clipx&nbsp;之类的软件，一定会离不开，如果你从来没用过，建议看看这篇：https://xbeta.info/clipx-clcl-ditto.htm</p>
 <p>简言之，系统自带的剪贴板功能只能保存一条记录，下次 &ldquo;Ctrl + C&rdquo; 就会把这条记录冲掉，这类软件能够保存一定数量剪贴记录，为你在进行多次 copy-paste&nbsp;操作时不用担心记录冲掉，随时选择粘贴剪贴板历史记录里的内容。</p>
 <p>Windows 平台的此类软件，上面的链接里有很好的综合比较。Linux&nbsp;下此类软件也不少，我仅推荐两个我使用过的基于GNOME的：</p>
@@ -413,7 +375,7 @@ xclip -selection c -o &gt;&nbsp;~/test.txt</p>
             </div>
     <div id="scrollspy">
         <div class="col-lg-3 nav nav-stacked hidden-xs hidden-sm" data-spy="affix" data-offset-top="135">
-            <div id="toc"><ul><li><a class="toc-href" href="#" title="Linux&nbsp;趁手工具之剪贴板系列">Linux&nbsp;趁手工具之剪贴板系列</a><ul><li><a class="toc-href" href="#linux" title="Linux&nbsp;剪贴板原理">Linux&nbsp;剪贴板原理</a><ul><li><a class="toc-href" href="#_1" title="终端与剪贴板的通道">终端与剪贴板的通道</a><ul><li><a class="toc-href" href="#xclip" title="xclip">xclip</a></li><li><a class="toc-href" href="#_2" title="剪贴板管理器">剪贴板管理器</a></li></ul></li></ul></li></ul></li></ul></div>
+            <div id="toc"><ul><li><a class="toc-href" href="#" title="Linux&nbsp;趁手工具之剪贴板系列">Linux&nbsp;趁手工具之剪贴板系列</a><ul><li><a class="toc-href" href="#linux-jian-tie-ban-yuan-li" title="Linux&nbsp;剪贴板原理">Linux&nbsp;剪贴板原理</a><ul><li><a class="toc-href" href="#zhong-duan-yu-jian-tie-ban-de-tong-dao" title="终端与剪贴板的通道">终端与剪贴板的通道</a><ul><li><a class="toc-href" href="#xclip" title="xclip">xclip</a></li><li><a class="toc-href" href="#jian-tie-ban-guan-li-qi" title="剪贴板管理器">剪贴板管理器</a></li></ul></li></ul></li></ul></li></ul></div>
         </div>
     </div>
         </div>
@@ -453,7 +415,7 @@ xclip -selection c -o &gt;&nbsp;~/test.txt</p>
         var disqus_url = '../../../../posts/2016/Mar/17/linux_clipboard.html';
 
     var disqus_config = function () {
-        this.language = "zh";
+        this.language = "en";
     };
         /* * * DON'T EDIT BELOW THIS LINE * * */
     (function () {

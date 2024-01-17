@@ -1,21 +1,22 @@
 
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="Yushin" />
         <meta name="keywords" content="Python" />
+        <meta name="description" content="大多数使用Python的同学应该都了解生成器语法，不知道大家使用场合是什么，我想结合自己的一点粗浅经验谈谈它给我的代码带来的好处。 1. 不浪费内存 …" />
 
 
     <title>浅谈Python生成器的妙处 - $ kill -1</title>
 
-        <link rel="stylesheet" href="../../../../theme/css/bootstrap.flatly.min.css" type="text/css"/>
+        <link rel="stylesheet" href="../../../../theme/css/bootstrap.journal.min.css" type="text/css"/>
 
-    <link href="../../../../theme/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="../../../../theme/css/pygments/autumn.css" rel="stylesheet" />
-    
+    <link href="../../../../theme/css/fontawesome-all.min.css" rel="stylesheet" />
+    <link href="../../../../theme/css/pygments/emacs.css" rel="stylesheet" />
+
         <link href="../../../../theme/css/typogrify.css" rel="stylesheet" />
     <link href="../../../../theme/css/pelican-twitchy.min.css" rel="stylesheet" />
 
@@ -29,7 +30,6 @@
     <!-- Feeds -->
         <link href="../../../../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
               title="$ kill -1 ATOM Feed" />
-        <link href="../../../../extra/custom.css" rel="stylesheet" />
 </head>
 <body data-spy="scroll" data-target="#scrollspy">
     <div id="wrapper">
@@ -38,66 +38,65 @@
             <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
                 <li>
         <a href="../../../.." title="$ kill -1" class="collapsed">
-            <span class="glyphicon glyphicon-home"></span>
+            <span class="fas fa-home"></span>
         </a>
     </li>
                 <li class="nav-divider"></li>
                 <li>
         <a href="../../../../archives.html" title="Recent Articles" class="collapsed">
-            <span class="glyphicon glyphicon-th-list"></span>
+            <span class="fas fa-th-list"></span>
         </a>
     </li>
-                
                 <li class="nav-divider"></li>
                 <li id="share-small">
                     <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-share-small" title="Share" class="collapsed">
-                        <i class="fa fa-share-alt padding-small"></i>
+                        <i class="fas fa-share-alt padding-small"></i>
                     </a>
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-share-small" class="collapse ">
                     <li>
                         <a href="https://www.facebook.com/sharer/sharer.php?u=../../../../posts/2018/Nov/28/201811281543.html" title="Share via Facebook" target="popup">
-                            <i class="fa fa-facebook-square padding-small"></i>
+                            <i class="fas fa-facebook-square padding-small"></i>
                         </a>
                     </li>
                     <li>
                         <a href="https://plus.google.com/share?url=../../../../posts/2018/Nov/28/201811281543.html" title="Share via Google+" target="popup">
-                            <i class="fa fa-google-plus padding-small"></i>
+                            <i class="fas fa-google-plus padding-small"></i>
                         </a>
                     </li>
                     <li>
                         <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" title="Share via Twitter" target="popup">
-                            <i class="fa fa-twitter-square padding-small"></i>
+                            <i class="fas fa-twitter-square padding-small"></i>
                         </a>
                     </li>
                 </ul></li>
                 <li class="nav-divider"></li>
                 <li>
                     <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-social-small" title="Social" class="collapsed">
-                        <i class="fa fa-users padding-small"></i>
+                        <i class="fas fa-users padding-small"></i>
                     </a>
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-social-small" class="collapse ">
                     <li>
-                        <a href="mailto:lostsummer@gmail.com" title="Email"><i class="fa fa-envelope-square fa-lg padding-small"></i></a>
+                        <a href="mailto:lostsummer@gmail.com" title="Email"><i class="fas fa-envelope-square padding-small"></i></a>
                     </li>
                     <li>
-                        <a href="https://www.facebook.com/fisher.wong.3" title="facebook"><i class="fa fa-facebook-square fa-lg padding-small"></i></a>
+                        <a href="https://www.facebook.com/fisher.wong.3" title="facebook"><i class="fab fa-facebook-square padding-small"></i></a>
                     </li>
                     <li>
-                        <a href="https://github.com/lostsummer" title="github"><i class="fa fa-github-square fa-lg padding-small"></i></a>
+                        <a href="https://github.com/lostsummer" title="github"><i class="fab fa-github-square padding-small"></i></a>
                     </li>
                     <li>
-                        <a href="https://plus.google.com/+FisherWong" title="google+"><i class="fa fa-google-plus-square fa-lg padding-small"></i></a>
+                        <a href="https://plus.google.com/+FisherWong" title="google+"><i class="fab fa-google-plus-square padding-small"></i></a>
                     </li>
                     <li>
-                        <a href="https://twitter.com/lostsummer" title="twitter"><i class="fa fa-twitter-square fa-lg padding-small"></i></a>
+                        <a href="https://twitter.com/lostsummer" title="twitter"><i class="fab fa-twitter-square padding-small"></i></a>
                     </li>
                 </ul></li>
                 <li class="nav-divider"></li>
                 <li>
         <a href="#" title="Back to top" class="collapsed">
-            <span class="fa fa-arrow-up"></span>
+            <span class="fas fa-arrow-up"></span>
         </a>
     </li>
             </ul>
@@ -106,51 +105,51 @@
             <ul id="accordion" class="sidebar-nav">
                 <li class="sidebar-brand">
                     <a href="../../../../">
-                            <span class="glyphicon glyphicon-home padding-small"></span>
+                            <span class="fas fa-home padding-small"></span>
                             $ kill -1
                     </a>
                 </li>
                     <li class="nav-divider"></li>
                     <li>
                         <a data-toggle="collapse" data-parent="#accordion" href="#collapse-latest">
-                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            <span class="fas fa-th-list padding-small"></span>
                             Recent Articles
                         </a>
                     </li>
                     <li class="panel anti-panel"><ul id="collapse-latest" class="sidebar_submenu collapse in">
                         <li class="active">
                             <a class="hide-overflow" href="../../../../posts/2018/Nov/28/201811281543.html" title="浅谈Python生成器的妙处">
-                                <i class="fa fa-file-text padding-small"></i>
+                                <i class="fas fa-file-alt padding-small"></i>
                                 浅谈Python生成器的妙处
                             </a>
                         </li>
                         <li class="">
                             <a class="hide-overflow" href="../../../../posts/2018/Nov/22/201811221843.html" title="与蟒共舞">
-                                <i class="fa fa-file-text padding-small"></i>
+                                <i class="fas fa-file-alt padding-small"></i>
                                 与蟒共舞
                             </a>
                         </li>
                         <li class="">
                             <a class="hide-overflow" href="../../../../posts/2018/Oct/22/201810221843.html" title="使用tmux和watch组合一个redis监控面板">
-                                <i class="fa fa-file-text padding-small"></i>
+                                <i class="fas fa-file-alt padding-small"></i>
                                 使用tmux和watch组合一个redis监控面板
                             </a>
                         </li>
                         <li class="">
                             <a class="hide-overflow" href="../../../../posts/2018/Apr/11/容器平台监控方案大体设计.html" title="容器平台监控方案大体设计">
-                                <i class="fa fa-file-text padding-small"></i>
+                                <i class="fas fa-file-alt padding-small"></i>
                                 容器平台监控方案大体设计
                             </a>
                         </li>
                         <li class="">
                             <a class="hide-overflow" href="../../../../posts/2018/Apr/09/201804091040.html" title="容器监控方案选型">
-                                <i class="fa fa-file-text padding-small"></i>
+                                <i class="fas fa-file-alt padding-small"></i>
                                 容器监控方案选型
                             </a>
                         </li>
                     <li>
                         <a href="../../../../archives.html">
-                            <i class="fa fa-arrow-right padding-small"></i>
+                            <i class="fas fa-arrow-right padding-small"></i>
                             More
                         </a>
                     </li>
@@ -158,26 +157,26 @@
                 <li class="nav-divider"></li>
                 <li id="share">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse-share" title="Share" class="collapsed">
-                        <i class="fa fa-share-alt padding-small"></i>
+                        <i class="fas fa-share-alt padding-small"></i>
                         Share
                     </a>
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-share" class="sidebar_submenu collapse ">
                     <li>
                         <a href="https://www.facebook.com/sharer/sharer.php?u=../../../../posts/2018/Nov/28/201811281543.html" target="popup">
-                            <i class="fa fa-facebook-square padding-small"></i>
+                            <i class="fab fa-facebook-square padding-small"></i>
                             Facebook
                         </a>
                     </li>
                     <li>
                         <a href="https://plus.google.com/share?url=../../../../posts/2018/Nov/28/201811281543.html" target="popup">
-                            <i class="fa fa-google-plus padding-small"></i>
+                            <i class="fab fa-google-plus-square padding-small"></i>
                             Google+
                         </a>
                     </li>
                     <li>
                         <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" target="popup">
-                            <i class="fa fa-twitter-square padding-small"></i>
+                            <i class="fab fa-twitter-square padding-small"></i>
                             Twitter
                         </a>
                     </li>
@@ -185,38 +184,38 @@
                 <li class="nav-divider"></li>
                 <li>
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse-social">
-                        <i class="fa fa-users padding-small"></i>
+                        <i class="fas fa-users padding-small"></i>
                         Contact
                     </a>
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-social" class="sidebar_submenu collapse ">
                     <li>
                         <a href="mailto:lostsummer@gmail.com" title="Email">
-                            <i class="fa fa-envelope-square fa-lg padding-small"></i>
+                            <i class="fas fa-envelope-square padding-small"></i>
                             Email
                         </a>
                     </li>
                     <li>
                         <a href="https://www.facebook.com/fisher.wong.3" title="facebook">
-                            <i class="fa fa-facebook-square fa-lg padding-small"></i>
+                            <i class="fab fa-facebook-square padding-small"></i>
                             facebook
                         </a>
                     </li>
                     <li>
                         <a href="https://github.com/lostsummer" title="github">
-                            <i class="fa fa-github-square fa-lg padding-small"></i>
+                            <i class="fab fa-github-square padding-small"></i>
                             github
                         </a>
                     </li>
                     <li>
                         <a href="https://plus.google.com/+FisherWong" title="google+">
-                            <i class="fa fa-google-plus-square fa-lg padding-small"></i>
+                            <i class="fab fa-google-plus-square padding-small"></i>
                             google+
                         </a>
                     </li>
                     <li>
                         <a href="https://twitter.com/lostsummer" title="twitter">
-                            <i class="fa fa-twitter-square fa-lg padding-small"></i>
+                            <i class="fab fa-twitter-square padding-small"></i>
                             twitter
                         </a>
                     </li>
@@ -225,107 +224,70 @@
                 <li class="nav-divider"></li>
                 <li>
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse-pages">
-                        <i class="fa fa-folder-open padding-small"></i>
+                        <i class="fas fa-folder-open padding-small"></i>
                         Pages
                     </a>
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-pages" class="sidebar_submenu collapse ">
                     <li>
                         <a href="../../../../pages/about-me.html">
-                            <i class="fa fa-file-text padding-small"></i>
+                            <i class="fas fa-file-alt padding-small"></i>
                             About&nbsp;Me
                         </a>
                     </li>
                 </ul></li>
-                
                 <li class="nav-divider"></li>
                 <li>
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
-                        <i class="fa fa-folder-open padding-small"></i>
+                        <i class="fas fa-folder-open padding-small"></i>
                         Categories
                     </a>
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
                     <li >
                         <a href="../../../../category/architecture.html">
-                            <i class="fa fa-folder-open padding-small"></i>
+                            <i class="fas fa-folder-open padding-small"></i>
                             Architecture
-                            <span class="badge pull-right categorybadge">2</span>
+                            <span class="badge badge-secondary float-right categorybadge">2</span>
                         </a>
                     </li>
                     <li class="active">
                         <a href="../../../../category/learning.html">
-                            <i class="fa fa-folder-open padding-small"></i>
+                            <i class="fas fa-folder-open padding-small"></i>
                             Learning
-                            <span class="badge pull-right categorybadge">5</span>
+                            <span class="badge badge-secondary float-right categorybadge">5</span>
                         </a>
                     </li>
                     <li >
                         <a href="../../../../category/recommendation.html">
-                            <i class="fa fa-folder-open padding-small"></i>
+                            <i class="fas fa-folder-open padding-small"></i>
                             Recommendation
-                            <span class="badge pull-right categorybadge">2</span>
+                            <span class="badge badge-secondary float-right categorybadge">2</span>
                         </a>
                     </li>
                 </ul></li>
-                
                 <li class="nav-divider"></li>
                 <li>
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse-tags">
-                        <i class="fa fa-tags padding-small"></i>
+                        <i class="fas fa-tags padding-small"></i>
                         Tags
                     </a>
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-tags" class="sidebar_submenu collapse ">
-                    <li class="tag-[<pelican.contents.Article object at 0x7f6feca1de48>, <pelican.contents.Article object at 0x7f6fe9fde128>]">
-                        <a href="../../../../tag/python.html">
-                            Python
-                        </a>
-                    </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f6fe9fde518>, <pelican.contents.Article object at 0x7f6fec9d5438>]">
-                        <a href="../../../../tag/prometheus.html">
-                            Prometheus
-                        </a>
-                    </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f6fe9fde518>, <pelican.contents.Article object at 0x7f6fec9d5438>]">
-                        <a href="../../../../tag/docker.html">
-                            Docker
-                        </a>
-                    </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f6fec9d5438>]">
-                        <a href="../../../../tag/influxdb.html">
-                            InfluxDB
-                        </a>
-                    </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f6fec9d25c0>]">
-                        <a href="../../../../tag/go.html">
-                            Go
-                        </a>
-                    </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f6fec9d25c0>, <pelican.contents.Article object at 0x7f6feca2ea58>]">
-                        <a href="../../../../tag/linux.html">
-                            Linux
-                        </a>
-                    </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f6fe9fde128>]">
-                        <a href="../../../../tag/git.html">
-                            Git
-                        </a>
-                    </li>
                 </ul></li>
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
         <!-- open/close sidebar -->
-        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
-            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
-            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        <a href="#menu-toggle" class="btn btn-primary" id="menu-toggle">
+            <span id="right-arrow" class="fas fa-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="fas fa-chevron-left" title="minimize sidebar"></span>
         </a>
        <!-- /open/close sidebar -->
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
-            <div class="container-fluid">
+            <div class="container">
 <section id="content">
     <article>
         <div class="row">
@@ -361,12 +323,12 @@
             <div class="col-lg-9">
                 <div class="entry-content">
                     <p>大多数使用Python的同学应该都了解生成器语法，不知道大家使用场合是什么，我想结合自己的一点粗浅经验谈谈它给我的代码带来的好处。</p>
-<h3 id="1"><a class="toclink" href="#1">1.&nbsp;不浪费内存的的逻辑分层</a></h3>
+<h3 id="1-bu-lang-fei-nei-cun-de-de-luo-ji-fen-ceng">1.&nbsp;不浪费内存的的逻辑分层</h3>
 <p>一个大家熟悉的例子是python2 的xrange 和 python3&nbsp;的range函数，生成器的&ldquo;惰性求值&rdquo;特性使得不用开辟一个list，而只是在迭代中&ldquo;现取现用&rdquo;。</p>
 <p>我在使用中更有体验的经历是：写一个特殊格式的数据文件的parser，这种文件按特定大小的块增长，而每一条数据记录，存储在一条文件块的链表中。解析一条数据记录的逻辑是：现按照链表顺序拼合出连续缓存，再再缓存基础上解析数据记录，这样逻辑上是清晰的，但要再代码上照写逻辑，就是要单拿出一块很大的buffer，或者说拼合一个很大的列表，浪费空间，有效率的方法是，读到一个块，就可以解析此块上的数据记录，不过这样写，块的解析和记录的解析掺和到一个函数中，看上去很混乱（实际上原本有个C实现就是这样）。好的方法是，在解析block层面的函数ReadBlocks() 中 yield block，在解析数据记录的函数ReadRecs()中一个迭代中 <code>for block in ReadBlocks():</code>处理Record的解析就好。我写这个工具中文件解析的实际代码在&nbsp;https://github.com/lostsummer/emdfparse/blob/master/emdfparse/datafile.py</p>
-<h3 id="2"><a class="toclink" href="#2">2.&nbsp;递归结构中减少全局变量</a></h3>
+<h3 id="2-di-gui-jie-gou-zhong-jian-shao-quan-ju-bian-liang">2.&nbsp;递归结构中减少全局变量</h3>
 <p>比方某一类算法问题需要你对图作深度或广度遍历，得出所有符合条件的路径，这不避免的需要一个全局或者闭包的List存储这些路径，而有了 yield 和 yield from，大可不用这个全局变量，写出的函数更有&ldquo;状态机&rdquo;的意味。这里有我为两个算法题写的代码 https://github.com/lostsummer/fun 。一个是连接奶牛的路径问题，一个是组合问题，对这类问题，我很愿意把 yield from&nbsp;当作一个范式来用，代码行数更少，思路更简明。</p>
-<h3 id="3"><a class="toclink" href="#3">3.&nbsp;协程范式</a></h3>
+<h3 id="3-xie-cheng-fan-shi">3.&nbsp;协程范式</h3>
 <p>早在2009年，David Beazley 就写了 A Curious Course on Coroutines and Concurrency （http://www.dabeaz.com/coroutines/）我觉得读透所有技巧和思想对现在的写python程序也是很有帮助，尤其是理解复杂的asyncio。我觉得，不管是 <code>yield</code> 还是 <code>x = yield</code>都可以算是协程，了解golang的同学会说，这不就是只读channel和只写channel吗？但是，单一个yield还构不成协程管理的全部，单靠协程，asyncio，还构不成完整的并发模型。在CSP、actor都整合到GoLang和ErLang语言层面的时代，Py界还在犹豫到底拥抱asyncio还是愉快的用着gevent。我觉得，还是先用go吧。但是作为py异步编程的未来，asyncio值得研究，即使不学asyncio，那些使用协程解决问题的思路，也能给我们很多新的启发。关于py的协程，有很多可说，来日再开篇幅。</p>
                 </div>
                 <footer class="text-right">
@@ -383,7 +345,7 @@
             </div>
     <div id="scrollspy">
         <div class="col-lg-3 nav nav-stacked hidden-xs hidden-sm" data-spy="affix" data-offset-top="135">
-            <div id="toc"><ul><li><a class="toc-href" href="#" title="浅谈Python生成器的妙处">浅谈Python生成器的妙处</a><ul><li><a class="toc-href" href="#1" title="1.&nbsp;不浪费内存的的逻辑分层">1.&nbsp;不浪费内存的的逻辑分层</a></li><li><a class="toc-href" href="#2" title="2.&nbsp;递归结构中减少全局变量">2.&nbsp;递归结构中减少全局变量</a></li><li><a class="toc-href" href="#3" title="3.&nbsp;协程范式">3.&nbsp;协程范式</a></li></ul></li></ul></div>
+            <div id="toc"><ul><li><a class="toc-href" href="#" title="浅谈Python生成器的妙处">浅谈Python生成器的妙处</a><ul><li><a class="toc-href" href="#1-bu-lang-fei-nei-cun-de-de-luo-ji-fen-ceng" title="1.&nbsp;不浪费内存的的逻辑分层">1.&nbsp;不浪费内存的的逻辑分层</a></li><li><a class="toc-href" href="#2-di-gui-jie-gou-zhong-jian-shao-quan-ju-bian-liang" title="2.&nbsp;递归结构中减少全局变量">2.&nbsp;递归结构中减少全局变量</a></li><li><a class="toc-href" href="#3-xie-cheng-fan-shi" title="3.&nbsp;协程范式">3.&nbsp;协程范式</a></li></ul></li></ul></div>
         </div>
     </div>
         </div>
@@ -423,7 +385,7 @@
         var disqus_url = '../../../../posts/2018/Nov/28/201811281543.html';
 
     var disqus_config = function () {
-        this.language = "zh";
+        this.language = "en";
     };
         /* * * DON'T EDIT BELOW THIS LINE * * */
     (function () {

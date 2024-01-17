@@ -1,21 +1,22 @@
 
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="lostsummer" />
         <meta name="keywords" content="Prometheus,Docker" />
+        <meta name="description" content="监控对象 容器集群节点 集群上运行的容器 监控数据类型 性能状态图表: 各性能指标的不间断连续数据 服务心跳: 定时上 …" />
 
 
     <title>容器平台监控方案大体设计 - $ kill -1</title>
 
-        <link rel="stylesheet" href="../../../../theme/css/bootstrap.flatly.min.css" type="text/css"/>
+        <link rel="stylesheet" href="../../../../theme/css/bootstrap.journal.min.css" type="text/css"/>
 
-    <link href="../../../../theme/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="../../../../theme/css/pygments/autumn.css" rel="stylesheet" />
-    
+    <link href="../../../../theme/css/fontawesome-all.min.css" rel="stylesheet" />
+    <link href="../../../../theme/css/pygments/emacs.css" rel="stylesheet" />
+
         <link href="../../../../theme/css/typogrify.css" rel="stylesheet" />
     <link href="../../../../theme/css/pelican-twitchy.min.css" rel="stylesheet" />
 
@@ -29,7 +30,6 @@
     <!-- Feeds -->
         <link href="../../../../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
               title="$ kill -1 ATOM Feed" />
-        <link href="../../../../extra/custom.css" rel="stylesheet" />
 </head>
 <body data-spy="scroll" data-target="#scrollspy">
     <div id="wrapper">
@@ -38,66 +38,65 @@
             <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
                 <li>
         <a href="../../../.." title="$ kill -1" class="collapsed">
-            <span class="glyphicon glyphicon-home"></span>
+            <span class="fas fa-home"></span>
         </a>
     </li>
                 <li class="nav-divider"></li>
                 <li>
         <a href="../../../../archives.html" title="Recent Articles" class="collapsed">
-            <span class="glyphicon glyphicon-th-list"></span>
+            <span class="fas fa-th-list"></span>
         </a>
     </li>
-                
                 <li class="nav-divider"></li>
                 <li id="share-small">
                     <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-share-small" title="Share" class="collapsed">
-                        <i class="fa fa-share-alt padding-small"></i>
+                        <i class="fas fa-share-alt padding-small"></i>
                     </a>
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-share-small" class="collapse ">
                     <li>
                         <a href="https://www.facebook.com/sharer/sharer.php?u=../../../../posts/2018/Apr/11/容器平台监控方案大体设计.html" title="Share via Facebook" target="popup">
-                            <i class="fa fa-facebook-square padding-small"></i>
+                            <i class="fas fa-facebook-square padding-small"></i>
                         </a>
                     </li>
                     <li>
                         <a href="https://plus.google.com/share?url=../../../../posts/2018/Apr/11/容器平台监控方案大体设计.html" title="Share via Google+" target="popup">
-                            <i class="fa fa-google-plus padding-small"></i>
+                            <i class="fas fa-google-plus padding-small"></i>
                         </a>
                     </li>
                     <li>
                         <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" title="Share via Twitter" target="popup">
-                            <i class="fa fa-twitter-square padding-small"></i>
+                            <i class="fas fa-twitter-square padding-small"></i>
                         </a>
                     </li>
                 </ul></li>
                 <li class="nav-divider"></li>
                 <li>
                     <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-social-small" title="Social" class="collapsed">
-                        <i class="fa fa-users padding-small"></i>
+                        <i class="fas fa-users padding-small"></i>
                     </a>
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-social-small" class="collapse ">
                     <li>
-                        <a href="mailto:lostsummer@gmail.com" title="Email"><i class="fa fa-envelope-square fa-lg padding-small"></i></a>
+                        <a href="mailto:lostsummer@gmail.com" title="Email"><i class="fas fa-envelope-square padding-small"></i></a>
                     </li>
                     <li>
-                        <a href="https://www.facebook.com/fisher.wong.3" title="facebook"><i class="fa fa-facebook-square fa-lg padding-small"></i></a>
+                        <a href="https://www.facebook.com/fisher.wong.3" title="facebook"><i class="fab fa-facebook-square padding-small"></i></a>
                     </li>
                     <li>
-                        <a href="https://github.com/lostsummer" title="github"><i class="fa fa-github-square fa-lg padding-small"></i></a>
+                        <a href="https://github.com/lostsummer" title="github"><i class="fab fa-github-square padding-small"></i></a>
                     </li>
                     <li>
-                        <a href="https://plus.google.com/+FisherWong" title="google+"><i class="fa fa-google-plus-square fa-lg padding-small"></i></a>
+                        <a href="https://plus.google.com/+FisherWong" title="google+"><i class="fab fa-google-plus-square padding-small"></i></a>
                     </li>
                     <li>
-                        <a href="https://twitter.com/lostsummer" title="twitter"><i class="fa fa-twitter-square fa-lg padding-small"></i></a>
+                        <a href="https://twitter.com/lostsummer" title="twitter"><i class="fab fa-twitter-square padding-small"></i></a>
                     </li>
                 </ul></li>
                 <li class="nav-divider"></li>
                 <li>
         <a href="#" title="Back to top" class="collapsed">
-            <span class="fa fa-arrow-up"></span>
+            <span class="fas fa-arrow-up"></span>
         </a>
     </li>
             </ul>
@@ -106,51 +105,51 @@
             <ul id="accordion" class="sidebar-nav">
                 <li class="sidebar-brand">
                     <a href="../../../../">
-                            <span class="glyphicon glyphicon-home padding-small"></span>
+                            <span class="fas fa-home padding-small"></span>
                             $ kill -1
                     </a>
                 </li>
                     <li class="nav-divider"></li>
                     <li>
                         <a data-toggle="collapse" data-parent="#accordion" href="#collapse-latest">
-                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            <span class="fas fa-th-list padding-small"></span>
                             Recent Articles
                         </a>
                     </li>
                     <li class="panel anti-panel"><ul id="collapse-latest" class="sidebar_submenu collapse in">
                         <li class="">
                             <a class="hide-overflow" href="../../../../posts/2018/Nov/28/201811281543.html" title="浅谈Python生成器的妙处">
-                                <i class="fa fa-file-text padding-small"></i>
+                                <i class="fas fa-file-alt padding-small"></i>
                                 浅谈Python生成器的妙处
                             </a>
                         </li>
                         <li class="">
                             <a class="hide-overflow" href="../../../../posts/2018/Nov/22/201811221843.html" title="与蟒共舞">
-                                <i class="fa fa-file-text padding-small"></i>
+                                <i class="fas fa-file-alt padding-small"></i>
                                 与蟒共舞
                             </a>
                         </li>
                         <li class="">
                             <a class="hide-overflow" href="../../../../posts/2018/Oct/22/201810221843.html" title="使用tmux和watch组合一个redis监控面板">
-                                <i class="fa fa-file-text padding-small"></i>
+                                <i class="fas fa-file-alt padding-small"></i>
                                 使用tmux和watch组合一个redis监控面板
                             </a>
                         </li>
                         <li class="active">
                             <a class="hide-overflow" href="../../../../posts/2018/Apr/11/容器平台监控方案大体设计.html" title="容器平台监控方案大体设计">
-                                <i class="fa fa-file-text padding-small"></i>
+                                <i class="fas fa-file-alt padding-small"></i>
                                 容器平台监控方案大体设计
                             </a>
                         </li>
                         <li class="">
                             <a class="hide-overflow" href="../../../../posts/2018/Apr/09/201804091040.html" title="容器监控方案选型">
-                                <i class="fa fa-file-text padding-small"></i>
+                                <i class="fas fa-file-alt padding-small"></i>
                                 容器监控方案选型
                             </a>
                         </li>
                     <li>
                         <a href="../../../../archives.html">
-                            <i class="fa fa-arrow-right padding-small"></i>
+                            <i class="fas fa-arrow-right padding-small"></i>
                             More
                         </a>
                     </li>
@@ -158,26 +157,26 @@
                 <li class="nav-divider"></li>
                 <li id="share">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse-share" title="Share" class="collapsed">
-                        <i class="fa fa-share-alt padding-small"></i>
+                        <i class="fas fa-share-alt padding-small"></i>
                         Share
                     </a>
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-share" class="sidebar_submenu collapse ">
                     <li>
                         <a href="https://www.facebook.com/sharer/sharer.php?u=../../../../posts/2018/Apr/11/容器平台监控方案大体设计.html" target="popup">
-                            <i class="fa fa-facebook-square padding-small"></i>
+                            <i class="fab fa-facebook-square padding-small"></i>
                             Facebook
                         </a>
                     </li>
                     <li>
                         <a href="https://plus.google.com/share?url=../../../../posts/2018/Apr/11/容器平台监控方案大体设计.html" target="popup">
-                            <i class="fa fa-google-plus padding-small"></i>
+                            <i class="fab fa-google-plus-square padding-small"></i>
                             Google+
                         </a>
                     </li>
                     <li>
                         <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" target="popup">
-                            <i class="fa fa-twitter-square padding-small"></i>
+                            <i class="fab fa-twitter-square padding-small"></i>
                             Twitter
                         </a>
                     </li>
@@ -185,38 +184,38 @@
                 <li class="nav-divider"></li>
                 <li>
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse-social">
-                        <i class="fa fa-users padding-small"></i>
+                        <i class="fas fa-users padding-small"></i>
                         Contact
                     </a>
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-social" class="sidebar_submenu collapse ">
                     <li>
                         <a href="mailto:lostsummer@gmail.com" title="Email">
-                            <i class="fa fa-envelope-square fa-lg padding-small"></i>
+                            <i class="fas fa-envelope-square padding-small"></i>
                             Email
                         </a>
                     </li>
                     <li>
                         <a href="https://www.facebook.com/fisher.wong.3" title="facebook">
-                            <i class="fa fa-facebook-square fa-lg padding-small"></i>
+                            <i class="fab fa-facebook-square padding-small"></i>
                             facebook
                         </a>
                     </li>
                     <li>
                         <a href="https://github.com/lostsummer" title="github">
-                            <i class="fa fa-github-square fa-lg padding-small"></i>
+                            <i class="fab fa-github-square padding-small"></i>
                             github
                         </a>
                     </li>
                     <li>
                         <a href="https://plus.google.com/+FisherWong" title="google+">
-                            <i class="fa fa-google-plus-square fa-lg padding-small"></i>
+                            <i class="fab fa-google-plus-square padding-small"></i>
                             google+
                         </a>
                     </li>
                     <li>
                         <a href="https://twitter.com/lostsummer" title="twitter">
-                            <i class="fa fa-twitter-square fa-lg padding-small"></i>
+                            <i class="fab fa-twitter-square padding-small"></i>
                             twitter
                         </a>
                     </li>
@@ -225,107 +224,70 @@
                 <li class="nav-divider"></li>
                 <li>
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse-pages">
-                        <i class="fa fa-folder-open padding-small"></i>
+                        <i class="fas fa-folder-open padding-small"></i>
                         Pages
                     </a>
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-pages" class="sidebar_submenu collapse ">
                     <li>
                         <a href="../../../../pages/about-me.html">
-                            <i class="fa fa-file-text padding-small"></i>
+                            <i class="fas fa-file-alt padding-small"></i>
                             About&nbsp;Me
                         </a>
                     </li>
                 </ul></li>
-                
                 <li class="nav-divider"></li>
                 <li>
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
-                        <i class="fa fa-folder-open padding-small"></i>
+                        <i class="fas fa-folder-open padding-small"></i>
                         Categories
                     </a>
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
                     <li class="active">
                         <a href="../../../../category/architecture.html">
-                            <i class="fa fa-folder-open padding-small"></i>
+                            <i class="fas fa-folder-open padding-small"></i>
                             Architecture
-                            <span class="badge pull-right categorybadge">2</span>
+                            <span class="badge badge-secondary float-right categorybadge">2</span>
                         </a>
                     </li>
                     <li >
                         <a href="../../../../category/learning.html">
-                            <i class="fa fa-folder-open padding-small"></i>
+                            <i class="fas fa-folder-open padding-small"></i>
                             Learning
-                            <span class="badge pull-right categorybadge">5</span>
+                            <span class="badge badge-secondary float-right categorybadge">5</span>
                         </a>
                     </li>
                     <li >
                         <a href="../../../../category/recommendation.html">
-                            <i class="fa fa-folder-open padding-small"></i>
+                            <i class="fas fa-folder-open padding-small"></i>
                             Recommendation
-                            <span class="badge pull-right categorybadge">2</span>
+                            <span class="badge badge-secondary float-right categorybadge">2</span>
                         </a>
                     </li>
                 </ul></li>
-                
                 <li class="nav-divider"></li>
                 <li>
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse-tags">
-                        <i class="fa fa-tags padding-small"></i>
+                        <i class="fas fa-tags padding-small"></i>
                         Tags
                     </a>
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-tags" class="sidebar_submenu collapse ">
-                    <li class="tag-[<pelican.contents.Article object at 0x7f6feca1de48>, <pelican.contents.Article object at 0x7f6fe9fde128>]">
-                        <a href="../../../../tag/python.html">
-                            Python
-                        </a>
-                    </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f6fe9fde518>, <pelican.contents.Article object at 0x7f6fec9d5438>]">
-                        <a href="../../../../tag/prometheus.html">
-                            Prometheus
-                        </a>
-                    </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f6fe9fde518>, <pelican.contents.Article object at 0x7f6fec9d5438>]">
-                        <a href="../../../../tag/docker.html">
-                            Docker
-                        </a>
-                    </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f6fec9d5438>]">
-                        <a href="../../../../tag/influxdb.html">
-                            InfluxDB
-                        </a>
-                    </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f6fec9d25c0>]">
-                        <a href="../../../../tag/go.html">
-                            Go
-                        </a>
-                    </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f6fec9d25c0>, <pelican.contents.Article object at 0x7f6feca2ea58>]">
-                        <a href="../../../../tag/linux.html">
-                            Linux
-                        </a>
-                    </li>
-                    <li class="tag-[<pelican.contents.Article object at 0x7f6fe9fde128>]">
-                        <a href="../../../../tag/git.html">
-                            Git
-                        </a>
-                    </li>
                 </ul></li>
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
         <!-- open/close sidebar -->
-        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
-            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
-            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        <a href="#menu-toggle" class="btn btn-primary" id="menu-toggle">
+            <span id="right-arrow" class="fas fa-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="fas fa-chevron-left" title="minimize sidebar"></span>
         </a>
        <!-- /open/close sidebar -->
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
-            <div class="container-fluid">
+            <div class="container">
 <section id="content">
     <article>
         <div class="row">
@@ -360,12 +322,12 @@
         <div class="row">
             <div class="col-lg-9">
                 <div class="entry-content">
-                    <h2 id="_1"><a class="toclink" href="#_1">监控对象</a></h2>
+                    <h2 id="jian-kong-dui-xiang">监控对象</h2>
 <ul>
 <li>容器集群节点 </li>
 <li>集群上运行的容器</li>
 </ul>
-<h2 id="_2"><a class="toclink" href="#_2">监控数据类型</a></h2>
+<h2 id="jian-kong-shu-ju-lei-xing">监控数据类型</h2>
 <ol>
 <li>
 <p>性能状态图表:&nbsp;各性能指标的不间断连续数据</p>
@@ -377,7 +339,7 @@
 <p>报警:&nbsp;由状态数据经过报警逻辑计算触发（阈值，断流等）的报警信息</p>
 </li>
 </ol>
-<h2 id="_3"><a class="toclink" href="#_3">不同类型数据流向</a></h2>
+<h2 id="bu-tong-lei-xing-shu-ju-liu-xiang">不同类型数据流向</h2>
 <ol>
 <li>
 <p>状态:
@@ -397,17 +359,17 @@
 <li>集群节点采集器包括cAdvisor， node-exporter&nbsp;等容器</li>
 <li>心跳需要特殊编写脚本，对于容器，要在Dockerfile编写时加入，并在启动时启用heartbeat相关参数</li>
 </ul>
-<h2 id="_4"><a class="toclink" href="#_4">架构及部署变化</a></h2>
+<h2 id="jia-gou-ji-bu-shu-bian-hua">架构及部署变化</h2>
 <p>目前测试运行的 Docker Swarm&nbsp;栈将要发生变化，首要目的是处于节约容器集群资源考虑，将Prometheus剥离出集群单独部署。</p>
 <p><img alt="architecture_changing" src="http://140.143.250.15/wiki-img/容器监控信息采集.png"/></p>
-<h2 id="_5"><a class="toclink" href="#_5">设计任务</a></h2>
+<h2 id="she-ji-ren-wu">设计任务</h2>
 <p>关键指标的提前整理归类等</p>
-<h2 id="_6"><a class="toclink" href="#_6">部署任务</a></h2>
+<h2 id="bu-shu-ren-wu">部署任务</h2>
 <ol>
 <li>解决Prometheus和AlterManager剥离出集群后的服务发现问题（或通过配置中静态配置采集器地址）</li>
 <li>数据采集效率和延迟测试</li>
 </ol>
-<h2 id="_7"><a class="toclink" href="#_7">开发任务</a></h2>
+<h2 id="kai-fa-ren-wu">开发任务</h2>
 <ol>
 <li>容器节点和容器的心跳上报脚本，心跳功能考虑纳入今后容器构建发布的规范。</li>
 <li>AlterManager&nbsp;报错脚本编写。需要了解学习Prometheus技术栈，提取报警通用逻辑，避免随着服务变动频繁增添脚本。</li>
@@ -428,7 +390,7 @@
             </div>
     <div id="scrollspy">
         <div class="col-lg-3 nav nav-stacked hidden-xs hidden-sm" data-spy="affix" data-offset-top="135">
-            <div id="toc"><ul><li><a class="toc-href" href="#" title="容器平台监控方案大体设计">容器平台监控方案大体设计</a><ul><li><a class="toc-href" href="#_1" title="监控对象">监控对象</a></li><li><a class="toc-href" href="#_2" title="监控数据类型">监控数据类型</a></li><li><a class="toc-href" href="#_3" title="不同类型数据流向">不同类型数据流向</a></li><li><a class="toc-href" href="#_4" title="架构及部署变化">架构及部署变化</a></li><li><a class="toc-href" href="#_5" title="设计任务">设计任务</a></li><li><a class="toc-href" href="#_6" title="部署任务">部署任务</a></li><li><a class="toc-href" href="#_7" title="开发任务">开发任务</a></li></ul></li></ul></div>
+            <div id="toc"><ul><li><a class="toc-href" href="#" title="容器平台监控方案大体设计">容器平台监控方案大体设计</a><ul><li><a class="toc-href" href="#jian-kong-dui-xiang" title="监控对象">监控对象</a></li><li><a class="toc-href" href="#jian-kong-shu-ju-lei-xing" title="监控数据类型">监控数据类型</a></li><li><a class="toc-href" href="#bu-tong-lei-xing-shu-ju-liu-xiang" title="不同类型数据流向">不同类型数据流向</a></li><li><a class="toc-href" href="#jia-gou-ji-bu-shu-bian-hua" title="架构及部署变化">架构及部署变化</a></li><li><a class="toc-href" href="#she-ji-ren-wu" title="设计任务">设计任务</a></li><li><a class="toc-href" href="#bu-shu-ren-wu" title="部署任务">部署任务</a></li><li><a class="toc-href" href="#kai-fa-ren-wu" title="开发任务">开发任务</a></li></ul></li></ul></div>
         </div>
     </div>
         </div>
@@ -468,7 +430,7 @@
         var disqus_url = '../../../../posts/2018/Apr/11/容器平台监控方案大体设计.html';
 
     var disqus_config = function () {
-        this.language = "zh";
+        this.language = "en";
     };
         /* * * DON'T EDIT BELOW THIS LINE * * */
     (function () {

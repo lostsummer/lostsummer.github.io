@@ -223,13 +223,6 @@ ul.sidebar_submenu>li>a>i.padding-small{
     display: inline;
 }
 
-span.glyphicon-chevron-down, .collapsed span.glyphicon-chevron-up{
-    display: inline;
-}
-.collapsed span.glyphicon-chevron-down, span.glyphicon-chevron-up{
-    display: none;
-}
-
 .padding-small{
     padding: 5px;
     text-indent: 0px;
@@ -384,12 +377,12 @@ span.glyphicon-chevron-down, .collapsed span.glyphicon-chevron-up{
         position: relative;
         margin-right: 0;
     }
-    
+
     #menu-toggle {
         left: 230px;
         /*bottom: 10px;*/
     }
-    
+
     #wrapper #menu-toggle #right-arrow{
         display: none;
     }
@@ -407,7 +400,7 @@ span.glyphicon-chevron-down, .collapsed span.glyphicon-chevron-up{
     #wrapper.toggled #menu-toggle #left-arrow{
         display: none;
     }
-    
+
 }
 
 @media(min-width:1200px) {
