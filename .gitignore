@@ -1,5 +1,6 @@
 output/
 pelican-plugins
 pelican-themes
+.python-version
 *.pyc
 *.swp
