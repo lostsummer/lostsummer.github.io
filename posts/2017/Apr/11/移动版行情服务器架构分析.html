@@ -318,24 +318,24 @@
         <div class="row">
             <div class="col-lg-9">
                 <div class="entry-content">
-                    <h1 id="dang-qian-yi-dong-ban-jia-gou">当前移动版架构</h1>
+                    <h1>当前移动版架构</h1>
 <p>仅展示移动版行情功能涉及的上下游结构，不涉及交易模块</p>
 <p>Front&nbsp;上游是上证或券商提供的行情数据接口，部分外盘数据可能来自新浪公开的接口</p>
 <p>FSServer 部署在公司，Memcache&nbsp;由公司服务定时远程写入数据</p>
-<p><img alt="" src="http://140.143.250.15/wiki-img/%E8%A1%8C%E6%83%85%E6%9E%B6%E6%9E%84.png"/></p>
-<h1 id="zhu-yao-ye-wu-liu-cheng">主要业务流程</h1>
-<h2 id="yong-hu-deng-lu-liu-cheng">用户登录流程</h2>
+<p><img alt="" src="http://140.143.250.15/wiki-img/%E8%A1%8C%E6%83%85%E6%9E%B6%E6%9E%84.png"></p>
+<h1>主要业务流程</h1>
+<h2>用户登录流程</h2>
 <p>用户登录区分匿名/实名，首次/非首次</p>
 <p>Fee 验证通过后，<span class="caps">LB</span> 返回一个相对空闲的 <span class="caps">DS</span> <span class="caps">URL</span> （实际就是 <span class="caps">IP</span>：<span class="caps">PORT</span>&nbsp;拼合）返回给客户端</p>
 <p>所有 <span class="caps">DS</span> 的&nbsp;服务端口要暴露在公网中</p>
-<p><img alt="" src="http://140.143.250.15/wiki-img/%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95%E6%97%B6%E5%BA%8F%E5%9B%BE.png"/></p>
-<h2 id="yong-hu-xin-xi-cha-xun-xiu-gai-liu-cheng">用户信息查询修改流程</h2>
+<p><img alt="" src="http://140.143.250.15/wiki-img/%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95%E6%97%B6%E5%BA%8F%E5%9B%BE.png"></p>
+<h2>用户信息查询修改流程</h2>
 <p><span class="caps">DS</span> 转发客户请求给&nbsp;Fee</p>
-<p><img alt="" src="http://140.143.250.15/wiki-img/%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF%E6%9F%A5%E8%AF%A2%E4%BF%AE%E6%94%B9.png"/></p>
-<h2 id="yong-hu-xing-qing-shu-ju-huo-qu">用户行情数据获取</h2>
-<p><img alt="" src="http://140.143.250.15/wiki-img/%E7%94%A8%E6%88%B7%E8%A1%8C%E6%83%85%E6%95%B0%E6%8D%AE%E8%AF%B7%E6%B1%82.png"/></p>
-<h1 id="que-xian-fen-xi_1">缺陷分析</h1>
-<h2 id="gong-tong-que-xian">共同缺陷</h2>
+<p><img alt="" src="http://140.143.250.15/wiki-img/%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF%E6%9F%A5%E8%AF%A2%E4%BF%AE%E6%94%B9.png"></p>
+<h2>用户行情数据获取</h2>
+<p><img alt="" src="http://140.143.250.15/wiki-img/%E7%94%A8%E6%88%B7%E8%A1%8C%E6%83%85%E6%95%B0%E6%8D%AE%E8%AF%B7%E6%B1%82.png"></p>
+<h1>缺陷分析</h1>
+<h2>共同缺陷</h2>
 <ul>
 <li>功能定义混子不明确</li>
 <li>稳定性差</li>
@@ -343,7 +343,7 @@
 <li>缺少热备，自动恢复方案</li>
 <li>Debug困难</li>
 </ul>
-<h2 id="ge-bu-fen-que-xian">各部分缺陷</h2>
+<h2>各部分缺陷</h2>
 <ol>
 <li>数据上游 Front&nbsp;没有好的高可用方案</li>
 <li><span class="caps">DM</span> <span class="caps">DS</span> 冗余<ul>
@@ -392,7 +392,7 @@
 <li>用户信息修改</li>
 <li>特殊活动</li>
 <li>交易信息</li>
-<li>&hellip;</li>
+<li>&#8230;</li>
 </ul>
 </li>
 <li>Fee 和 <span class="caps">DB</span> 的 Redis&nbsp;缓存做的不够好</li>
@@ -410,11 +410,6 @@
         <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
     </section>
             </div>
-    <div id="scrollspy">
-        <div class="col-lg-3 nav nav-stacked hidden-xs hidden-sm" data-spy="affix" data-offset-top="135">
-            <div id="toc"><ul><li><a class="toc-href" href="#" title="移动版行情服务器架构分析">移动版行情服务器架构分析</a><ul><li><a class="toc-href" href="#dang-qian-yi-dong-ban-jia-gou" title="当前移动版架构">当前移动版架构</a></li><li><a class="toc-href" href="#zhu-yao-ye-wu-liu-cheng" title="主要业务流程">主要业务流程</a><ul><li><a class="toc-href" href="#yong-hu-deng-lu-liu-cheng" title="用户登录流程">用户登录流程</a></li><li><a class="toc-href" href="#yong-hu-xin-xi-cha-xun-xiu-gai-liu-cheng" title="用户信息查询修改流程">用户信息查询修改流程</a></li><li><a class="toc-href" href="#yong-hu-xing-qing-shu-ju-huo-qu" title="用户行情数据获取">用户行情数据获取</a></li></ul></li><li><a class="toc-href" href="#que-xian-fen-xi_1" title="缺陷分析">缺陷分析</a><ul><li><a class="toc-href" href="#gong-tong-que-xian" title="共同缺陷">共同缺陷</a></li><li><a class="toc-href" href="#ge-bu-fen-que-xian" title="各部分缺陷">各部分缺陷</a></li></ul></li></ul></li></ul></div>
-        </div>
-    </div>
         </div>
     </article>
 </section>

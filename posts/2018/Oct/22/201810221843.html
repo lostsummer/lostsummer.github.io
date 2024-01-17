@@ -329,30 +329,31 @@
 <span class="nv">PORT</span><span class="o">=</span><span class="m">6379</span>
 <span class="nv">DB</span><span class="o">=</span><span class="m">1</span>
 
-<span class="nv">R_CONN</span><span class="o">=</span><span class="s2">"redis-cli -h </span><span class="nv">$HOST</span><span class="s2"> -p </span><span class="nv">$PORT</span><span class="s2"> -n </span><span class="nv">$DB</span><span class="s2">"</span>
-<span class="nv">R_MIN1_CMD</span><span class="o">=</span><span class="s2">"lrange min1:0600000 -1 -1"</span>
-<span class="nv">R_CMINFO_CMD</span><span class="o">=</span><span class="s2">"get codemap:info"</span>
-<span class="nv">R_CMLEN_CMD</span><span class="o">=</span><span class="s2">"hlen codemap:codes"</span>
-<span class="nv">R_QUOTE_CMD</span><span class="o">=</span><span class="s2">"get quote:0600000"</span>
+<span class="nv">R_CONN</span><span class="o">=</span><span class="s2">&quot;redis-cli -h </span><span class="nv">$HOST</span><span class="s2"> -p </span><span class="nv">$PORT</span><span class="s2"> -n </span><span class="nv">$DB</span><span class="s2">&quot;</span>
+<span class="nv">R_MIN1_CMD</span><span class="o">=</span><span class="s2">&quot;lrange min1:0600000 -1 -1&quot;</span>
+<span class="nv">R_CMINFO_CMD</span><span class="o">=</span><span class="s2">&quot;get codemap:info&quot;</span>
+<span class="nv">R_CMLEN_CMD</span><span class="o">=</span><span class="s2">&quot;hlen codemap:codes&quot;</span>
+<span class="nv">R_QUOTE_CMD</span><span class="o">=</span><span class="s2">&quot;get quote:0600000&quot;</span>
 
-<span class="nv">WATCH_MIN1_CMD</span><span class="o">=</span><span class="s2">"watch \"</span><span class="nv">$R_CONN</span><span class="s2"> </span><span class="nv">$R_MIN1_CMD</span><span class="s2">|python -m json.tool\""</span>
-<span class="nv">WATCH_CMINFO_CMD</span><span class="o">=</span><span class="s2">"watch \"</span><span class="nv">$R_CONN</span><span class="s2"> </span><span class="nv">$R_CMINFO_CMD</span><span class="s2">\""</span>
-<span class="nv">WATCH_CMLEN_CMD</span><span class="o">=</span><span class="s2">"watch \"</span><span class="nv">$R_CONN</span><span class="s2"> </span><span class="nv">$R_CMLEN_CMD</span><span class="s2">\""</span>
-<span class="nv">WATCH_QUOTE_CMD</span><span class="o">=</span><span class="s2">"watch \"</span><span class="nv">$R_CONN</span><span class="s2"> </span><span class="nv">$R_QUOTE_CMD</span><span class="s2">|python -m json.tool|grep time\""</span>
+<span class="nv">WATCH_MIN1_CMD</span><span class="o">=</span><span class="s2">&quot;watch \&quot;</span><span class="nv">$R_CONN</span><span class="s2"> </span><span class="nv">$R_MIN1_CMD</span><span class="s2">|python -m json.tool\&quot;&quot;</span>
+<span class="nv">WATCH_CMINFO_CMD</span><span class="o">=</span><span class="s2">&quot;watch \&quot;</span><span class="nv">$R_CONN</span><span class="s2"> </span><span class="nv">$R_CMINFO_CMD</span><span class="s2">\&quot;&quot;</span>
+<span class="nv">WATCH_CMLEN_CMD</span><span class="o">=</span><span class="s2">&quot;watch \&quot;</span><span class="nv">$R_CONN</span><span class="s2"> </span><span class="nv">$R_CMLEN_CMD</span><span class="s2">\&quot;&quot;</span>
+<span class="nv">WATCH_QUOTE_CMD</span><span class="o">=</span><span class="s2">&quot;watch \&quot;</span><span class="nv">$R_CONN</span><span class="s2"> </span><span class="nv">$R_QUOTE_CMD</span><span class="s2">|python -m json.tool|grep time\&quot;&quot;</span>
 
 <span class="nv">SESS</span><span class="o">=</span>monitor
 
 tmux<span class="w"> </span>a<span class="w"> </span>-t<span class="w"> </span><span class="nv">$SESS</span>
 <span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$?</span><span class="w"> </span>-ne<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span>
 <span class="k">then</span>
-<span class="w">    </span>tmux<span class="w"> </span>new-session<span class="w"> </span>-s<span class="w"> </span><span class="nv">$SESS</span><span class="w"> </span>-d<span class="w"> </span><span class="s2">"</span><span class="nv">$WATCH_MIN1_CMD</span><span class="s2">"</span><span class="w"> </span><span class="se">\;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>split-window<span class="w"> </span>-h<span class="w"> </span>-d<span class="w"> </span><span class="s2">"</span><span class="nv">$WATCH_CMINFO_CMD</span><span class="s2">"</span><span class="w"> </span><span class="se">\;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>split-window<span class="w">  </span><span class="s2">"</span><span class="nv">$WATCH_CMLEN_CMD</span><span class="s2">"</span><span class="w"> </span><span class="se">\;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>tmux<span class="w"> </span>new-session<span class="w"> </span>-s<span class="w"> </span><span class="nv">$SESS</span><span class="w"> </span>-d<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$WATCH_MIN1_CMD</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>split-window<span class="w"> </span>-h<span class="w"> </span>-d<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$WATCH_CMINFO_CMD</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>split-window<span class="w">  </span><span class="s2">&quot;</span><span class="nv">$WATCH_CMLEN_CMD</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span><span class="k">select</span>-pane<span class="w"> </span>-R<span class="w"> </span><span class="se">\;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>split-window<span class="w">  </span><span class="s2">"</span><span class="nv">$WATCH_QUOTE_CMD</span><span class="s2">"</span><span class="w"> </span><span class="se">\;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>split-window<span class="w">  </span><span class="s2">&quot;</span><span class="nv">$WATCH_QUOTE_CMD</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>attach
 <span class="k">fi</span>
 </code></pre></div>
+
 <p>需要说明的是：</p>
 <ul>
 <li>watch 默认刷新的频率是2s，这个可以通过 -n 指定，watch 还有个 -d&nbsp;选项会高亮刷新后的差异部分</li>
@@ -360,7 +361,7 @@ tmux<span class="w"> </span>a<span class="w"> </span>-t<span class="w"> </span><
 <li>tmux 大家可能已经熟悉分屏操作的快捷键，这些操作其实在启动session时可以通过一连串的命令定义，这些命令之间需要<code>' \; '</code>分隔</li>
 </ul>
 <p>脚本运行效果是这样的：</p>
-<p><img alt="mon" src="http://140.143.250.15/wiki-img/tmux_mon.png"/></p>
+<p><img alt="mon" src="http://140.143.250.15/wiki-img/tmux_mon.png"></p>
                 </div>
                 <footer class="text-right">
                     <p>- Yushin</p>

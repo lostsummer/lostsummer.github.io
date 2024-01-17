@@ -323,60 +323,68 @@
             <div class="col-lg-9">
                 <div class="entry-content">
                     <p>初次开发构建Go项目的朋友可能对如果创建一个干净独立的项目环境有些疑惑，这里介绍一下个人经验。</p>
-<h1 id="qian-ti">前提</h1>
+<h1>前提</h1>
 <ol>
 <li>你安装配置好了golang编译器</li>
 <li>你懂得配置GOPATH，了解GO开发环境的目录结构</li>
 </ol>
-<h1 id="zhu-yao-wen-ti-ji-jie-jue-shou-duan-gai-shu">主要问题及解决手段概述</h1>
+<h1>主要问题及解决手段概述</h1>
 <ol>
 <li>隔离的开发环境。通过覆盖GOPATH环境变量解决。</li>
 <li>三方依赖库的项目隔离。通过vendor机制。</li>
 <li>三方库版本依赖。通过govendor工具。</li>
 <li>golang.org/ 包不能直接go&nbsp;get的问题。通过github镜像解决。</li>
 </ol>
-<h1 id="bu-zou">步骤</h1>
-<h2 id="gong-ju-an-zhuang">工具安装</h2>
+<h1>步骤</h1>
+<h2>工具安装</h2>
 <p>govendor</p>
 <p>具体使用方法见项目主页：https://github.com/kardianos/govendor</p>
 <p>安装：</p>
 <p>go get -u&nbsp;github.com/kardianos/govendor</p>
 <p>该命令会将govender安装在你默认配置的的\$<span class="caps">GOPATH</span>/bin目录下，通常你已经将这个目录配置到了环境变量PATH中。</p>
-<h2 id="cong-yi-ge-shi-li-kai-shi">从一个实例开始</h2>
+<h2>从一个实例开始</h2>
 <p>已有的所有项目地址：http://git.emoney.cn/monitor/monitorplat.git
-代码包导入路径：MonitorPlat/oneagent, MonitorPlat/onedistribute, &hellip;&nbsp;(该项目由多个程序组成)</p>
-<h3 id="chuang-jian-mu-lu-jie-gou">创建目录结构</h3>
+代码包导入路径：MonitorPlat/oneagent, MonitorPlat/onedistribute, &#8230;&nbsp;(该项目由多个程序组成)</p>
+<h3>创建目录结构</h3>
 <div class="highlight"><pre><span></span><code>mkdir -p dev_projects/src/MonitorPlat
 </code></pre></div>
-<h3 id="qian-chu-dai-ma">迁出代码</h3>
+
+<h3>迁出代码</h3>
 <div class="highlight"><pre><span></span><code>cd dev_projects
 git clone http://git.emoney.cn/monitor/monitorplat.git src/MonitorPlat
 </code></pre></div>
-<h2 id="huan-jing-ge-chi_1">环境隔离</h2>
+
+<h2>环境隔离</h2>
 <p>为了和.bashrc中配置的\$GOPATH隔离，需要在dev_projects下运行：</p>
 <div class="highlight"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="n">GOPATH</span><span class="o">=$</span><span class="p">(</span><span class="n">pwd</span><span class="p">)</span>
 </code></pre></div>
+
 <p>为了使用方便，可以写两个脚本</p>
 <p>env_activate.sh</p>
 <div class="highlight"><pre><span></span><code><span class="n">CURDIR</span><span class="o">=</span><span class="n n-Quoted">`pwd`</span>
-<span class="n">OLDGOPATH</span><span class="o">=</span><span class="s2">"$GOPATH"</span>
-<span class="k">export</span><span class="w"> </span><span class="n">GOPATH</span><span class="o">=</span><span class="s2">"$CURDIR"</span>
+<span class="n">OLDGOPATH</span><span class="o">=</span><span class="s2">&quot;$GOPATH&quot;</span>
+<span class="k">export</span><span class="w"> </span><span class="n">GOPATH</span><span class="o">=</span><span class="s2">&quot;$CURDIR&quot;</span>
 </code></pre></div>
+
 <p>env_deactivate.sh</p>
 <div class="highlight"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="n">GOPATH</span><span class="o">=$</span><span class="n">OLDGOPATH</span>
 </code></pre></div>
+
 <p>这样你可以通过</p>
 <div class="highlight"><pre><span></span><code>source env_activate.sh
 </code></pre></div>
+
 <p>和</p>
 <div class="highlight"><pre><span></span><code>source env_deactivate.sh
 </code></pre></div>
+
 <p>来切换</p>
-<h3 id="vendor-chu-shi-hua">vendor&nbsp;初始化</h3>
+<h3>vendor&nbsp;初始化</h3>
 <div class="highlight"><pre><span></span><code>cd src/MonitorPlat
 govendor init
 </code></pre></div>
-<h3 id="cong-githubjing-xiang-huo-qu-golangorgyi-lai-bao">从github镜像获取golang.org依赖包</h3>
+
+<h3>从github镜像获取golang.org依赖包</h3>
 <p>首先可以在Monitor目录下用命令看到项目所有依赖包</p>
 <div class="highlight"><pre><span></span><code><span class="n">govendor</span><span class="w"> </span><span class="n">list</span>
 
@@ -435,24 +443,29 @@ govendor init
 <span class="w">  </span><span class="n">m</span><span class="w"> </span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">influxdata</span><span class="o">/</span><span class="n">influxdb</span><span class="o">/</span><span class="n">models</span>
 <span class="w">  </span><span class="n">m</span><span class="w"> </span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">influxdata</span><span class="o">/</span><span class="n">influxdb</span><span class="o">/</span><span class="n">pkg</span><span class="o">/</span><span class="n">escape</span>
 </code></pre></div>
+
 <p>其中行首 m 标识的，是目前环境缺少的包。从 golang.org 的依赖主要是 x/net 和 x/text&nbsp;两部分。</p>
 <p>vendor 目录中创建 golang.org/x&nbsp;目录</p>
 <div class="highlight"><pre><span></span><code>mkdir -p vendor/golang.org/x
 </code></pre></div>
+
 <p>项目子模块添加</p>
 <div class="highlight"><pre><span></span><code>git submodule add https://github.com/golang/net.git vendor/golang.org/x/net
 git submodule add https://github.com/golang/text.git vendor/golang.org/x/text
 </code></pre></div>
-<h3 id="huo-qu-qi-ta-yi-lai-bao">获取其他依赖包</h3>
+
+<h3>获取其他依赖包</h3>
 <p>可以简单的通过一个命令</p>
 <div class="highlight"><pre><span></span><code>govendor fetch +m
 </code></pre></div>
-<h3 id="git-zhui-zong">git&nbsp;追踪</h3>
+
+<h3>git&nbsp;追踪</h3>
 <div class="highlight"><pre><span></span><code>git add vendor/vendor.json
 git commit ...
 git push ...
 </code></pre></div>
-<h3 id="xin-wei-zhi-shi-yong">新位置使用</h3>
+
+<h3>新位置使用</h3>
 <p>git submodule 已经把vendor/golang.org 下的项目版本记住
 其他的包，vendor.json&nbsp;记录了版本。</p>
 <p>commit&nbsp;并提交到远程库后，在新的位置迁出后</p>
@@ -474,11 +487,6 @@ git push ...
         <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
     </section>
             </div>
-    <div id="scrollspy">
-        <div class="col-lg-3 nav nav-stacked hidden-xs hidden-sm" data-spy="affix" data-offset-top="135">
-            <div id="toc"><ul><li><a class="toc-href" href="#" title="我在Linux环境创建私有Go项目环境的方法">我在Linux环境创建私有Go项目环境的方法</a><ul><li><a class="toc-href" href="#qian-ti" title="前提">前提</a></li><li><a class="toc-href" href="#zhu-yao-wen-ti-ji-jie-jue-shou-duan-gai-shu" title="主要问题及解决手段概述">主要问题及解决手段概述</a></li><li><a class="toc-href" href="#bu-zou" title="步骤">步骤</a><ul><li><a class="toc-href" href="#gong-ju-an-zhuang" title="工具安装">工具安装</a></li><li><a class="toc-href" href="#cong-yi-ge-shi-li-kai-shi" title="从一个实例开始">从一个实例开始</a><ul><li><a class="toc-href" href="#chuang-jian-mu-lu-jie-gou" title="创建目录结构">创建目录结构</a></li><li><a class="toc-href" href="#qian-chu-dai-ma" title="迁出代码">迁出代码</a></li></ul></li><li><a class="toc-href" href="#huan-jing-ge-chi_1" title="环境隔离">环境隔离</a><ul><li><a class="toc-href" href="#vendor-chu-shi-hua" title="vendor&nbsp;初始化">vendor&nbsp;初始化</a></li><li><a class="toc-href" href="#cong-githubjing-xiang-huo-qu-golangorgyi-lai-bao" title="从github镜像获取golang.org依赖包">从github镜像获取golang.org依赖包</a></li><li><a class="toc-href" href="#huo-qu-qi-ta-yi-lai-bao" title="获取其他依赖包">获取其他依赖包</a></li><li><a class="toc-href" href="#git-zhui-zong" title="git&nbsp;追踪">git&nbsp;追踪</a></li><li><a class="toc-href" href="#xin-wei-zhi-shi-yong" title="新位置使用">新位置使用</a></li></ul></li></ul></li></ul></li></ul></div>
-        </div>
-    </div>
         </div>
     </article>
 </section>

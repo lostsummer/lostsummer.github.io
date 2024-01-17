@@ -322,12 +322,12 @@
         <div class="row">
             <div class="col-lg-9">
                 <div class="entry-content">
-                    <h2 id="jian-kong-dui-xiang">监控对象</h2>
+                    <h2>监控对象</h2>
 <ul>
 <li>容器集群节点 </li>
 <li>集群上运行的容器</li>
 </ul>
-<h2 id="jian-kong-shu-ju-lei-xing">监控数据类型</h2>
+<h2>监控数据类型</h2>
 <ol>
 <li>
 <p>性能状态图表:&nbsp;各性能指标的不间断连续数据</p>
@@ -339,7 +339,7 @@
 <p>报警:&nbsp;由状态数据经过报警逻辑计算触发（阈值，断流等）的报警信息</p>
 </li>
 </ol>
-<h2 id="bu-tong-lei-xing-shu-ju-liu-xiang">不同类型数据流向</h2>
+<h2>不同类型数据流向</h2>
 <ol>
 <li>
 <p>状态:
@@ -359,17 +359,17 @@
 <li>集群节点采集器包括cAdvisor， node-exporter&nbsp;等容器</li>
 <li>心跳需要特殊编写脚本，对于容器，要在Dockerfile编写时加入，并在启动时启用heartbeat相关参数</li>
 </ul>
-<h2 id="jia-gou-ji-bu-shu-bian-hua">架构及部署变化</h2>
+<h2>架构及部署变化</h2>
 <p>目前测试运行的 Docker Swarm&nbsp;栈将要发生变化，首要目的是处于节约容器集群资源考虑，将Prometheus剥离出集群单独部署。</p>
-<p><img alt="architecture_changing" src="http://140.143.250.15/wiki-img/容器监控信息采集.png"/></p>
-<h2 id="she-ji-ren-wu">设计任务</h2>
+<p><img alt="architecture_changing" src="http://140.143.250.15/wiki-img/容器监控信息采集.png"></p>
+<h2>设计任务</h2>
 <p>关键指标的提前整理归类等</p>
-<h2 id="bu-shu-ren-wu">部署任务</h2>
+<h2>部署任务</h2>
 <ol>
 <li>解决Prometheus和AlterManager剥离出集群后的服务发现问题（或通过配置中静态配置采集器地址）</li>
 <li>数据采集效率和延迟测试</li>
 </ol>
-<h2 id="kai-fa-ren-wu">开发任务</h2>
+<h2>开发任务</h2>
 <ol>
 <li>容器节点和容器的心跳上报脚本，心跳功能考虑纳入今后容器构建发布的规范。</li>
 <li>AlterManager&nbsp;报错脚本编写。需要了解学习Prometheus技术栈，提取报警通用逻辑，避免随着服务变动频繁增添脚本。</li>
@@ -388,11 +388,6 @@
         <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
     </section>
             </div>
-    <div id="scrollspy">
-        <div class="col-lg-3 nav nav-stacked hidden-xs hidden-sm" data-spy="affix" data-offset-top="135">
-            <div id="toc"><ul><li><a class="toc-href" href="#" title="容器平台监控方案大体设计">容器平台监控方案大体设计</a><ul><li><a class="toc-href" href="#jian-kong-dui-xiang" title="监控对象">监控对象</a></li><li><a class="toc-href" href="#jian-kong-shu-ju-lei-xing" title="监控数据类型">监控数据类型</a></li><li><a class="toc-href" href="#bu-tong-lei-xing-shu-ju-liu-xiang" title="不同类型数据流向">不同类型数据流向</a></li><li><a class="toc-href" href="#jia-gou-ji-bu-shu-bian-hua" title="架构及部署变化">架构及部署变化</a></li><li><a class="toc-href" href="#she-ji-ren-wu" title="设计任务">设计任务</a></li><li><a class="toc-href" href="#bu-shu-ren-wu" title="部署任务">部署任务</a></li><li><a class="toc-href" href="#kai-fa-ren-wu" title="开发任务">开发任务</a></li></ul></li></ul></div>
-        </div>
-    </div>
         </div>
     </article>
 </section>
