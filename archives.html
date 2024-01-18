@@ -1,399 +1,268 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Archives - $ kill -1</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="./images/favicon.ico" rel="icon">
+
+
         <meta name="author" content="lostsummer" />
-        <meta name="description" content="code less talk more :)" />
+
+    <!-- Open Graph tags -->
+        <meta property="og:site_name" content="$ kill -1" />
+        <meta property="og:type" content="website"/>
+        <meta property="og:title" content="$ kill -1"/>
+        <meta property="og:url" content="."/>
+        <meta property="og:description" content="$ kill -1"/>
 
 
-    <title>Recent Articles - $ kill -1</title>
 
-        <link rel="stylesheet" href="./theme/css/bootstrap.journal.min.css" type="text/css"/>
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="./theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="./theme/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="./theme/css/fontawesome-all.min.css" rel="stylesheet" />
-    <link href="./theme/css/pygments/emacs.css" rel="stylesheet" />
+    <link href="./theme/css/pygments/emacs.css" rel="stylesheet">
+        <link href="./theme/css/typogrify.css" rel="stylesheet">
+    <link rel="stylesheet" href="./theme/css/style.css" type="text/css"/>
+        <link href="./extra/custom.css" rel="stylesheet">
 
-        <link href="./theme/css/typogrify.css" rel="stylesheet" />
-    <link href="./theme/css/pelican-twitchy.min.css" rel="stylesheet" />
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    
-    <!-- Feeds -->
         <link href="./feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
-              title="$ kill -1 ATOM Feed" />
+              title="$ kill -1 ATOM Feed"/>
+
+
+
 </head>
-<body data-spy="scroll" data-target="#scrollspy">
-    <div id="wrapper">
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper-small" class="twitchy-background">
-            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
-                <li>
-        <a href="." title="$ kill -1" class="collapsed">
-            <span class="fas fa-home"></span>
-        </a>
-    </li>
-                <li class="nav-divider"></li>
-                <li>
-        <a href="./archives.html" title="Recent Articles" class="collapsed">
-            <span class="fas fa-th-list"></span>
-        </a>
-    </li>
-                <li class="nav-divider"></li>
-                <li id="share-small">
-                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-share-small" title="Share" class="collapsed">
-                        <i class="fas fa-share-alt padding-small"></i>
-                    </a>
-                </li>
-                <li class="panel anti-panel"><ul id="collapse-share-small" class="collapse ">
-                    <li>
-                        <a href="https://www.facebook.com/sharer/sharer.php?u=" title="Share via Facebook" target="popup">
-                            <i class="fas fa-facebook-square padding-small"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://plus.google.com/share?url=" title="Share via Google+" target="popup">
-                            <i class="fas fa-google-plus padding-small"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" title="Share via Twitter" target="popup">
-                            <i class="fas fa-twitter-square padding-small"></i>
-                        </a>
-                    </li>
-                </ul></li>
-                <li class="nav-divider"></li>
-                <li>
-                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-social-small" title="Social" class="collapsed">
-                        <i class="fas fa-users padding-small"></i>
-                    </a>
-                </li>
-                <li class="panel anti-panel"><ul id="collapse-social-small" class="collapse ">
-                    <li>
-                        <a href="mailto:lostsummer@gmail.com" title="Email"><i class="fas fa-envelope-square padding-small"></i></a>
-                    </li>
-                    <li>
-                        <a href="https://www.facebook.com/fisher.wong.3" title="facebook"><i class="fab fa-facebook-square padding-small"></i></a>
-                    </li>
-                    <li>
-                        <a href="https://github.com/lostsummer" title="github"><i class="fab fa-github-square padding-small"></i></a>
-                    </li>
-                    <li>
-                        <a href="https://plus.google.com/+FisherWong" title="google+"><i class="fab fa-google-plus-square padding-small"></i></a>
-                    </li>
-                    <li>
-                        <a href="https://twitter.com/lostsummer" title="twitter"><i class="fab fa-twitter-square padding-small"></i></a>
-                    </li>
-                </ul></li>
-                <li class="nav-divider"></li>
-                <li>
-        <a href="#" title="Back to top" class="collapsed">
-            <span class="fas fa-arrow-up"></span>
-        </a>
-    </li>
-            </ul>
-        </div>
-        <div id="sidebar-wrapper" class="twitchy-background">
-            <ul id="accordion" class="sidebar-nav">
-                <li class="sidebar-brand">
-                    <a href="./">
-                            <span class="fas fa-home padding-small"></span>
-                            $ kill -1
-                    </a>
-                </li>
-                    <li class="nav-divider"></li>
-                    <li>
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-latest">
-                            <span class="fas fa-th-list padding-small"></span>
-                            Recent Articles
-                        </a>
-                    </li>
-                    <li class="panel anti-panel"><ul id="collapse-latest" class="sidebar_submenu collapse ">
-                        <li class="">
-                            <a class="hide-overflow" href="./posts/2018/Nov/28/201811281543.html" title="浅谈Python生成器的妙处">
-                                <i class="fas fa-file-alt padding-small"></i>
-                                浅谈Python生成器的妙处
-                            </a>
-                        </li>
-                        <li class="">
-                            <a class="hide-overflow" href="./posts/2018/Nov/22/201811221843.html" title="与蟒共舞">
-                                <i class="fas fa-file-alt padding-small"></i>
-                                与蟒共舞
-                            </a>
-                        </li>
-                        <li class="">
-                            <a class="hide-overflow" href="./posts/2018/Oct/22/201810221843.html" title="使用tmux和watch组合一个redis监控面板">
-                                <i class="fas fa-file-alt padding-small"></i>
-                                使用tmux和watch组合一个redis监控面板
-                            </a>
-                        </li>
-                        <li class="">
-                            <a class="hide-overflow" href="./posts/2018/Apr/11/容器平台监控方案大体设计.html" title="容器平台监控方案大体设计">
-                                <i class="fas fa-file-alt padding-small"></i>
-                                容器平台监控方案大体设计
-                            </a>
-                        </li>
-                        <li class="">
-                            <a class="hide-overflow" href="./posts/2018/Apr/09/201804091040.html" title="容器监控方案选型">
-                                <i class="fas fa-file-alt padding-small"></i>
-                                容器监控方案选型
-                            </a>
-                        </li>
-                    <li>
-                        <a href="./archives.html">
-                            <i class="fas fa-arrow-right padding-small"></i>
-                            More
-                        </a>
-                    </li>
-                    </ul></li>
-                <li class="nav-divider"></li>
-                <li id="share">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-share" title="Share" class="collapsed">
-                        <i class="fas fa-share-alt padding-small"></i>
-                        Share
-                    </a>
-                </li>
-                <li class="panel anti-panel"><ul id="collapse-share" class="sidebar_submenu collapse ">
-                    <li>
-                        <a href="https://www.facebook.com/sharer/sharer.php?u=" target="popup">
-                            <i class="fab fa-facebook-square padding-small"></i>
-                            Facebook
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://plus.google.com/share?url=" target="popup">
-                            <i class="fab fa-google-plus-square padding-small"></i>
-                            Google+
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" target="popup">
-                            <i class="fab fa-twitter-square padding-small"></i>
-                            Twitter
-                        </a>
-                    </li>
-                </ul></li>
-                <li class="nav-divider"></li>
-                <li>
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-social">
-                        <i class="fas fa-users padding-small"></i>
-                        Contact
-                    </a>
-                </li>
-                <li class="panel anti-panel"><ul id="collapse-social" class="sidebar_submenu collapse ">
-                    <li>
-                        <a href="mailto:lostsummer@gmail.com" title="Email">
-                            <i class="fas fa-envelope-square padding-small"></i>
-                            Email
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.facebook.com/fisher.wong.3" title="facebook">
-                            <i class="fab fa-facebook-square padding-small"></i>
-                            facebook
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://github.com/lostsummer" title="github">
-                            <i class="fab fa-github-square padding-small"></i>
-                            github
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://plus.google.com/+FisherWong" title="google+">
-                            <i class="fab fa-google-plus-square padding-small"></i>
-                            google+
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://twitter.com/lostsummer" title="twitter">
-                            <i class="fab fa-twitter-square padding-small"></i>
-                            twitter
-                        </a>
-                    </li>
-                </ul></li>
-                
-                <li class="nav-divider"></li>
-                <li>
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-pages">
-                        <i class="fas fa-folder-open padding-small"></i>
-                        Pages
-                    </a>
-                </li>
-                <li class="panel anti-panel"><ul id="collapse-pages" class="sidebar_submenu collapse ">
-                    <li>
-                        <a href="./pages/about-me.html">
-                            <i class="fas fa-file-alt padding-small"></i>
-                            About&nbsp;Me
-                        </a>
-                    </li>
-                </ul></li>
-                <li class="nav-divider"></li>
-                <li>
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
-                        <i class="fas fa-folder-open padding-small"></i>
-                        Categories
-                    </a>
-                </li>
-                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
-                    <li >
-                        <a href="./category/architecture.html">
-                            <i class="fas fa-folder-open padding-small"></i>
-                            Architecture
-                            <span class="badge badge-secondary float-right categorybadge">2</span>
-                        </a>
-                    </li>
-                    <li >
-                        <a href="./category/learning.html">
-                            <i class="fas fa-folder-open padding-small"></i>
-                            Learning
-                            <span class="badge badge-secondary float-right categorybadge">5</span>
-                        </a>
-                    </li>
-                    <li >
-                        <a href="./category/recommendation.html">
-                            <i class="fas fa-folder-open padding-small"></i>
-                            Recommendation
-                            <span class="badge badge-secondary float-right categorybadge">2</span>
-                        </a>
-                    </li>
-                </ul></li>
-                <li class="nav-divider"></li>
-                <li>
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-tags">
-                        <i class="fas fa-tags padding-small"></i>
-                        Tags
-                    </a>
-                </li>
-                <li class="panel anti-panel"><ul id="collapse-tags" class="sidebar_submenu collapse ">
-                </ul></li>
-            </ul>
-        </div>
-        <!-- /#sidebar-wrapper -->
-        <!-- open/close sidebar -->
-        <a href="#menu-toggle" class="btn btn-primary" id="menu-toggle">
-            <span id="right-arrow" class="fas fa-chevron-right"  title="expand sidebar"></span>
-            <span id="left-arrow" class="fas fa-chevron-left" title="minimize sidebar"></span>
-        </a>
-       <!-- /open/close sidebar -->
+<body>
 
-        <!-- Page Content -->
-        <div id="page-content-wrapper">
-            <div class="container">
-<div class="row">
-    <div class="col-lg-9">
-        <header class="page-header">
-            <h1>Archive</h1>
-        </header>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="./" class="navbar-brand">
+$ kill -1            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="./pages/about-me.html">
+                             About&nbsp;Me
+                          </a></li>
+                        <li >
+                            <a href="./category/architecture.html">Architecture</a>
+                        </li>
+                        <li >
+                            <a href="./category/learning.html">Learning</a>
+                        </li>
+                        <li >
+                            <a href="./category/recommendation.html">Recommendation</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
     </div>
-</div>
-<div class="row">
-    <div class="col-lg-9">
-            <article>
-                <h4>
-                    <time datetime="2018-11-28T00:00:00+08:00"> Wed 28 November 2018</time>
-                    <a href="./posts/2018/Nov/28/201811281543.html">浅谈Python生成器的妙处</a>
-                </h4>
-            </article>
-            <article>
-                <h4>
-                    <time datetime="2018-11-22T00:00:00+08:00"> Thu 22 November 2018</time>
-                    <a href="./posts/2018/Nov/22/201811221843.html">与蟒共舞</a>
-                </h4>
-            </article>
-            <article>
-                <h4>
-                    <time datetime="2018-10-22T00:00:00+08:00"> Mon 22 October 2018</time>
-                    <a href="./posts/2018/Oct/22/201810221843.html">使用tmux和watch组合一个redis监控面板</a>
-                </h4>
-            </article>
-            <article>
-                <h4>
-                    <time datetime="2018-04-11T18:15:14+08:00"> Wed 11 April 2018</time>
-                    <a href="./posts/2018/Apr/11/容器平台监控方案大体设计.html">容器平台监控方案大体设计</a>
-                </h4>
-            </article>
-            <article>
-                <h4>
-                    <time datetime="2018-04-09T00:00:00+08:00"> Mon 09 April 2018</time>
-                    <a href="./posts/2018/Apr/09/201804091040.html">容器监控方案选型</a>
-                </h4>
-            </article>
-            <article>
-                <h4>
-                    <time datetime="2018-03-30T00:00:00+08:00"> Fri 30 March 2018</time>
-                    <a href="./posts/2018/Mar/30/201803301025.html">我在Linux环境创建私有Go项目环境的方法</a>
-                </h4>
-            </article>
-            <article>
-                <h4>
-                    <time datetime="2017-04-11T18:30:54+08:00"> Tue 11 April 2017</time>
-                    <a href="./posts/2017/Apr/11/移动版行情服务器架构分析.html">移动版行情服务器架构分析</a>
-                </h4>
-            </article>
-            <article>
-                <h4>
-                    <time datetime="2016-04-28T00:00:00+08:00"> Thu 28 April 2016</time>
-                    <a href="./posts/2016/Apr/28/201604282215.html">第一篇 github pages&nbsp;文章</a>
-                </h4>
-            </article>
-            <article>
-                <h4>
-                    <time datetime="2016-03-17T15:01:18+08:00"> Thu 17 March 2016</time>
-                    <a href="./posts/2016/Mar/17/linux_clipboard.html">Linux&nbsp;趁手工具之剪贴板系列</a>
-                </h4>
-            </article>
-    </div>
-</div>
-<footer>
-    <hr>
+</div> <!-- /.navbar -->
+
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container">
     <div class="row">
-        <div class="col-lg-9 text-center">
-            <p><small>
-                Built by <a href="http://docs.getpelican.com/en/latest">Pelican</a> / <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a>
-                &middot;                      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a>
+        <div class="col-sm-9">
+    <section id="content">
+      <h1>Archives for $ kill -1</h1>
+        <div id="archives">
+                <p>
+                    <span class="categories-timestamp"><time datetime="2018-11-28T00:00:00+08:00">Wed 28 November 2018</time></span>
+                    <a href="./posts/2018/Nov/28/201811281543.html">浅谈Python生成器的妙处</a>
+                </p>
+                <p>
+                    <span class="categories-timestamp"><time datetime="2018-11-22T00:00:00+08:00">Thu 22 November 2018</time></span>
+                    <a href="./posts/2018/Nov/22/201811221843.html">与蟒共舞</a>
+                </p>
+                <p>
+                    <span class="categories-timestamp"><time datetime="2018-10-22T00:00:00+08:00">Mon 22 October 2018</time></span>
+                    <a href="./posts/2018/Oct/22/201810221843.html">使用tmux和watch组合一个redis监控面板</a>
+                </p>
+                <p>
+                    <span class="categories-timestamp"><time datetime="2018-04-11T18:15:14+08:00">Wed 11 April 2018</time></span>
+                    <a href="./posts/2018/Apr/11/容器平台监控方案大体设计.html">容器平台监控方案大体设计</a>
+                </p>
+                <p>
+                    <span class="categories-timestamp"><time datetime="2018-04-09T00:00:00+08:00">Mon 09 April 2018</time></span>
+                    <a href="./posts/2018/Apr/09/201804091040.html">容器监控方案选型</a>
+                </p>
+                <p>
+                    <span class="categories-timestamp"><time datetime="2018-03-30T00:00:00+08:00">Fri 30 March 2018</time></span>
+                    <a href="./posts/2018/Mar/30/201803301025.html">我在Linux环境创建私有Go项目环境的方法</a>
+                </p>
+                <p>
+                    <span class="categories-timestamp"><time datetime="2017-04-11T18:30:54+08:00">Tue 11 April 2017</time></span>
+                    <a href="./posts/2017/Apr/11/移动版行情服务器架构分析.html">移动版行情服务器架构分析</a>
+                </p>
+                <p>
+                    <span class="categories-timestamp"><time datetime="2016-04-28T00:00:00+08:00">Thu 28 April 2016</time></span>
+                    <a href="./posts/2016/Apr/28/201604282215.html">第一篇 github pages&nbsp;文章</a>
+                </p>
+                <p>
+                    <span class="categories-timestamp"><time datetime="2016-03-17T15:01:18+08:00">Thu 17 March 2016</time></span>
+                    <a href="./posts/2016/Mar/17/linux_clipboard.html">Linux&nbsp;趁手工具之剪贴板系列</a>
+                </p>
+        </div>
+    </section>
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Social -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+  <ul class="list-group" id="social">
+    <li class="list-group-item"><a href="https://github.com/lostsummer"><i class="fa fa-github-square fa-lg"></i> github</a></li>
+    <li class="list-group-item"><a href="https://plus.google.com/+FisherWong"><i class="fa fa-google-plus-square fa-lg"></i> google+</a></li>
+    <li class="list-group-item"><a href="https://twitter.com/lostsummer"><i class="fa fa-twitter-square fa-lg"></i> twitter</a></li>
+    <li class="list-group-item"><a href="https://www.facebook.com/fisher.wong.3"><i class="fa fa-facebook-square fa-lg"></i> facebook</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Social -->
+
+<!-- Sidebar/Recent Posts -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+  <ul class="list-group" id="recentposts">
+    <li class="list-group-item"><a href="./posts/2018/Nov/28/201811281543.html">浅谈Python生成器的妙处</a></li>
+    <li class="list-group-item"><a href="./posts/2018/Nov/22/201811221843.html">与蟒共舞</a></li>
+    <li class="list-group-item"><a href="./posts/2018/Oct/22/201810221843.html">使用tmux和watch组合一个redis监控面板</a></li>
+    <li class="list-group-item"><a href="./posts/2018/Apr/11/容器平台监控方案大体设计.html">容器平台监控方案大体设计</a></li>
+    <li class="list-group-item"><a href="./posts/2018/Apr/09/201804091040.html">容器监控方案选型</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Recent Posts -->
+
+<!-- Sidebar/Categories -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
+  <ul class="list-group" id="categories">
+    <li class="list-group-item">
+      <a href="./category/architecture.html"><i class="fa fa-folder-open fa-lg"></i>Architecture</a>
+    </li>
+    <li class="list-group-item">
+      <a href="./category/learning.html"><i class="fa fa-folder-open fa-lg"></i>Learning</a>
+    </li>
+    <li class="list-group-item">
+      <a href="./category/recommendation.html"><i class="fa fa-folder-open fa-lg"></i>Recommendation</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="./tags.html"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-1">
+      <a href="./tag/docker.html">Docker</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/git.html">Git</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/go.html">Go</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/influxdb.html">InfluxDB</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="./tag/linux.html">Linux</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="./tag/prometheus.html">Prometheus</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="./tag/python.html">Python</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Authors -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Authors</span></h4>
+  <ul class="list-group" id="authors">
+    <li class="list-group-item">
+      <a href="./author/lostsummer.html"><i class="fa fa-user fa-lg"></i>lostsummer</a>
+      (6)
+    </li>
+    <li class="list-group-item">
+      <a href="./author/yushin.html"><i class="fa fa-user fa-lg"></i>Yushin</a>
+      (3)
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Authors -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2018 lostsummer
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>                <p><small>  <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a>
     Content
-  licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution 4.0 International License</a>, except where indicated otherwise.
+  licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>, except where indicated otherwise.
+</small></p>
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="./theme/js/jquery.min.js"></script>
 
-            </small></p>
-        </div>
-    </div>
-</footer>            </div>
-        </div>
-        <!-- /#page-content-wrapper -->
-    </div>
-    <!-- /#wrapper -->
-    <!-- jQuery Version 1.11.2 -->
-    <script src="./theme/js/jquery-1.11.2.min.js"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="./theme/js/bootstrap.min.js"></script>
-    <!-- twitchy Script -->
-    <script src="./theme/js/pelican_twitchy.min.js"></script>
-<script>
-    function FadeInOnScroll(ObjectList){
-        ObjectList.each(function(i) {
-            var bottom_of_object = $(this).position().top + $(this).outerHeight();
-            var bottom_of_window = $(window).scrollTop() + $(window).height();
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="./theme/js/bootstrap.min.js"></script>
 
-            if( bottom_of_window > bottom_of_object ){
-                $(this).fadeTo(750,1);
-            }
-        });
-    }
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="./theme/js/respond.min.js"></script>
 
-    articles = $("article").fadeTo(0, 0.05);
-    FadeInOnScroll(articles)
 
-    $(window).scroll(function() {
-        FadeInOnScroll(articles)
-    });
-</script>
+    <!-- Disqus -->
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'lostsummer'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script');
+            s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
+    <!-- End Disqus Code -->
+
+
 </body>
 </html>
