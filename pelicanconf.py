@@ -3,7 +3,7 @@
 AUTHOR = 'lostsummer'
 SITENAME = '$ kill -1'
 SITESUBTITLE = 'code less talk more :)'
-SITEURL = ''
+SITEURL = 'https://www.lostsummer.love'
 
 TIMEZONE = 'Asia/Shanghai'
 DEFAULT_LANG = 'en'
@@ -27,37 +27,17 @@ TYPOGRIFY = True
 
 CHECK_MODIFIED_METHOD = "mtime"
 
-# DISPLAY_TAGS_ON_MENU = True
-# DISPLAY_PAGES_ON_MENU = True
-# DISPLAY_RECENT_POSTS_ON_MENU = True
+MENUITEMS = [
+    ('Wiki', 'https://wiki.lostsummer.love/'),
+]
 
 ARTICLE_URL = 'posts/{date:%Y}/{date:%b}/{date:%d}/{slug}.html'
 ARTICLE_SAVE_AS = 'posts/{date:%Y}/{date:%b}/{date:%d}/{slug}.html'
 PAGE_URL = 'pages/{slug}.html'
 PAGE_SAVE_AS = 'pages/{slug}.html'
-#NEWEST_FIRST_ARCHIVES = True
-#RESPONSIVE_IMAGES = True
-
-#SUMMARY_MAX_LENGTH = 20
-EXPAND_LATEST_ON_INDEX = True
-#RECENT_POST_COUNT = 5
-
-
-# Feed generation is usually not desired when developing
-# FEED_ALL_ATOM = None
-# CATEGORY_FEED_ATOM = None
-# TRANSLATION_FEED_ATOM = None
-# AUTHOR_FEED_ATOM = None
-# AUTHOR_FEED_RSS = None
 
 DISQUS_SITENAME = 'lostsummer'
-#DISQUS_LOAD_LATER = True
-
-
-# Blogroll
-LINKS = (
-          # ('mail', 'mailto:lostsummer@gmail.com'),
-        )
+DISQUS_LOAD_LATER = True
 
 # Code syntax
 PYGMENTS_STYLE = 'emacs'
@@ -90,9 +70,6 @@ DISPLAY_CATEGORIES_ON_SIDEBAR = True
 DISPLAY_RECENT_POSTS_ON_SIDEBAR = True
 DISPLAY_ARCHIVE_ON_SIDEBAR = True
 DISPLAY_AUTHORS_ON_SIDEBAR = True 
-
-
-
 
 # Uncomment following line if you want document-relative URLs when developing
 RELATIVE_URLS = True
