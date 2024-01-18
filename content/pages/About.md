@@ -1,8 +1,7 @@
 Title: About Me
 Date: 2015-04-18
 
-#### A coder using cpp, go and python. __"Peace and love!"__
+一个蹩脚的程序员
 
-#### Wiki: [wiki.lostsummer.love](http://wiki.lostsummer.love/)
+**Email**: [lostsummer@gmail.com](mailto:lostsummer@gmail.com)
 
-#### Life blog: [Fish In Bottled Sea](http://www.1984.love/)
