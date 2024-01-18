@@ -37,7 +37,6 @@ PAGE_URL = 'pages/{slug}.html'
 PAGE_SAVE_AS = 'pages/{slug}.html'
 
 DISQUS_SITENAME = 'lostsummer'
-DISQUS_LOAD_LATER = True
 
 # Code syntax
 PYGMENTS_STYLE = 'emacs'
@@ -72,5 +71,5 @@ DISPLAY_ARCHIVE_ON_SIDEBAR = True
 DISPLAY_AUTHORS_ON_SIDEBAR = True 
 
 # Uncomment following line if you want document-relative URLs when developing
-RELATIVE_URLS = True
+# RELATIVE_URLS = True
 
